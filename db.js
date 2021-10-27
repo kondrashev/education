@@ -12,6 +12,9 @@ module.exports = new Sequelize(
   {
     host: "ec2-3-248-103-75.eu-west-1.compute.amazonaws.com",
     dialect: "postgres",
+    dialectOptions: {
+      ssl: true,
+    },
     port: 5432,
     ssl: true,
   }
