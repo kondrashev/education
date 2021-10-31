@@ -33,7 +33,67 @@ class DisciplineController {
     return res.json();
   }
   async uploadInformation(req, res, next) {
-    return res.json(await csv().fromFile("static/csv/data.csv"));
+    let data = await csv().fromFile("static/csv/data.csv");
+    let newData = [];
+    data.forEach((item) => {
+      newData.push(Object.values(item));
+    });
+    data = newData;
+    newData = [];
+    data.forEach((item) => {
+      newData.push(item[0].split(";"));
+    });
+    data = newData;
+    newData = [];
+    data.forEach(
+      ([
+        ,
+        a1,
+        ,
+        ,
+        a2,
+        ,
+        a3,
+        a4,
+        a5,
+        a6,
+        a7,
+        a8,
+        a9,
+        a10,
+        a11,
+        a12,
+        a13,
+        a14,
+        a15,
+        a16,
+        a17,
+        a18,
+        ...item
+      ]) => {
+        newData.push([
+          a1,
+          a2,
+          a3,
+          a4,
+          a5,
+          a6,
+          a7,
+          a8,
+          a9,
+          a10,
+          a11,
+          a12,
+          a13,
+          a14,
+          a15,
+          a16,
+          a17,
+          a18,
+        ]);
+      }
+    );
+    return res.json(newData);
   }
 }
 module.exports = new DisciplineController();
