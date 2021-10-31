@@ -5,8 +5,8 @@ var csv = require("csvtojson");
 class GroupController {
   async addGroup(req, res, next) {
     try {
-      const { name } = req.body;
-      const group = await Group.create({ name });
+      const { name, disciplineId } = req.body;
+      const group = await Group.create({ name, disciplineId });
       return res.json(group);
     } catch (e) {
       next(ApiError.badRequest(e.message));
@@ -31,9 +31,6 @@ class GroupController {
       await Group.destroy({ where: { id } });
     });
     return res.json();
-  }
-  async uploadInformation(req, res, next) {
-    return res.json(await csv().fromFile("static/csv/data.csv"));
   }
 }
 module.exports = new GroupController();

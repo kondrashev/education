@@ -8,6 +8,11 @@ const User = sequelize.define("user", {
   role: { type: DataTypes.STRING, defaultValue: "USER" },
 });
 
+const Discipline = sequelize.define("discipline", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, unique: true, allowNull: false },
+});
+
 const Group = sequelize.define("group", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -18,11 +23,14 @@ const Student = sequelize.define("student", {
   surName: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
+Discipline.hasMany(Group, { onDelete: "cascade" });
+Group.belongsTo(Discipline);
 Group.hasMany(Student, { onDelete: "cascade" });
 Student.belongsTo(Group);
 
 module.exports = {
   User,
+  Discipline,
   Group,
   Student,
 };
