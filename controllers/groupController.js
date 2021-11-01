@@ -1,11 +1,12 @@
 const { Group } = require("../models/models");
 const ApiError = require("../error/ApiError");
+var csv = require("csvtojson");
 
 class GroupController {
   async addGroup(req, res, next) {
     try {
-      const { name } = req.body;
-      const group = await Group.create({ name });
+      const { name, disciplineId } = req.body;
+      const group = await Group.create({ name, disciplineId });
       return res.json(group);
     } catch (e) {
       next(ApiError.badRequest(e.message));
