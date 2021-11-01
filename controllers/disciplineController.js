@@ -1,6 +1,7 @@
 const { Discipline } = require("../models/models");
 const ApiError = require("../error/ApiError");
-var csv = require("csvtojson");
+const csv = require("csvtojson");
+const path = require("path");
 
 class DisciplineController {
   async addDiscipline(req, res, next) {
@@ -33,6 +34,9 @@ class DisciplineController {
     return res.json();
   }
   async uploadInformation(req, res, next) {
+    const { csvFile } = req.files;
+    let fileName = "data.csv";
+    csvFile.mv(path.resolve(__dirname, "..", "static/csv", fileName));
     let data = await csv().fromFile("static/csv/data.csv");
     let newData = [];
     data.forEach((item) => {
