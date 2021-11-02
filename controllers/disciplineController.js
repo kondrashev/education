@@ -35,7 +35,7 @@ class DisciplineController {
   }
   async uploadInformation(req, res, next) {
     const { csvFile } = req.files;
-    const { group } = req.body;
+    const { discipline, group } = req.body;
     let fileName = "data.csv";
     csvFile.mv(path.resolve(__dirname, "..", "static/csv", fileName));
     let data = await csv().fromFile("static/csv/data.csv");
@@ -44,13 +44,11 @@ class DisciplineController {
       newData.push(Object.values(item));
     });
     data = newData;
-    newData = [];
-    data.forEach((item) => {
-      newData.push(item[0].split(";"));
+    newData = data.map((item) => {
+      return item[0].split(";");
     });
     data = newData;
-    newData = [];
-    data.forEach(
+    newData = data.map(
       ([
         ,
         a1,
@@ -76,7 +74,7 @@ class DisciplineController {
         a18,
         ...item
       ]) => {
-        newData.push([
+        return [
           a1,
           a2,
           a3,
@@ -95,12 +93,11 @@ class DisciplineController {
           a16,
           a17,
           a18,
-        ]);
+        ];
       }
     );
     data = newData;
-    newData = [];
-    data.forEach(
+    newData = data.map(
       ([
         a1,
         a2,
@@ -122,7 +119,7 @@ class DisciplineController {
         a18,
         ...item
       ]) => {
-        newData.push({
+        return {
           surName: a1,
           group: a2,
           test_31: a3,
@@ -145,7 +142,7 @@ class DisciplineController {
           exercise: "",
           rating: "",
           exam: "Н/З",
-        });
+        };
       }
     );
     data = newData.filter((item) => item.group === group);
