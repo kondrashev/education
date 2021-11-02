@@ -130,12 +130,29 @@ class DisciplineController {
       if (!getDiscipline[0]?.name)
         await Discipline.create({ name: discipline });
       if (!getGroup[0]?.name) await Group.create({ name: group });
-      const getRating = (item) => {
-        console.log(
+      const getRating = (item, teacher, exercise) => {
+        return (
           Object.values(item.options)
             .filter((element) => element !== "-")
-            .reduce((sum, element) => sum + parseInt(element), 0)
+            .reduce((sum, element) => sum + parseInt(element), 0) +
+          teacher +
+          exercise
         );
+      };
+      const getExam = (rating) => {
+        if (rating > 94) {
+          return "Відмінно";
+        } else if (rating < 95 && rating > 84) {
+          return "Дуже добре";
+        } else if (rating < 85 && rating > 74) {
+          return "Добре";
+        } else if (rating < 75 && rating > 64) {
+          return "Задовільно";
+        } else if (rating < 65 && rating > 59) {
+          return "Достатньо";
+        } else if (rating < 60) {
+          return "Fx";
+        }
       };
       data.forEach(async (item) => {
         let student = await Student.findAll({
@@ -144,14 +161,15 @@ class DisciplineController {
           },
         });
         if (!student[0]?.surName) {
-          getRating(item);
+          console.log(getRating(item, 0, 0));
+          console.log(getExam(getRating(item, 0, 0)));
           // await Student.create({
           //   surName: item.surName,
           //   options: JSON.stringify(item.options),
           //   teacher: 0,
           //   exercise: 0,
-          //   rating: getRating(item),
-          //   exam,
+          //   rating: getRating(item,teacher,exercise),
+          //   exam:getExam(getRating(item,teacher,exercise)),
           // });
         } else {
           // await Student.update({});
