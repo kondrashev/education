@@ -1,4 +1,4 @@
-const { Discipline } = require("../models/models");
+const { Discipline, Group, Student } = require("../models/models");
 const ApiError = require("../error/ApiError");
 const csv = require("csvtojson");
 const path = require("path");
@@ -117,6 +117,46 @@ class DisciplineController {
         };
       });
       data = newData.filter((item) => item.group === group);
+      const getDiscipline = await Discipline.findAll({
+        where: {
+          name: discipline,
+        },
+      });
+      const getGroup = await Group.findAll({
+        where: {
+          name: group,
+        },
+      });
+      if (!getDiscipline[0]?.name)
+        await Discipline.create({ name: discipline });
+      if (!getGroup[0]?.name) await Group.create({ name: group });
+      const getRating = (item) => {
+        console.log(
+          Object.values(item.options)
+            .filter((element) => element !== "-")
+            .reduce((sum, element) => sum + parseInt(element), 0)
+        );
+      };
+      data.forEach(async (item) => {
+        let student = await Student.findAll({
+          where: {
+            surName: item.surName,
+          },
+        });
+        if (!student[0]?.surName) {
+          getRating(item);
+          // await Student.create({
+          //   surName: item.surName,
+          //   options: JSON.stringify(item.options),
+          //   teacher: 0,
+          //   exercise: 0,
+          //   rating: getRating(item),
+          //   exam,
+          // });
+        } else {
+          // await Student.update({});
+        }
+      });
       return res.json(data);
     } catch (e) {
       next(ApiError.badRequest(e.message));
