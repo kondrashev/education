@@ -62,11 +62,6 @@ class DisciplineController {
           exam: getExam(getRating(item, 0, 0)),
         });
       });
-      data = await Student.findAll({
-        where: {
-          groupId: getGroup[0].id,
-        },
-      });
       return res.json(data);
     } catch (e) {
       next(ApiError.badRequest(e.message));
@@ -80,11 +75,6 @@ class DisciplineController {
       csvFile.mv(path.resolve(__dirname, "..", "static/csv", fileName));
       let data = await csv().fromFile("static/csv/data.csv");
       data = informationUpload(data, discipline, group);
-      const getGroup = await Group.findAll({
-        where: {
-          name: group,
-        },
-      });
       data.forEach(async (item) => {
         let student = await Student.findAll({
           where: {
@@ -104,11 +94,6 @@ class DisciplineController {
           },
           { where: { id: student[0].id } }
         );
-      });
-      data = await Student.findAll({
-        where: {
-          groupId: getGroup[0].id,
-        },
       });
       return res.json(data);
     } catch (e) {
