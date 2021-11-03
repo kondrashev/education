@@ -18,6 +18,112 @@ const tkm = (item) => {
     test_73: item[17],
   };
 };
+const getRating = (item, teacher, exercise) => {
+  return (
+    Object.values(item.options)
+      .filter((element) => element !== "-")
+      .reduce((sum, element) => sum + parseInt(element), 0) +
+    teacher +
+    exercise
+  );
+};
+const getExam = (rating) => {
+  if (rating > 94) {
+    return "Відмінно";
+  } else if (rating < 95 && rating > 84) {
+    return "Дуже добре";
+  } else if (rating < 85 && rating > 74) {
+    return "Добре";
+  } else if (rating < 75 && rating > 64) {
+    return "Задовільно";
+  } else if (rating < 65 && rating > 59) {
+    return "Достатньо";
+  } else if (rating < 60) {
+    return "Fx";
+  }
+};
+const informationUpload = (data, discipline, group) => {
+  let newData = data.map((item) => {
+    return Object.values(item);
+  });
+  data = newData;
+  newData = data.map((item) => {
+    return item[0].split(";");
+  });
+  data = newData;
+  newData = data.map(
+    ([
+      ,
+      a1,
+      ,
+      ,
+      a2,
+      ,
+      ,
+      a3 = "",
+      a4 = "",
+      a5 = "",
+      a6 = "",
+      a7 = "",
+      a8 = "",
+      a9 = "",
+      a10 = "",
+      a11 = "",
+      a12 = "",
+      a13 = "",
+      a14 = "",
+      a15 = "",
+      a16 = "",
+      a17 = "",
+      a18 = "",
+      a19 = "",
+      ...item
+    ]) => {
+      return [
+        a1,
+        a2,
+        a3,
+        a4,
+        a5,
+        a6,
+        a7,
+        a8,
+        a9,
+        a10,
+        a11,
+        a12,
+        a13,
+        a14,
+        a15,
+        a16,
+        a17,
+        a18,
+        a19,
+      ];
+    }
+  );
+  data = newData;
+  const toChoose = (item) => {
+    switch (discipline) {
+      case "ТКМ":
+        return tkm(item);
+    }
+  };
+  newData = data.map((item = []) => {
+    return {
+      surName: item[0],
+      group: item[1],
+      options: toChoose(item),
+      teacher: "",
+      exercise: "",
+      rating: "",
+      exam: "Н/З",
+    };
+  });
+  return newData.filter((item) => item.group === group);
+};
 module.exports = {
-  tkm,
+  getRating,
+  getExam,
+  informationUpload,
 };

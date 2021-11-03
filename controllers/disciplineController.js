@@ -2,7 +2,11 @@ const { Discipline, Group, Student } = require("../models/models");
 const ApiError = require("../error/ApiError");
 const csv = require("csvtojson");
 const path = require("path");
-const { tkm } = require("../controllers/someFunctions");
+const {
+  informationUpload,
+  getRating,
+  getExam,
+} = require("../controllers/someFunctions");
 
 class DisciplineController {
   async addDiscipline(req, res, next) {
@@ -41,139 +45,70 @@ class DisciplineController {
       let fileName = "data.csv";
       csvFile.mv(path.resolve(__dirname, "..", "static/csv", fileName));
       let data = await csv().fromFile("static/csv/data.csv");
-      let newData = [];
-      data.forEach((item) => {
-        newData.push(Object.values(item));
-      });
-      data = newData;
-      newData = data.map((item) => {
-        return item[0].split(";");
-      });
-      data = newData;
-      newData = data.map(
-        ([
-          ,
-          a1,
-          ,
-          ,
-          a2,
-          ,
-          a3 = "",
-          a4 = "",
-          a5 = "",
-          a6 = "",
-          a7 = "",
-          a8 = "",
-          a9 = "",
-          a10 = "",
-          a11 = "",
-          a12 = "",
-          a13 = "",
-          a14 = "",
-          a15 = "",
-          a16 = "",
-          a17 = "",
-          a18 = "",
-          ...item
-        ]) => {
-          return [
-            a1,
-            a2,
-            a3,
-            a4,
-            a5,
-            a6,
-            a7,
-            a8,
-            a9,
-            a10,
-            a11,
-            a12,
-            a13,
-            a14,
-            a15,
-            a16,
-            a17,
-            a18,
-          ];
-        }
-      );
-      data = newData;
-      const toChoose = (item) => {
-        switch (discipline) {
-          case "ТКМ":
-            return tkm(item);
-        }
-      };
-      newData = data.map((item = []) => {
-        return {
-          surName: item[0],
-          group: item[1],
-          options: toChoose(item),
-          teacher: "",
-          exercise: "",
-          rating: "",
-          exam: "Н/З",
-        };
-      });
-      data = newData.filter((item) => item.group === group);
-      const getDiscipline = await Discipline.findAll({
-        where: {
-          name: discipline,
-        },
-      });
+      data = informationUpload(data, discipline, group);
       const getGroup = await Group.findAll({
         where: {
           name: group,
         },
       });
-      if (!getDiscipline[0]?.name)
-        await Discipline.create({ name: discipline });
-      if (!getGroup[0]?.name) await Group.create({ name: group });
-      const getRating = (item, teacher, exercise) => {
-        return (
-          Object.values(item.options)
-            .filter((element) => element !== "-")
-            .reduce((sum, element) => sum + parseInt(element), 0) +
-          teacher +
-          exercise
-        );
-      };
-      const getExam = (rating) => {
-        if (rating > 94) {
-          return "Відмінно";
-        } else if (rating < 95 && rating > 84) {
-          return "Дуже добре";
-        } else if (rating < 85 && rating > 74) {
-          return "Добре";
-        } else if (rating < 75 && rating > 64) {
-          return "Задовільно";
-        } else if (rating < 65 && rating > 59) {
-          return "Достатньо";
-        } else if (rating < 60) {
-          return "Fx";
-        }
-      };
+      data.forEach(async (item) => {
+        await Student.create({
+          surName: item.surName,
+          groupId: getGroup[0].id,
+          options: JSON.stringify(item.options),
+          teacher: 0,
+          exercise: 0,
+          rating: getRating(item, 0, 0),
+          exam: getExam(getRating(item, 0, 0)),
+        });
+      });
+      data = await Student.findAll({
+        where: {
+          groupId: getGroup[0].id,
+        },
+      });
+      return res.json(data);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
+  async reloadInformation(req, res, next) {
+    try {
+      const { csvFile } = req.files;
+      const { discipline, group } = req.body;
+      let fileName = "data.csv";
+      csvFile.mv(path.resolve(__dirname, "..", "static/csv", fileName));
+      let data = await csv().fromFile("static/csv/data.csv");
+      data = informationUpload(data, discipline, group);
+      const getGroup = await Group.findAll({
+        where: {
+          name: group,
+        },
+      });
       data.forEach(async (item) => {
         let student = await Student.findAll({
           where: {
             surName: item.surName,
           },
         });
-        if (!student[0]?.surName) {
-          console.log(getRating(item, 0, 0));
-          console.log(getExam(getRating(item, 0, 0)));
-          // await Student.create({
-          //   surName: item.surName,
-          //   options: JSON.stringify(item.options),
-          //   teacher: 0,
-          //   exercise: 0,
-          //   rating: getRating(item,teacher,exercise),
-          //   exam:getExam(getRating(item,teacher,exercise)),
-          // });
-        } else {
-          // await Student.update({});
-        }
+        await Student.update(
+          {
+            surName: item.surName,
+            options: JSON.stringify(item.options),
+            teacher: student[0].teacher,
+            exercise: student[0].exercise,
+            rating: getRating(item, student[0].teacher, student[0].exercise),
+            exam: getExam(
+              getRating(item, student[0].teacher, student[0].exercise)
+            ),
+          },
+          { where: { id: student[0].id } }
+        );
+      });
+      data = await Student.findAll({
+        where: {
+          groupId: getGroup[0].id,
+        },
       });
       return res.json(data);
     } catch (e) {
