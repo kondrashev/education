@@ -7,7 +7,11 @@ const Input = styled("input")({
 });
 
 export default function UploadInformation() {
-  const uploadFile = async (formData) => {
+  const getFile = async (event) => {
+    const formData = new FormData();
+    formData.append("discipline", "ТКМ");
+    formData.append("group", "ІМЗ-12ПМ");
+    formData.append("csvFile", event.target.files[0]);
     try {
       const response = await fetch("/discipline/reload", {
         method: "POST",
@@ -15,24 +19,16 @@ export default function UploadInformation() {
       });
       const result = await response.json();
       console.log("Success:", JSON.stringify(result));
+      event.target.value = "";
     } catch (error) {
       console.error("Error:", error);
     }
-  };
-  const pathCSV = useRef("");
-  const getFile = () => {
-    const formData = new FormData();
-    formData.append("discipline", "ТКМ");
-    formData.append("group", "ІМЗ-12ПМ");
-    formData.append("csvFile", pathCSV.current.files[0]);
-    uploadFile(formData);
   };
   return (
     <label htmlFor="contained-button-file">
       <Input
         accept="csv/*"
         id="contained-button-file"
-        ref={pathCSV}
         multiple
         type="file"
         onChange={getFile}
