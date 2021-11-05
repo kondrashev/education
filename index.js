@@ -6,6 +6,7 @@ const fileUpload = require("express-fileupload");
 const router = require("./routes/index");
 const errorHandler = require("./middleware/ErrorHandlingMiddleware");
 const { User } = require("./models/models");
+const bcrypt = require("bcrypt");
 const path = require("path");
 const PORT = process.env.PORT;
 const app = express();
@@ -20,12 +21,23 @@ const start = async () => {
   try {
     await sequelize.authenticate();
     await sequelize.sync({ alter: true });
-    User.create({ login: "pavel", password: "1976", role: "ADMIN" });
-    User.create({ login: "student", password: "student" });
+    // const pas = await bcrypt.hash("levap", 5);
+    const getUserAd = await User.findOne({ where: { login: "pavel" } });
+    !getUserAd &&
+      (await User.create({
+        login: "pavel",
+        password:
+          "$2b$05$6v2l2WL9BkEaPobRHldOFuszUUxh9Ih9SoJcW0HBux7RN6NzazPvO",
+        role: "ADMIN",
+      }));
+    const getUserUs = await User.findOne({ where: { login: "student" } });
+    !getUserUs &&
+      (await User.create({ login: "student", password: "student" }));
     app.get("/", (req, res) => {
       res.sendFile("index.html");
     });
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+    console.log(`Password-${pas}`);
   } catch (e) {
     console.log(e);
   }

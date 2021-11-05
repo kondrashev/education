@@ -1,13 +1,5 @@
 const ApiError = require("../error/ApiError");
 class UserController {
-  async registration(req, res) {}
-  async login(req, res) {}
-  async check(req, res, next) {
-    const { id } = req.query;
-    if (!id) {
-      return next(ApiError.badRequest("Unknown ID!!!"));
-    }
-    res.json(id);
-  }
+  async authorisation(req, res, next) {}
 }
 module.exports = new UserController();
