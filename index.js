@@ -6,7 +6,6 @@ const fileUpload = require("express-fileupload");
 const router = require("./routes/index");
 const errorHandler = require("./middleware/ErrorHandlingMiddleware");
 const { User } = require("./models/models");
-const bcrypt = require("bcrypt");
 const path = require("path");
 const PORT = process.env.PORT;
 const app = express();
