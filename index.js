@@ -5,6 +5,7 @@ const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const router = require("./routes/index");
 const errorHandler = require("./middleware/ErrorHandlingMiddleware");
+const { User } = require("./models/models");
 const path = require("path");
 const PORT = process.env.PORT;
 const app = express();
@@ -19,6 +20,8 @@ const start = async () => {
   try {
     await sequelize.authenticate();
     await sequelize.sync({ alter: true });
+    User.create({ login: "pavel", password: "1976", role: "ADMIN" });
+    User.create({ login: "student", password: "student" });
     app.get("/", (req, res) => {
       res.sendFile("index.html");
     });

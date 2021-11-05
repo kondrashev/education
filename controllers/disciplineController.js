@@ -12,8 +12,13 @@ class DisciplineController {
   async addDiscipline(req, res, next) {
     try {
       const { name } = req.body;
-      const discipline = await Discipline.create({ name });
-      return res.json(discipline);
+      const getDiscipline = await Discipline.findOne({ where: { name } });
+      if (!getDiscipline) {
+        const discipline = await Discipline.create({ name });
+        return res.json(discipline);
+      } else {
+        return res.json("This discipline already exists!!!");
+      }
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }
@@ -46,7 +51,7 @@ class DisciplineController {
       csvFile.mv(path.resolve(__dirname, "..", "static/csv", fileName));
       let data = await csv().fromFile("static/csv/data.csv");
       data = informationUpload(data, discipline, group);
-      const getGroup = await Group.findAll({
+      const getGroup = await Group.findOne({
         where: {
           name: group,
         },
@@ -54,7 +59,7 @@ class DisciplineController {
       data.forEach(async (item) => {
         await Student.create({
           surName: item.surName,
-          groupId: getGroup[0].id,
+          groupId: getGroup.id,
           options: JSON.stringify(item.options),
           teacher: 0,
           exercise: 0,
@@ -76,7 +81,7 @@ class DisciplineController {
       let data = await csv().fromFile("static/csv/data.csv");
       data = informationUpload(data, discipline, group);
       data.forEach(async (item) => {
-        let student = await Student.findAll({
+        const student = await Student.findOne({
           where: {
             surName: item.surName,
           },
@@ -85,14 +90,12 @@ class DisciplineController {
           {
             surName: item.surName,
             options: JSON.stringify(item.options),
-            teacher: student[0].teacher,
-            exercise: student[0].exercise,
-            rating: getRating(item, student[0].teacher, student[0].exercise),
-            exam: getExam(
-              getRating(item, student[0].teacher, student[0].exercise)
-            ),
+            teacher: student.teacher,
+            exercise: student.exercise,
+            rating: getRating(item, student.teacher, student.exercise),
+            exam: getExam(getRating(item, student.teacher, student.exercise)),
           },
-          { where: { id: student[0].id } }
+          { where: { id: student.id } }
         );
       });
       return res.json(data);

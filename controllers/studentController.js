@@ -4,8 +4,13 @@ class StudentController {
   async addStudent(req, res, next) {
     try {
       const { surName, groupId } = req.body;
-      const student = await Student.create({ surName, groupId });
-      return res.json(student);
+      const getStudent = await Student.findOne({ where: { surName } });
+      if (!getStudent) {
+        const student = await Student.create({ surName, groupId });
+        return res.json(student);
+      } else {
+        return res.json("This student already exists!!!");
+      }
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }

@@ -6,8 +6,13 @@ class GroupController {
   async addGroup(req, res, next) {
     try {
       const { name, disciplineId } = req.body;
-      const group = await Group.create({ name, disciplineId });
-      return res.json(group);
+      const getGroup = await Group.findOne({ where: { name } });
+      if (!getGroup) {
+        const group = await Group.create({ name, disciplineId });
+        return res.json(group);
+      } else {
+        return res.json("This group already exists!!!");
+      }
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }
