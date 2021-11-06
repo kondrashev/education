@@ -20,6 +20,7 @@ const useStyles = makeStyles({
 });
 const store = createStore(rootReducer, applyMiddleware(thunk));
 export const ApplictationContext = createContext();
+
 const App = () => {
   const classes = useStyles();
   const [values, setValues] = useState(context);

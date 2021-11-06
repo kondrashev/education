@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -47,9 +47,19 @@ const AuthorizationForm = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const redirect = () => {
-    history.push("/teacher");
-  };
+  const authorization = () => {};
+  useEffect(() => {
+    switch (values.role) {
+      case "ADMIN":
+        history.push("/teacher");
+        break;
+      case "USER":
+        history.push("/student");
+        break;
+      default:
+        history.push("/");
+    }
+  }, [values.role]);
   return (
     <div className={classes.formAuthorization}>
       <TextField
@@ -86,7 +96,7 @@ const AuthorizationForm = () => {
         color="primary"
         disableElevation
         className={classes.fields}
-        onClick={redirect}
+        onClick={authorization}
       >
         Authorization
       </Button>
