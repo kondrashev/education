@@ -20,7 +20,6 @@ const start = async () => {
   try {
     await sequelize.authenticate();
     await sequelize.sync({ alter: true });
-    // const pas = await bcrypt.hash("levap", 5);
     const getUserAd = await User.findOne({ where: { login: "pavel" } });
     !getUserAd &&
       (await User.create({
@@ -36,7 +35,6 @@ const start = async () => {
       res.sendFile("index.html");
     });
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-    console.log(`Password-${pas}`);
   } catch (e) {
     console.log(e);
   }
