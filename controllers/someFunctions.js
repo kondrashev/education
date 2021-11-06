@@ -117,6 +117,7 @@ const informationUpload = (data, discipline, group) => {
       teacher: "",
       exercise: "",
       rating: "",
+      report: "",
       exam: "Н/З",
     };
   });

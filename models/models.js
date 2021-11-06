@@ -25,6 +25,7 @@ const Student = sequelize.define("student", {
   teacher: { type: DataTypes.INTEGER },
   exercise: { type: DataTypes.INTEGER },
   rating: { type: DataTypes.INTEGER },
+  report: { type: DataTypes.STRING },
   exam: { type: DataTypes.STRING },
 });
 
