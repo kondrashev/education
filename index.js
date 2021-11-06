@@ -30,7 +30,11 @@ const start = async () => {
       }));
     const getUserUs = await User.findOne({ where: { login: "student" } });
     !getUserUs &&
-      (await User.create({ login: "student", password: "student" }));
+      (await User.create({
+        login: "student",
+        password:
+          "$2b$05$arMvljQyV2Vshsm5eM9tYedu.McxfD5Ln9IyUx1eWfJ5/TAjG04uK",
+      }));
     app.get("/", (req, res) => {
       res.sendFile("index.html");
     });
