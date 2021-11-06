@@ -1,8 +1,9 @@
 const Router = require("express");
 const router = new Router();
 const disciplineController = require("../controllers/disciplineController");
+const checkRole = require("../middleware/checkRoleMiddleware");
 router.post("/add", disciplineController.addDiscipline);
-router.get("/get", disciplineController.getDisciplines);
+router.get("/get", checkRole("ADMIN"), disciplineController.getDisciplines);
 router.post("/delete", disciplineController.deleteDisciplines);
 router.post("/update", disciplineController.updateDiscipline);
 router.post("/upload", disciplineController.uploadInformation);
