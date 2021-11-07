@@ -5,11 +5,11 @@ import { Provider } from "react-redux";
 import rootReducer from "./store/reducers";
 import thunk from "redux-thunk";
 import { BrowserRouter as Switch, Route } from "react-router-dom";
-import AuthorizationForm from "./components/AuthorizationForm";
+import AuthorizationForm from "./components/authorization/AuthorizationForm";
 import { makeStyles } from "@mui/styles";
-import { context } from "./components/Context";
-import Teacher from "./components/Teacher";
-import Student from "./components/Student";
+import { context } from "./components/constants/Context";
+import Teacher from "./components/teacher/Teacher";
+import Student from "./components/student/Student";
 
 const useStyles = makeStyles({
   globalStyle: {
