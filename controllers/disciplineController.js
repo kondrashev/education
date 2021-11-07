@@ -47,7 +47,7 @@ class DisciplineController {
     try {
       const { csvFile } = req.files;
       const { discipline, group } = req.body;
-      let fileName = "data.csv";
+      const fileName = "data.csv";
       csvFile.mv(path.resolve(__dirname, "..", "static/csv", fileName));
       let data = await csv().fromFile("static/csv/data.csv");
       data = informationUpload(data, discipline, group);
@@ -57,48 +57,36 @@ class DisciplineController {
         },
       });
       data.forEach(async (item) => {
-        await Student.create({
-          surName: item.surName,
-          groupId: getGroup.id,
-          options: JSON.stringify(item.options),
-          teacher: 0,
-          exercise: 0,
-          rating: getRating(item, 0, 0),
-          report: "",
-          exam: getExam(getRating(item, 0, 0)),
-        });
-      });
-      return res.json(data);
-    } catch (e) {
-      next(ApiError.badRequest(e.message));
-    }
-  }
-  async reloadInformation(req, res, next) {
-    try {
-      const { csvFile } = req.files;
-      const { discipline, group } = req.body;
-      let fileName = "data.csv";
-      csvFile.mv(path.resolve(__dirname, "..", "static/csv", fileName));
-      let data = await csv().fromFile("static/csv/data.csv");
-      data = informationUpload(data, discipline, group);
-      data.forEach(async (item) => {
         const student = await Student.findOne({
           where: {
             surName: item.surName,
           },
         });
-        await Student.update(
-          {
+        if (!student) {
+          await Student.create({
             surName: item.surName,
+            groupId: getGroup.id,
             options: JSON.stringify(item.options),
-            teacher: student.teacher,
-            exercise: student.exercise,
-            rating: getRating(item, student.teacher, student.exercise),
-            report: student.report,
-            exam: getExam(getRating(item, student.teacher, student.exercise)),
-          },
-          { where: { id: student.id } }
-        );
+            teacher: 0,
+            exercise: 0,
+            rating: getRating(item, 0, 0),
+            report: "",
+            exam: getExam(getRating(item, 0, 0)),
+          });
+        } else {
+          await Student.update(
+            {
+              surName: item.surName,
+              options: JSON.stringify(item.options),
+              teacher: student.teacher,
+              exercise: student.exercise,
+              rating: getRating(item, student.teacher, student.exercise),
+              report: student.report,
+              exam: getExam(getRating(item, student.teacher, student.exercise)),
+            },
+            { where: { id: student.id } }
+          );
+        }
       });
       return res.json(data);
     } catch (e) {
