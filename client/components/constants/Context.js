@@ -3,4 +3,5 @@ export const context = {
   password: "",
   showPassword: false,
   errorAuthorization: false,
+  typeUser: false,
 };

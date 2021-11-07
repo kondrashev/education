@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -69,9 +69,8 @@ const AuthorizationForm = () => {
       authorization();
     }
   };
-  const informationUser = useSelector((state) => state.checkUserReducer);
   useEffect(() => {
-    switch (informationUser.role) {
+    switch (values.typeUser) {
       case "ADMIN":
         history.push("/teacher");
         break;
@@ -81,7 +80,7 @@ const AuthorizationForm = () => {
       default:
         history.push("/");
     }
-  }, [informationUser.role]);
+  }, [values.typeUser]);
   return (
     <div className={classes.formAuthorization}>
       <TextField

@@ -19,6 +19,7 @@ export const checkUserFetchData = (data) => async (dispatch) => {
   if (response.status === 200) {
     response = await response.json();
     dispatch(checkUserFetchDataSuccess(response));
+    setValues({ ...values, login: response.login, typeUser: response.role });
   } else {
     setValues({ ...values, errorAuthorization: true });
   }

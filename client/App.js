@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     margin: "0px",
     padding: "0px",
     position: "relative",
+    width: "100%",
   },
 });
 const store = createStore(rootReducer, applyMiddleware(thunk));
