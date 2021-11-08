@@ -18,6 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { makeStyles } from "@mui/styles";
 import { ApplictationContext } from "../../App";
 import IconHome from "./IconHome";
+import Avatar from "@mui/material/Avatar";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -59,6 +60,7 @@ const useStyles = makeStyles({
   globalStyle: {
     width: "100%",
   },
+  avatar: { marginLeft: "50px", marginRight: "20px" },
 });
 export default function MainMenu() {
   const classes = useStyles();
@@ -173,6 +175,7 @@ export default function MainMenu() {
           >
             {values.login}
           </Typography>
+          <Avatar src="/images/photo.jpg" className={classes.avatar} />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -190,7 +193,6 @@ export default function MainMenu() {
               color="inherit"
             >
               <Badge color="error">
-                {/* <MailIcon /> */}
                 <IconHome />
               </Badge>
             </IconButton>

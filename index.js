@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(fileUpload({}));
 app.use("/", router);
 app.use(express.static(path.resolve(__dirname, "static")));
+app.use(express.static(path.resolve(__dirname, "static/images")));
 app.use(errorHandler);
 
 const start = async () => {
