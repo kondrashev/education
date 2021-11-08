@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@mui/styles";
 import MainMenu from "./MainMenu";
 import MenuNavigation from "./MenuNavigation";
+import ListDisciplines from "./ListDisciplines";
 
 const useStyles = makeStyles({
   globalStyle: {
@@ -15,6 +16,7 @@ const Teacher = () => {
     <div className={classes.globalStyle}>
       <MainMenu />
       <MenuNavigation />
+      <ListDisciplines />
     </div>
   );
 };

@@ -3,8 +3,8 @@ import { emphasize, styled } from "@mui/material/styles";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Chip from "@mui/material/Chip";
 import HomeIcon from "@mui/icons-material/Home";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { makeStyles } from "@mui/styles";
+import { ApplictationContext } from "../../App";
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -42,6 +42,7 @@ const useStyles = makeStyles({
 });
 export default function MenuNavigation() {
   const classes = useStyles();
+  const { values, setValues } = useContext(ApplictationContext);
   return (
     <div
       role="presentation"
@@ -49,10 +50,18 @@ export default function MenuNavigation() {
       className={classes.navigation}
     >
       <Breadcrumbs aria-label="breadcrumb">
-        <StyledBreadcrumb label="Курси" icon={<HomeIcon fontSize="small" />} />
-        <StyledBreadcrumb label="ТКМ" />
-        <StyledBreadcrumb label="МЛ-61" />
-        <StyledBreadcrumb label="Іванов" />
+        <StyledBreadcrumb
+          label="Курси"
+          icon={<HomeIcon fontSize="small" />}
+          onClick={() => {
+            setValues({ ...values, shwoNavigationItemDiscipline: false });
+          }}
+        />
+        {values.shwoNavigationItemDiscipline && (
+          <StyledBreadcrumb label={values.valueNavigationItemDiscipline} />
+        )}
+        {/* <StyledBreadcrumb label="МЛ-61" /> */}
+        {/* <StyledBreadcrumb label="Іванов" /> */}
       </Breadcrumbs>
     </div>
   );

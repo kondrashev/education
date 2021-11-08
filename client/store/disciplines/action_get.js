@@ -10,7 +10,7 @@ export const loadDisciplinesFetchData = (data) => async (dispatch) => {
   const { url, values, setValues } = data;
   let response = await fetch(url, {
     headers: {
-      Authorization: `Bearer ${localStorage.token}`,
+      Authorization: localStorage.token,
     },
   });
   if (response.status === 200) {
