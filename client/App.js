@@ -15,7 +15,6 @@ const useStyles = makeStyles({
   globalStyle: {
     margin: "0px",
     padding: "0px",
-    position: "relative",
     width: "100%",
   },
 });
