@@ -175,7 +175,7 @@ export default function MainMenu() {
           >
             {values.login}
           </Typography>
-          <Avatar src="/images/photo.jpg" className={classes.avatar} />
+          <Avatar src="photo.jpg" className={classes.avatar} />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
