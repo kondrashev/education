@@ -13,21 +13,37 @@ import { ApplictationContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { loadDisciplinesFetchData } from "../../store/disciplines/action_get";
 import endpoints from "../constants/Endpoints";
-import { makeStyles } from "@mui/styles";
 import CreateIcon from "@mui/icons-material/Create";
 
-const useStyles = makeStyles({
-  listItem: {
-    cursor: "pointer",
-  },
-  listItemDiv: {
+const styles = {
+  container: {
+    marginTop: "10px",
     display: "flex",
-    justifyContent: "space-around",
+    flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
   },
-});
+  title: {
+    fontSize: "20px",
+  },
+  deleteIcon: {
+    alignSelf: "flex-start",
+  },
+  listItem: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    cursor: "pointer",
+  },
+  iconEdit: { marginLeft: "10px" },
+  listItemText: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginLeft: "50px",
+  },
+};
 const ListDisciplines = () => {
-  const classes = useStyles();
   const { values, setValues } = useContext(ApplictationContext);
   const dispatch = useDispatch();
   const getDisciplines = (data) => dispatch(loadDisciplinesFetchData(data));
@@ -48,19 +64,23 @@ const ListDisciplines = () => {
     });
   };
   return (
-    <div>
-      <Typography>Список дисциплін</Typography>
-      <IconButton edge="end" aria-label="delete">
+    <div style={styles.container}>
+      <Typography style={styles.title}>Список дисциплін</Typography>
+      <IconButton edge="end" aria-label="delete" style={styles.deleteIcon}>
         <DeleteIcon />
       </IconButton>
-      <List className={classes.listItem}>
+      <List>
         {listDisciplines.map((item) => (
-          <div className={classes.listItemDiv}>
+          <div style={styles.listItem}>
             <Checkbox />
-            <IconButton>
+            <IconButton style={styles.iconEdit}>
               <CreateIcon />
             </IconButton>
-            <ListItem key={item.id} onClick={() => showNavigation(item.name)}>
+            <ListItem
+              style={styles.listItemText}
+              key={item.id}
+              onClick={() => showNavigation(item.name)}
+            >
               <ListItemAvatar>
                 <Avatar>
                   <FolderIcon />

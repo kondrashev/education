@@ -8,6 +8,10 @@ const useStyles = makeStyles({
   globalStyle: {
     margin: "0px",
     width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
 const Teacher = () => {

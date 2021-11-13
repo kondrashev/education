@@ -3,7 +3,6 @@ import { emphasize, styled } from "@mui/material/styles";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Chip from "@mui/material/Chip";
 import HomeIcon from "@mui/icons-material/Home";
-import { makeStyles } from "@mui/styles";
 import { ApplictationContext } from "../../App";
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
@@ -30,35 +29,34 @@ function handleClick(event) {
   event.preventDefault();
   console.info("You clicked a breadcrumb.");
 }
-const useStyles = makeStyles({
+const styles = {
   navigation: {
     marginTop: "80px",
-    marginLeft: "50px",
-    width: "800px",
+    width: "auto",
   },
   styledBreadcrumbItem: {
     cursor: "pointer",
+    fontSize: "18px",
   },
-});
+};
 export default function MenuNavigation() {
-  const classes = useStyles();
   const { values, setValues } = useContext(ApplictationContext);
   return (
-    <div
-      role="presentation"
-      onClick={handleClick}
-      className={classes.navigation}
-    >
+    <div role="presentation" onClick={handleClick} style={styles.navigation}>
       <Breadcrumbs aria-label="breadcrumb">
         <StyledBreadcrumb
           label="Курси"
           icon={<HomeIcon fontSize="small" />}
+          style={styles.styledBreadcrumbItem}
           onClick={() => {
             setValues({ ...values, shwoNavigationItemDiscipline: false });
           }}
         />
         {values.shwoNavigationItemDiscipline && (
-          <StyledBreadcrumb label={values.valueNavigationItemDiscipline} />
+          <StyledBreadcrumb
+            label={values.valueNavigationItemDiscipline}
+            style={styles.styledBreadcrumbItem}
+          />
         )}
         {/* <StyledBreadcrumb label="МЛ-61" /> */}
         {/* <StyledBreadcrumb label="Іванов" /> */}
