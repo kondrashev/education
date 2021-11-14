@@ -4,6 +4,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Chip from "@mui/material/Chip";
 import HomeIcon from "@mui/icons-material/Home";
 import { ApplictationContext } from "../../App";
+import Box from "@mui/material/Box";
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -31,7 +32,6 @@ function handleClick(event) {
 }
 const styles = {
   navigation: {
-    marginTop: "80px",
     width: "auto",
   },
   styledBreadcrumbItem: {
@@ -42,7 +42,7 @@ const styles = {
 export default function MenuNavigation() {
   const { values, setValues } = useContext(ApplictationContext);
   return (
-    <div role="presentation" onClick={handleClick} style={styles.navigation}>
+    <Box onClick={handleClick} mt={10} sx={styles.navigation}>
       <Breadcrumbs aria-label="breadcrumb">
         <StyledBreadcrumb
           label="Курси"
@@ -61,6 +61,6 @@ export default function MenuNavigation() {
         {/* <StyledBreadcrumb label="МЛ-61" /> */}
         {/* <StyledBreadcrumb label="Іванов" /> */}
       </Breadcrumbs>
-    </div>
+    </Box>
   );
 }

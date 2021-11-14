@@ -9,7 +9,6 @@ import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
@@ -19,6 +18,7 @@ import { makeStyles } from "@mui/styles";
 import { ApplictationContext } from "../../App";
 import IconHome from "./IconHome";
 import Avatar from "@mui/material/Avatar";
+import OpenMenu from "./OpenMenu";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -155,18 +155,9 @@ export default function MainMenu() {
     </Menu>
   );
   return (
-    <div>
+    <Box>
       <AppBar className={classes.globalStyle}>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography
             variant="h6"
             noWrap
@@ -175,7 +166,10 @@ export default function MainMenu() {
           >
             {values.login}
           </Typography>
-          <Avatar src="photo.jpg" className={classes.avatar} />
+          <Box ml={-4}>
+            <Avatar src="photo.jpg" className={classes.avatar} />
+          </Box>
+          <OpenMenu />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -224,6 +218,6 @@ export default function MainMenu() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </div>
+    </Box>
   );
 }

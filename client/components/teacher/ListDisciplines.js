@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -17,7 +18,6 @@ import CreateIcon from "@mui/icons-material/Create";
 
 const styles = {
   container: {
-    marginTop: "10px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -64,7 +64,7 @@ const ListDisciplines = () => {
     });
   };
   return (
-    <div style={styles.container}>
+    <Box mt={2} sx={styles.container}>
       <Typography style={styles.title}>Список дисциплін</Typography>
       <IconButton edge="end" aria-label="delete" style={styles.deleteIcon}>
         <DeleteIcon />
@@ -91,7 +91,7 @@ const ListDisciplines = () => {
           </div>
         ))}
       </List>
-    </div>
+    </Box>
   );
 };
 export default ListDisciplines;

@@ -6,4 +6,5 @@ export const context = {
   typeUser: false,
   shwoNavigationItemDiscipline: false,
   valueNavigationItemDiscipline: "",
+  openMenu: false,
 };

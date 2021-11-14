@@ -1,11 +1,11 @@
 import React from "react";
-import { makeStyles } from "@mui/styles";
 import MainMenu from "./MainMenu";
 import MenuNavigation from "./MenuNavigation";
 import ListDisciplines from "./ListDisciplines";
+import Box from "@mui/material/Box";
 
-const useStyles = makeStyles({
-  globalStyle: {
+const styles = {
+  container: {
     margin: "0px",
     width: "100%",
     display: "flex",
@@ -13,15 +13,14 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
     alignItems: "center",
   },
-});
+};
 const Teacher = () => {
-  const classes = useStyles();
   return (
-    <div className={classes.globalStyle}>
+    <Box sx={styles.container}>
       <MainMenu />
       <MenuNavigation />
       <ListDisciplines />
-    </div>
+    </Box>
   );
 };
 export default Teacher;
