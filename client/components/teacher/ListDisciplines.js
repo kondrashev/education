@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadDisciplinesFetchData } from "../../store/disciplines/action_get";
 import endpoints from "../constants/Endpoints";
 import CreateIcon from "@mui/icons-material/Create";
+import FormDiscipline from "./FormDiscipline";
+import { useSpring, animated as a } from "react-spring";
 
 const styles = {
   container: {
@@ -63,6 +65,10 @@ const ListDisciplines = () => {
       valueNavigationItemDiscipline: name,
     });
   };
+  const animationFormDiscipline = useSpring({
+    marginLeft: values.showFormDiscipline ? -725 : -1125,
+    config: { duration: 1000 },
+  });
   return (
     <Box mt={2} sx={styles.container}>
       <Typography style={styles.title}>Список дисциплін</Typography>
@@ -91,6 +97,13 @@ const ListDisciplines = () => {
           </div>
         ))}
       </List>
+      {values.showFormDiscipline && (
+        <Box mt={-30}>
+          <a.div style={animationFormDiscipline}>
+            <FormDiscipline />
+          </a.div>
+        </Box>
+      )}
     </Box>
   );
 };

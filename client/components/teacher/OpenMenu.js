@@ -10,18 +10,28 @@ import Logout from "@mui/icons-material/Logout";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { ApplictationContext } from "../../App";
+import zIndex from "@mui/material/styles/zIndex";
 
 export default function OpenMenu() {
   const { values, setValues } = useContext(ApplictationContext);
   const handleClick = (event) => {
-    setValues({ ...values, openMenu: event.currentTarget });
+    setValues({
+      ...values,
+      openMenu: !values.openMenu ? event.currentTarget : false,
+    });
   };
-  const handleClose = () => {
-    setValues({ ...values, openMenu: false });
+  const openFormDiscipline = () => {
+    setValues({ ...values, openMenu: false, showFormDiscipline: true });
   };
   return (
-    <React.Fragment>
-      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
         <IconButton
           size="large"
           edge="start"
@@ -36,8 +46,7 @@ export default function OpenMenu() {
       <Menu
         anchorEl={values.openMenu}
         open={values.openMenu}
-        onClose={handleClose}
-        onClick={handleClose}
+        style={{ zIndex: 0 }}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -54,20 +63,19 @@ export default function OpenMenu() {
               content: '""',
               display: "block",
               position: "absolute",
-              top: 0,
-              right: 115,
-              width: 10,
-              height: 10,
+              top: 5,
+              right: 111,
+              width: 15,
+              height: 15,
               bgcolor: "background.paper",
               transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
             },
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem onClick={openFormDiscipline}>
           <ListItemIcon>
             <AddBusinessIcon fontSize="small" />
           </ListItemIcon>
@@ -92,6 +100,6 @@ export default function OpenMenu() {
           Завантажити інформацію
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
 }
