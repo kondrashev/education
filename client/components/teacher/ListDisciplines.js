@@ -97,13 +97,11 @@ const ListDisciplines = () => {
           </div>
         ))}
       </List>
-      {values.showFormDiscipline && (
-        <Box mt={-30}>
-          <a.div style={animationFormDiscipline}>
-            <FormDiscipline />
-          </a.div>
-        </Box>
-      )}
+      <Box mt={-30}>
+        <a.div style={animationFormDiscipline}>
+          <FormDiscipline />
+        </a.div>
+      </Box>
     </Box>
   );
 };
