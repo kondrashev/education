@@ -9,14 +9,14 @@ import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
-import { makeStyles } from "@mui/styles";
+import Box from "@mui/material/Box";
 import { ApplictationContext } from "../../App";
 import { useHistory } from "react-router-dom";
 import { checkUserFetchData } from "../../store/authorization/action";
 import endpoints from "../constants/Endpoints";
 import Alert from "@mui/material/Alert";
 
-const useStyles = makeStyles({
+const styles = {
   formAuthorization: {
     width: "400px",
     height: "350px",
@@ -34,10 +34,9 @@ const useStyles = makeStyles({
     width: "360px",
     height: "50px",
   },
-});
+};
 const AuthorizationForm = () => {
   const history = useHistory();
-  const classes = useStyles();
   const { values, setValues } = useContext(ApplictationContext);
   const handleChangeLogin = (event) => {
     setValues({ ...values, login: event.target.value });
@@ -82,12 +81,12 @@ const AuthorizationForm = () => {
     }
   }, [values.typeUser]);
   return (
-    <div className={classes.formAuthorization}>
+    <Box sx={styles.formAuthorization}>
       <TextField
         id="outlined-search"
         label="Login"
         variant="outlined"
-        className={classes.fields}
+        style={styles.fields}
         onChange={handleChangeLogin}
       />
       <FormControl>
@@ -96,7 +95,7 @@ const AuthorizationForm = () => {
           id="outlined-adornment-password"
           type={values.showPassword ? "text" : "password"}
           onChange={handleChangePassword}
-          className={classes.fields}
+          style={styles.fields}
           onKeyPress={onPressKey}
           endAdornment={
             <InputAdornment position="end">
@@ -117,7 +116,7 @@ const AuthorizationForm = () => {
         variant="contained"
         color="primary"
         disableElevation
-        className={classes.fields}
+        style={styles.fields}
         onClick={authorization}
       >
         Authorization
@@ -131,7 +130,7 @@ const AuthorizationForm = () => {
           Incorrect login or password!!!
         </Alert>
       )}
-    </div>
+    </Box>
   );
 };
 export default AuthorizationForm;

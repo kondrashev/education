@@ -3,6 +3,7 @@ import MainMenu from "./MainMenu";
 import MenuNavigation from "./MenuNavigation";
 import ListDisciplines from "./ListDisciplines";
 import Box from "@mui/material/Box";
+import FormDiscipline from "./FormDiscipline";
 
 const styles = {
   container: {
@@ -20,6 +21,7 @@ const Teacher = () => {
       <MainMenu />
       <MenuNavigation />
       <ListDisciplines />
+      <FormDiscipline />
     </Box>
   );
 };
