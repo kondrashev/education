@@ -22,6 +22,6 @@ export const checkUserFetchData = (data) => async (dispatch) => {
     setValues({ ...values, login: response.login, typeUser: response.role });
     localStorage.setItem("token", `Bearer ${response.token}`);
   } else {
-    setValues({ ...values, errorAuthorization: true });
+    setValues({ ...values, errorForm: true });
   }
 };

@@ -9,14 +9,14 @@ export const addDisciplineFetchData = (data) => async (dispatch) => {
     },
     body: JSON.stringify({ name: nameDiscipline }),
   });
-  if (response.status === 200) {
-    response = await response.json();
+  response = await response.json();
+  if (response.name) {
     setValues({
       ...values,
       updateDiscipline: response.name,
       nameDiscipline: "",
     });
   } else {
-    setValues({ ...values, errorAuthorization: true });
+    setValues({ ...values, errorForm: true });
   }
 };

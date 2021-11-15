@@ -121,10 +121,10 @@ const AuthorizationForm = () => {
       >
         Authorization
       </Button>
-      {values.errorAuthorization && (
+      {values.errorForm && (
         <Alert
           onClose={() => {
-            setValues({ ...values, errorAuthorization: false });
+            setValues({ ...values, errorForm: false });
           }}
         >
           Incorrect login or password!!!

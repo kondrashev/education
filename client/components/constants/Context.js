@@ -2,7 +2,7 @@ export const context = {
   login: "",
   password: "",
   showPassword: false,
-  errorAuthorization: false,
+  errorForm: false,
   typeUser: false,
   shwoNavigationItemDiscipline: false,
   valueNavigationItemDiscipline: "",

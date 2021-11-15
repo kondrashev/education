@@ -6,6 +6,7 @@ import { ApplictationContext } from "../../App";
 import { useDispatch } from "react-redux";
 import endpoints from "../constants/Endpoints";
 import { addDisciplineFetchData } from "../../store/disciplines/action_add";
+import Alert from "@mui/material/Alert";
 
 const styles = {
   container: {
@@ -47,6 +48,11 @@ const FormDiscipline = () => {
   const handleChangeName = (event) => {
     setValues({ ...values, nameDiscipline: event.target.value });
   };
+  const onPressKey = (event) => {
+    if (event.key === "Enter") {
+      addDiscipline();
+    }
+  };
   const addDiscipline = () => {
     const data = {
       url: endpoints.addDiscipline,
@@ -79,6 +85,7 @@ const FormDiscipline = () => {
         variant="outlined"
         style={styles.fields}
         onChange={handleChangeName}
+        onKeyPress={onPressKey}
       />
       <Button
         variant="contained"
@@ -90,10 +97,14 @@ const FormDiscipline = () => {
       >
         Додати
       </Button>
-      {values.errorAuthorization && (
+      {values.errorForm && (
         <Alert
           onClose={() => {
-            setValues({ ...values, errorAuthorization: false });
+            setValues({
+              ...values,
+              errorForm: false,
+              nameDiscipline: "",
+            });
           }}
         >
           This discipline has already created!!!
