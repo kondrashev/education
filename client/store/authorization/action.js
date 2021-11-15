@@ -22,6 +22,10 @@ export const checkUserFetchData = (data) => async (dispatch) => {
     setValues({ ...values, login: response.login, typeUser: response.role });
     localStorage.setItem("token", `Bearer ${response.token}`);
   } else {
-    setValues({ ...values, errorForm: true });
+    setValues({
+      ...values,
+      errorForm: true,
+      errorMessage: "Incorrect login or password!!!",
+    });
   }
 };

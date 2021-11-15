@@ -9,14 +9,26 @@ export const addDisciplineFetchData = (data) => async (dispatch) => {
     },
     body: JSON.stringify({ name: nameDiscipline }),
   });
-  response = await response.json();
-  if (response.name) {
+  if (response.status === 200) {
+    response = await response.json();
+    if (response.name) {
+      setValues({
+        ...values,
+        updateDiscipline: response.name,
+        nameDiscipline: "",
+      });
+    } else {
+      setValues({
+        ...values,
+        errorForm: true,
+        errorMessage: "This discipline has already created!!!",
+      });
+    }
+  } else {
     setValues({
       ...values,
-      updateDiscipline: response.name,
-      nameDiscipline: "",
+      errorForm: true,
+      errorMessage: `Error from server №${response.status} ${response.statusText}!!!`,
     });
-  } else {
-    setValues({ ...values, errorForm: true });
   }
 };

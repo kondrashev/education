@@ -127,7 +127,7 @@ const AuthorizationForm = () => {
             setValues({ ...values, errorForm: false });
           }}
         >
-          Incorrect login or password!!!
+          {values.errorMessage}
         </Alert>
       )}
     </Box>

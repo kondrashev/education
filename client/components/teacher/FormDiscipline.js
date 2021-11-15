@@ -107,7 +107,7 @@ const FormDiscipline = () => {
             });
           }}
         >
-          This discipline has already created!!!
+          {values.errorMessage}
         </Alert>
       )}
     </Box>
