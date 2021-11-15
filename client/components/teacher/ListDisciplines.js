@@ -57,7 +57,7 @@ const ListDisciplines = () => {
       setValues,
     };
     getDisciplines(data);
-  }, []);
+  }, [values.updateDiscipline]);
   const showNavigation = (name) => {
     setValues({
       ...values,
@@ -66,7 +66,7 @@ const ListDisciplines = () => {
     });
   };
   const animationFormDiscipline = useSpring({
-    marginLeft: values.showFormDiscipline ? -725 : -1125,
+    marginLeft: values.showFormDiscipline ? -727 : -1127,
     config: { duration: 1000 },
   });
   return (
@@ -97,7 +97,7 @@ const ListDisciplines = () => {
           </div>
         ))}
       </List>
-      <Box mt={-30}>
+      <Box position="fixed" mt={-2}>
         <a.div style={animationFormDiscipline}>
           <FormDiscipline />
         </a.div>

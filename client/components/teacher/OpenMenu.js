@@ -10,7 +10,6 @@ import Logout from "@mui/icons-material/Logout";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { ApplictationContext } from "../../App";
-import zIndex from "@mui/material/styles/zIndex";
 
 export default function OpenMenu() {
   const { values, setValues } = useContext(ApplictationContext);

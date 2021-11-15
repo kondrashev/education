@@ -1,6 +1,11 @@
 import React, { useContext, useRef } from "react";
 import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import { ApplictationContext } from "../../App";
+import { useDispatch } from "react-redux";
+import endpoints from "../constants/Endpoints";
+import { addDisciplineFetchData } from "../../store/disciplines/action_add";
 
 const styles = {
   container: {
@@ -8,6 +13,10 @@ const styles = {
     height: "300px",
     background: "#F1F3F4",
     borderRadius: "10px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   buttonClose: {
     width: "30px",
@@ -17,10 +26,16 @@ const styles = {
     backgroundColor: "initial",
     cursor: "pointer",
   },
+  fields: {
+    width: "360px",
+    height: "50px",
+    marginBottom: "20px",
+  },
 };
 const FormDiscipline = () => {
-  const { values, setValues } = useContext(ApplictationContext);
   const hover = useRef("");
+  const dispatch = useDispatch();
+  const { values, setValues } = useContext(ApplictationContext);
   const hoverOn = () => {
     hover.current.style.borderRadius = "50%";
     hover.current.style.backgroundColor = "grey";
@@ -29,9 +44,20 @@ const FormDiscipline = () => {
     hover.current.style.borderRadius = "inherit";
     hover.current.style.backgroundColor = "inherit";
   };
+  const handleChangeName = (event) => {
+    setValues({ ...values, nameDiscipline: event.target.value });
+  };
+  const addDiscipline = () => {
+    const data = {
+      url: endpoints.addDiscipline,
+      values,
+      setValues,
+    };
+    dispatch(addDisciplineFetchData(data));
+  };
   return (
     <Box mt={1} ml={1} sx={styles.container}>
-      <Box ml={46}>
+      <Box mt={-3} ml={46}>
         <button
           ref={hover}
           style={styles.buttonClose}
@@ -47,6 +73,32 @@ const FormDiscipline = () => {
           </svg>
         </button>
       </Box>
+      <TextField
+        label="Назва"
+        value={values.nameDiscipline}
+        variant="outlined"
+        style={styles.fields}
+        onChange={handleChangeName}
+      />
+      <Button
+        variant="contained"
+        disabled={values.nameDiscipline ? false : true}
+        color="primary"
+        disableElevation
+        style={styles.fields}
+        onClick={addDiscipline}
+      >
+        Додати
+      </Button>
+      {values.errorAuthorization && (
+        <Alert
+          onClose={() => {
+            setValues({ ...values, errorAuthorization: false });
+          }}
+        >
+          This discipline has already created!!!
+        </Alert>
+      )}
     </Box>
   );
 };

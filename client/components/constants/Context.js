@@ -8,4 +8,6 @@ export const context = {
   valueNavigationItemDiscipline: "",
   openMenu: false,
   showFormDiscipline: false,
+  nameDiscipline: "",
+  updateDiscipline: false,
 };
