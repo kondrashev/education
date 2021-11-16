@@ -11,4 +11,5 @@ export const context = {
   showFormDiscipline: false,
   nameDiscipline: "",
   updateDiscipline: false,
+  showIconDeleteDiscipline: false,
 };

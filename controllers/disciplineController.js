@@ -38,10 +38,10 @@ class DisciplineController {
   }
   async deleteDisciplines(req, res) {
     const { listId } = req.body;
-    JSON.parse(listId).map(async (id) => {
+    listId.forEach(async (id) => {
       await Discipline.destroy({ where: { id } });
     });
-    return res.json();
+    return res.json(listId);
   }
   async uploadInformation(req, res, next) {
     try {

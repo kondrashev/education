@@ -34,7 +34,7 @@ const styles = {
   },
 };
 const FormDiscipline = () => {
-  const hover = useRef("");
+  const hover = useRef(false);
   const dispatch = useDispatch();
   const { values, setValues } = useContext(ApplictationContext);
   const hoverOn = () => {
