@@ -1,4 +1,13 @@
-export const deleteDisciplineFetchData = (data) => async (dispatch) => {
+import { UPDATE_DISCIPLINES_DATA_SUCCESS } from "./action_add";
+
+const deleteDisciplinesFetchDataSuccess = (payload) => {
+  return {
+    type: UPDATE_DISCIPLINES_DATA_SUCCESS,
+    payload,
+  };
+};
+
+export const deleteDisciplinesFetchData = (data) => async (dispatch) => {
   const { url, values, setValues, listId } = data;
   let response = await fetch(url, {
     method: "POST",
@@ -12,9 +21,9 @@ export const deleteDisciplineFetchData = (data) => async (dispatch) => {
     response = await response.json();
     setValues({
       ...values,
-      updateDiscipline: true,
+      showIconDeleteDisciplines: false,
     });
-    console.log(response[0]);
+    dispatch(deleteDisciplinesFetchDataSuccess(response));
   } else {
     setValues({
       ...values,

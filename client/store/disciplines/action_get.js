@@ -15,6 +15,7 @@ export const loadDisciplinesFetchData = (data) => async (dispatch) => {
   });
   if (response.status === 200) {
     response = await response.json();
+    console.log(response);
     dispatch(loadDisciplinesFetchDataSuccess(response));
   } else {
     console.log({ message: "Error!!!" });

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useCallback, useContext, useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -13,7 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { ApplictationContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { loadDisciplinesFetchData } from "../../store/disciplines/action_get";
-import { deleteDisciplineFetchData } from "../../store/disciplines/action_delete";
+import { deleteDisciplinesFetchData } from "../../store/disciplines/action_delete";
 import endpoints from "../constants/Endpoints";
 import CreateIcon from "@mui/icons-material/Create";
 import FormDiscipline from "./FormDiscipline";
@@ -48,18 +48,20 @@ const styles = {
   },
 };
 const ListDisciplines = () => {
-  const { values, setValues } = useContext(ApplictationContext);
   const dispatch = useDispatch();
-  const getDisciplines = (data) => dispatch(loadDisciplinesFetchData(data));
-  const listDisciplines = useSelector((state) => state.disciplineReducer);
+  const { values, setValues } = useContext(ApplictationContext);
+  const disciplinesList = useSelector((state) => state.disciplineReducer);
+  const updateDisciplines = useSelector(
+    (state) => state.updateDisciplinesReducer
+  );
   useEffect(() => {
     const data = {
       url: endpoints.getDiscipline,
       values,
       setValues,
     };
-    getDisciplines(data);
-  }, [values.updateDiscipline]);
+    dispatch(loadDisciplinesFetchData(data));
+  }, [updateDisciplines]);
   const showNavigation = (name) => {
     setValues({
       ...values,
@@ -85,19 +87,19 @@ const ListDisciplines = () => {
     }
     setValues({
       ...values,
-      showIconDeleteDiscipline: Boolean(listIdDisciplines.current.length),
+      showIconDeleteDisciplines: Boolean(listIdDisciplines.current.length),
     });
   };
-  const deleteDiscipline = () => {
+  const deleteDisciplines = () => {
     const { current } = listIdDisciplines;
+    listIdDisciplines.current = [];
     const data = {
       url: endpoints.deleteDiscipline,
       values,
       setValues,
       listId: current,
     };
-    listIdDisciplines.current = [];
-    dispatch(deleteDisciplineFetchData(data));
+    dispatch(deleteDisciplinesFetchData(data));
   };
   return (
     <Box mt={2} sx={styles.container}>
@@ -106,12 +108,12 @@ const ListDisciplines = () => {
         edge="end"
         aria-label="delete"
         style={styles.deleteIcon}
-        onClick={deleteDiscipline}
+        onClick={deleteDisciplines}
       >
-        {values.showIconDeleteDiscipline && <DeleteIcon />}
+        {values.showIconDeleteDisciplines && <DeleteIcon />}
       </IconButton>
       <List>
-        {listDisciplines.map((item) => (
+        {disciplinesList.map((item) => (
           <div style={styles.listItem} key={item.id}>
             <Checkbox value={item.id} onChange={getListIdDisciplines} />
             <IconButton style={styles.iconEdit}>

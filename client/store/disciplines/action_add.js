@@ -1,3 +1,13 @@
+export const UPDATE_DISCIPLINES_DATA_SUCCESS =
+  "UPDATE_DISCIPLINES_DATA_SUCCESS";
+
+const addDisciplineFetchDataSuccess = (payload) => {
+  return {
+    type: UPDATE_DISCIPLINES_DATA_SUCCESS,
+    payload,
+  };
+};
+
 export const addDisciplineFetchData = (data) => async (dispatch) => {
   const { url, values, setValues } = data;
   const { nameDiscipline } = values;
@@ -11,10 +21,10 @@ export const addDisciplineFetchData = (data) => async (dispatch) => {
   });
   if (response.status === 200) {
     response = await response.json();
+    dispatch(addDisciplineFetchDataSuccess(response));
     if (response.name) {
       setValues({
         ...values,
-        updateDiscipline: response.name,
         nameDiscipline: "",
       });
     } else {

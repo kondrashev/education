@@ -30,12 +30,12 @@ class GroupController {
     const groups = await Group.findAll();
     return res.json(groups);
   }
-  async deleteGroups(req, res) {
+  deleteGroups(req, res) {
     const { listId } = req.body;
-    JSON.parse(listId).map(async (id) => {
+    JSON.parse(listId).forEach(async (id) => {
       await Group.destroy({ where: { id } });
+      return res.json(listId);
     });
-    return res.json();
   }
 }
 module.exports = new GroupController();
