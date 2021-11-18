@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -18,6 +18,7 @@ import endpoints from "../constants/Endpoints";
 import CreateIcon from "@mui/icons-material/Create";
 import FormDiscipline from "./FormDiscipline";
 import { useSpring, animated as a } from "react-spring";
+import Discipline from "./Discipline";
 
 const styles = {
   container: {
@@ -40,7 +41,7 @@ const styles = {
     alignItems: "center",
     cursor: "pointer",
   },
-  iconEdit: { marginLeft: "10px" },
+  iconEdit: { marginLeft: "20px", cursor: "pointer", zIndex: 1000 },
   listItemText: {
     display: "flex",
     justifyContent: "space-between",
@@ -114,23 +115,31 @@ const ListDisciplines = () => {
       </IconButton>
       <List>
         {disciplinesList.map((item) => (
-          <div style={styles.listItem} key={item.id}>
-            <Checkbox value={item.id} onChange={getListIdDisciplines} />
-            <IconButton style={styles.iconEdit}>
-              <CreateIcon />
-            </IconButton>
-            <ListItem
-              style={styles.listItemText}
-              onClick={() => showNavigation(item.name)}
-            >
-              <ListItemAvatar>
-                <Avatar>
-                  <FolderIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={item.name} />
-            </ListItem>
-          </div>
+          <Discipline
+            item={item}
+            showNavigation={showNavigation}
+            getListIdDisciplines={getListIdDisciplines}
+          />
+          // <Box sx={styles.listItem} key={item.id}>
+          //   <Checkbox value={item.id} onChange={getListIdDisciplines} />
+          //   <IconButton style={styles.iconEdit}>
+          //     <CreateIcon />
+          //   </IconButton>
+          //   <ListItem
+          //     style={styles.listItemText}
+          //     onClick={() => showNavigation(item.name)}
+          //   >
+          //     <ListItemAvatar>
+          //       <Avatar>
+          //         <FolderIcon />
+          //       </Avatar>
+          //     </ListItemAvatar>
+          //     <ListItemText primary={item.name} />
+          //   </ListItem>
+          //   <ListItem style={styles.listItemText}>
+          //     <input />
+          //   </ListItem>
+          // </Box>
         ))}
       </List>
       <Box sx={{ position: "fixed", top: "150px" }}>
