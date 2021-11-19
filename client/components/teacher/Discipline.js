@@ -9,6 +9,9 @@ import CreateIcon from "@mui/icons-material/Create";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import { ApplictationContext } from "../../App";
+import endpoints from "../constants/Endpoints";
+import { useDispatch } from "react-redux";
+import { updateDisciplineFetchData } from "../../store/disciplines/action_edit";
 
 const styles = {
   listItem: {
@@ -27,11 +30,27 @@ const styles = {
 };
 const Discipline = (props) => {
   const refInput = useRef("");
+  const dispatch = useDispatch();
   const [showInputEditItem, setShowInputEditItem] = useState(false);
   const { values, setValues } = useContext(ApplictationContext);
   const { item, showNavigation, getListIdDisciplines } = props;
-  const editItem = (id) => {
+  const editNameItem = (event) => {
+    setValues({ ...values, nameDiscipline: event.target.value });
+  };
+  const editItem = () => {
     setShowInputEditItem(!showInputEditItem);
+  };
+  const nameEditItem = (id, event) => {
+    if (event.key === "Enter") {
+      const data = {
+        url: endpoints.updateDiscipline,
+        values,
+        setValues,
+        id,
+        setShowInputEditItem,
+      };
+      dispatch(updateDisciplineFetchData(data));
+    }
   };
   useEffect(() => {
     showInputEditItem && refInput.current.focus();
@@ -39,7 +58,7 @@ const Discipline = (props) => {
   return (
     <Box sx={styles.listItem}>
       <Checkbox value={item.id} onChange={getListIdDisciplines} />
-      <IconButton style={styles.iconEdit} onClick={() => editItem(item.id)}>
+      <IconButton style={styles.iconEdit} onClick={editItem}>
         <CreateIcon />
       </IconButton>
       <ListItem
@@ -54,7 +73,14 @@ const Discipline = (props) => {
         <ListItemText primary={item.name} />
       </ListItem>
       <ListItem style={styles.listItemText}>
-        {showInputEditItem && <input ref={refInput} />}
+        {showInputEditItem && (
+          <input
+            ref={refInput}
+            value={values.nameDiscipline}
+            onChange={editNameItem}
+            onKeyPress={(event) => nameEditItem(item.id, event)}
+          />
+        )}
       </ListItem>
     </Box>
   );
