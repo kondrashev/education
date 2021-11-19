@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
@@ -8,6 +8,7 @@ import FolderIcon from "@mui/icons-material/Folder";
 import CreateIcon from "@mui/icons-material/Create";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
+import { ApplictationContext } from "../../App";
 
 const styles = {
   listItem: {
@@ -25,11 +26,20 @@ const styles = {
   },
 };
 const Discipline = (props) => {
+  const refInput = useRef("");
+  const [showInputEditItem, setShowInputEditItem] = useState(false);
+  const { values, setValues } = useContext(ApplictationContext);
   const { item, showNavigation, getListIdDisciplines } = props;
+  const editItem = (id) => {
+    setShowInputEditItem(!showInputEditItem);
+  };
+  useEffect(() => {
+    showInputEditItem && refInput.current.focus();
+  }, [showInputEditItem]);
   return (
-    <Box sx={styles.listItem} key={item.id}>
+    <Box sx={styles.listItem}>
       <Checkbox value={item.id} onChange={getListIdDisciplines} />
-      <IconButton style={styles.iconEdit}>
+      <IconButton style={styles.iconEdit} onClick={() => editItem(item.id)}>
         <CreateIcon />
       </IconButton>
       <ListItem
@@ -44,7 +54,7 @@ const Discipline = (props) => {
         <ListItemText primary={item.name} />
       </ListItem>
       <ListItem style={styles.listItemText}>
-        <input />
+        {showInputEditItem && <input ref={refInput} />}
       </ListItem>
     </Box>
   );

@@ -1,21 +1,14 @@
 import React, { useContext, useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
-import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ApplictationContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { loadDisciplinesFetchData } from "../../store/disciplines/action_get";
 import { deleteDisciplinesFetchData } from "../../store/disciplines/action_delete";
 import endpoints from "../constants/Endpoints";
-import CreateIcon from "@mui/icons-material/Create";
 import FormDiscipline from "./FormDiscipline";
 import { useSpring, animated as a } from "react-spring";
 import Discipline from "./Discipline";
@@ -119,27 +112,8 @@ const ListDisciplines = () => {
             item={item}
             showNavigation={showNavigation}
             getListIdDisciplines={getListIdDisciplines}
+            key={item.id}
           />
-          // <Box sx={styles.listItem} key={item.id}>
-          //   <Checkbox value={item.id} onChange={getListIdDisciplines} />
-          //   <IconButton style={styles.iconEdit}>
-          //     <CreateIcon />
-          //   </IconButton>
-          //   <ListItem
-          //     style={styles.listItemText}
-          //     onClick={() => showNavigation(item.name)}
-          //   >
-          //     <ListItemAvatar>
-          //       <Avatar>
-          //         <FolderIcon />
-          //       </Avatar>
-          //     </ListItemAvatar>
-          //     <ListItemText primary={item.name} />
-          //   </ListItem>
-          //   <ListItem style={styles.listItemText}>
-          //     <input />
-          //   </ListItem>
-          // </Box>
         ))}
       </List>
       <Box sx={{ position: "fixed", top: "150px" }}>
