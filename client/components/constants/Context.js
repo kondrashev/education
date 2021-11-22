@@ -10,5 +10,6 @@ export const context = {
   openMenu: false,
   showFormDiscipline: false,
   nameDiscipline: "",
-  showIconDeleteDisciplines: false,
+  nameGroup: "",
+  showIconDeleteItems: false,
 };

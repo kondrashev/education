@@ -6,12 +6,12 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ApplictationContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import { loadDisciplinesFetchData } from "../../store/disciplines/action_get";
+import { loadItemsFetchData } from "../../store/disciplines/action_get";
 import { deleteDisciplinesFetchData } from "../../store/disciplines/action_delete";
 import endpoints from "../constants/Endpoints";
 import FormDiscipline from "./FormDiscipline";
 import { useSpring, animated as a } from "react-spring";
-import Discipline from "./Discipline";
+import Item from "./Item";
 
 const styles = {
   container: {
@@ -41,21 +41,19 @@ const styles = {
     marginLeft: "50px",
   },
 };
-const ListDisciplines = () => {
+const ListItems = () => {
   const dispatch = useDispatch();
   const { values, setValues } = useContext(ApplictationContext);
-  const disciplinesList = useSelector((state) => state.disciplineReducer);
-  const updateDisciplines = useSelector(
-    (state) => state.updateDisciplinesReducer
-  );
+  const itemsList = useSelector((state) => state.disciplineReducer);
+  const updateItems = useSelector((state) => state.updateDisciplinesReducer);
   useEffect(() => {
     const data = {
-      url: endpoints.getDiscipline,
+      url: endpoints.getDisciplines,
       values,
       setValues,
     };
-    dispatch(loadDisciplinesFetchData(data));
-  }, [updateDisciplines]);
+    dispatch(loadItemsFetchData(data));
+  }, [updateItems]);
   const showNavigation = (name) => {
     setValues({
       ...values,
@@ -67,28 +65,28 @@ const ListDisciplines = () => {
     marginLeft: values.showFormDiscipline ? -727 : -1127,
     config: { duration: 1000 },
   });
-  const listIdDisciplines = useRef([]);
-  const getListIdDisciplines = (event) => {
+  const listIdItems = useRef([]);
+  const getListIdItems = (event) => {
     if (event.target.checked) {
-      listIdDisciplines.current = [
-        ...listIdDisciplines.current,
+      listIdItems.current = [
+        ...listIdItems.current,
         parseInt(event.target.value),
       ];
     } else {
-      listIdDisciplines.current = listIdDisciplines.current.filter(
+      listIdItems.current = listIdItems.current.filter(
         (item) => item !== parseInt(event.target.value)
       );
     }
     setValues({
       ...values,
-      showIconDeleteDisciplines: Boolean(listIdDisciplines.current.length),
+      showIconDeleteItems: Boolean(listIdItems.current.length),
     });
   };
-  const deleteDisciplines = () => {
-    const { current } = listIdDisciplines;
-    listIdDisciplines.current = [];
+  const deleteItems = () => {
+    const { current } = listIdItems;
+    listIdItems.current = [];
     const data = {
-      url: endpoints.deleteDiscipline,
+      url: endpoints.deleteDisciplines,
       values,
       setValues,
       listId: current,
@@ -97,21 +95,21 @@ const ListDisciplines = () => {
   };
   return (
     <Box mt={2} sx={styles.container}>
-      <Typography style={styles.title}>Список дисциплін</Typography>
+      <Typography style={styles.title}>Дисципліни</Typography>
       <IconButton
         edge="end"
         aria-label="delete"
         style={styles.deleteIcon}
-        onClick={deleteDisciplines}
+        onClick={deleteItems}
       >
-        {values.showIconDeleteDisciplines && <DeleteIcon />}
+        {values.showIconDeleteItems && <DeleteIcon />}
       </IconButton>
       <List>
-        {disciplinesList.map((item) => (
-          <Discipline
+        {itemsList.map((item) => (
+          <Item
             item={item}
             showNavigation={showNavigation}
-            getListIdDisciplines={getListIdDisciplines}
+            getListIdItems={getListIdItems}
             key={item.id}
           />
         ))}
@@ -124,4 +122,4 @@ const ListDisciplines = () => {
     </Box>
   );
 };
-export default ListDisciplines;
+export default ListItems;

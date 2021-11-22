@@ -1,12 +1,12 @@
 export const LOAD_DISCIPLINES_DATA_SUCCESS = "LOAD_DISCIPLINES_DATA_SUCCESS";
 
-const loadDisciplinesFetchDataSuccess = (disciplines) => {
+const loadItemsFetchDataSuccess = (disciplines) => {
   return {
     type: LOAD_DISCIPLINES_DATA_SUCCESS,
     disciplines,
   };
 };
-export const loadDisciplinesFetchData = (data) => async (dispatch) => {
+export const loadItemsFetchData = (data) => async (dispatch) => {
   const { url, values, setValues } = data;
   let response = await fetch(url, {
     headers: {
@@ -15,7 +15,7 @@ export const loadDisciplinesFetchData = (data) => async (dispatch) => {
   });
   if (response.status === 200) {
     response = await response.json();
-    dispatch(loadDisciplinesFetchDataSuccess(response));
+    dispatch(loadItemsFetchDataSuccess(response));
   } else {
     console.log({ message: "Error!!!" });
   }

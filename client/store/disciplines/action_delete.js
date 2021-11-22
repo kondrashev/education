@@ -21,7 +21,7 @@ export const deleteDisciplinesFetchData = (data) => async (dispatch) => {
     response = await response.json();
     setValues({
       ...values,
-      showIconDeleteDisciplines: false,
+      showIconDeleteItems: false,
     });
     dispatch(deleteDisciplinesFetchDataSuccess(response));
   } else {

@@ -28,12 +28,12 @@ const styles = {
     marginLeft: "50px",
   },
 };
-const Discipline = (props) => {
+const Item = (props) => {
   const refInput = useRef("");
   const dispatch = useDispatch();
   const [showInputEditItem, setShowInputEditItem] = useState(false);
   const { values, setValues } = useContext(ApplictationContext);
-  const { item, showNavigation, getListIdDisciplines } = props;
+  const { item, showNavigation, getListIdItems } = props;
   const editNameItem = (event) => {
     setValues({ ...values, nameDiscipline: event.target.value });
   };
@@ -57,7 +57,7 @@ const Discipline = (props) => {
   }, [showInputEditItem]);
   return (
     <Box sx={styles.listItem}>
-      <Checkbox value={item.id} onChange={getListIdDisciplines} />
+      <Checkbox value={item.id} onChange={getListIdItems} />
       <IconButton style={styles.iconEdit} onClick={editItem}>
         <CreateIcon />
       </IconButton>
@@ -85,4 +85,4 @@ const Discipline = (props) => {
     </Box>
   );
 };
-export default Discipline;
+export default Item;

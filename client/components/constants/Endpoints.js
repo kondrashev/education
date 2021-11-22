@@ -1,7 +1,7 @@
 export default {
   signIn: "/user/authorisation",
-  getDiscipline: "/discipline/get",
+  getDisciplines: "/discipline/get",
   addDiscipline: "/discipline/add",
-  deleteDiscipline: "/discipline/delete",
+  deleteDisciplines: "/discipline/delete",
   updateDiscipline: "/discipline/update",
 };
