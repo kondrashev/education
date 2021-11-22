@@ -21,6 +21,7 @@ export const checkUserFetchData = (data) => async (dispatch) => {
     dispatch(checkUserFetchDataSuccess(response));
     setValues({ ...values, login: response.login, typeUser: response.role });
     localStorage.setItem("token", `Bearer ${response.token}`);
+    console.log(response.token); //
   } else {
     setValues({
       ...values,

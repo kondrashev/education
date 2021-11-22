@@ -6,7 +6,8 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ApplictationContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import { loadItemsFetchData } from "../../store/disciplines/action_get";
+import { loadDisciplinesFetchData } from "../../store/disciplines/action_get";
+import { loadGroupsFetchData } from "../../store/groups/action_get";
 import { deleteDisciplinesFetchData } from "../../store/disciplines/action_delete";
 import endpoints from "../constants/Endpoints";
 import FormDiscipline from "./FormDiscipline";
@@ -44,22 +45,33 @@ const styles = {
 const ListItems = () => {
   const dispatch = useDispatch();
   const { values, setValues } = useContext(ApplictationContext);
-  const itemsList = useSelector((state) => state.disciplineReducer);
+  const itemsList = useSelector((state) =>
+    !values.getGroups ? state.disciplineReducer : state.groupReducer
+  );
   const updateItems = useSelector((state) => state.updateDisciplinesReducer);
+  const suffixURL = useRef("");
   useEffect(() => {
     const data = {
-      url: endpoints.getDisciplines,
+      url: !values.getGroups
+        ? endpoints.getDisciplines
+        : `${endpoints.getGroups}?disciplineId=${suffixURL.current}`,
       values,
       setValues,
     };
-    dispatch(loadItemsFetchData(data));
-  }, [updateItems]);
-  const showNavigation = (name) => {
+    dispatch(
+      !values.getGroups
+        ? loadDisciplinesFetchData(data)
+        : loadGroupsFetchData(data)
+    );
+  }, [updateItems, values.getGroups]);
+  const showNavigation = (name, disciplineId) => {
     setValues({
       ...values,
       shwoNavigationItemDiscipline: true,
       valueNavigationItemDiscipline: name,
+      getGroups: true,
     });
+    suffixURL.current = disciplineId;
   };
   const animationFormDiscipline = useSpring({
     marginLeft: values.showFormDiscipline ? -727 : -1127,
@@ -95,7 +107,9 @@ const ListItems = () => {
   };
   return (
     <Box mt={2} sx={styles.container}>
-      <Typography style={styles.title}>Дисципліни</Typography>
+      <Typography style={styles.title}>
+        {!values.getGroups ? "Дисципліни" : "Групи"}
+      </Typography>
       <IconButton
         edge="end"
         aria-label="delete"
@@ -108,7 +122,7 @@ const ListItems = () => {
         {itemsList.map((item) => (
           <Item
             item={item}
-            showNavigation={showNavigation}
+            showNavigation={() => showNavigation(item.name, item.id)}
             getListIdItems={getListIdItems}
             key={item.id}
           />

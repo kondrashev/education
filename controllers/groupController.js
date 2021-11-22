@@ -27,7 +27,8 @@ class GroupController {
     }
   }
   async getGroups(req, res) {
-    const groups = await Group.findAll();
+    const { disciplineId } = req.query;
+    const groups = await Group.findAll({ where: { disciplineId } });
     return res.json(groups);
   }
   deleteGroups(req, res) {

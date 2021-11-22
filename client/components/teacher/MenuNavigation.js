@@ -49,7 +49,11 @@ export default function MenuNavigation() {
           icon={<HomeIcon fontSize="small" />}
           style={styles.styledBreadcrumbItem}
           onClick={() => {
-            setValues({ ...values, shwoNavigationItemDiscipline: false });
+            setValues({
+              ...values,
+              shwoNavigationItemDiscipline: false,
+              getGroups: false,
+            });
           }}
         />
         {values.shwoNavigationItemDiscipline && (

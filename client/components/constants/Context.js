@@ -12,4 +12,5 @@ export const context = {
   nameDiscipline: "",
   nameGroup: "",
   showIconDeleteItems: false,
+  getGroups: false,
 };
