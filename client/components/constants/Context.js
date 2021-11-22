@@ -13,4 +13,7 @@ export const context = {
   nameGroup: "",
   showIconDeleteItems: false,
   getGroups: false,
+  showNameGroup: false,
+  showSurNameStudent: false,
+  disabledDiscipline: true,
 };

@@ -7,6 +7,11 @@ import { useDispatch } from "react-redux";
 import endpoints from "../constants/Endpoints";
 import { addDisciplineFetchData } from "../../store/disciplines/action_add";
 import Alert from "@mui/material/Alert";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 
 const styles = {
   container: {
@@ -45,7 +50,7 @@ const FormItem = () => {
     hover.current.style.borderRadius = "inherit";
     hover.current.style.backgroundColor = "inherit";
   };
-  const handleChangeName = (event) => {
+  const changeNameDiscipline = (event) => {
     setValues({ ...values, nameDiscipline: event.target.value });
   };
   const onPressKey = (event) => {
@@ -60,6 +65,32 @@ const FormItem = () => {
       setValues,
     };
     dispatch(addDisciplineFetchData(data));
+  };
+  const choseItem = (event) => {
+    switch (event.target.value) {
+      case "Discipline":
+        setValues({
+          ...values,
+          showNameGroup: false,
+          showSurNameStudent: false,
+          disabledDiscipline: false,
+        });
+        break;
+      case "Group":
+        setValues({
+          ...values,
+          showNameGroup: true,
+          showSurNameStudent: false,
+        });
+        break;
+      case "Student":
+        setValues({
+          ...values,
+          showNameGroup: true,
+          showSurNameStudent: true,
+        });
+        break;
+    }
   };
   return (
     <Box mt={1} ml={1} sx={styles.container}>
@@ -79,14 +110,58 @@ const FormItem = () => {
           </svg>
         </button>
       </Box>
+      <FormControl component="fieldset">
+        <FormLabel component="legend">Додати</FormLabel>
+        <RadioGroup row aria-label="Додати" name="row-radio-buttons-group">
+          <FormControlLabel
+            value="Discipline"
+            control={<Radio />}
+            label="Дисципліна"
+            onChange={choseItem}
+          />
+          <FormControlLabel
+            value="Group"
+            control={<Radio />}
+            label="Група"
+            onChange={choseItem}
+          />
+          <FormControlLabel
+            value="Student"
+            control={<Radio />}
+            label="Студент"
+            onChange={choseItem}
+          />
+        </RadioGroup>
+      </FormControl>
       <TextField
-        label="Назва"
+        label="Дисципліна"
         value={values.nameDiscipline}
         variant="outlined"
         style={styles.fields}
-        onChange={handleChangeName}
+        onChange={changeNameDiscipline}
         onKeyPress={onPressKey}
+        disabled={values.disabledDiscipline}
       />
+      {values.showNameGroup && (
+        <TextField
+          label="Група"
+          // value={values.nameDiscipline}
+          variant="outlined"
+          style={styles.fields}
+          // onChange={changeNameGroup}
+          onKeyPress={onPressKey}
+        />
+      )}
+      {values.showSurNameStudent && (
+        <TextField
+          label="Студент"
+          // value={values.nameDiscipline}
+          variant="outlined"
+          style={styles.fields}
+          // onChange={changeSurNameStudent}
+          onKeyPress={onPressKey}
+        />
+      )}
       <Button
         variant="contained"
         disabled={values.nameDiscipline ? false : true}
