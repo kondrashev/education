@@ -11,7 +11,7 @@ import Alert from "@mui/material/Alert";
 const styles = {
   container: {
     width: "400px",
-    height: "300px",
+    height: "auto",
     background: "#F1F3F4",
     borderRadius: "10px",
     display: "flex",
@@ -33,7 +33,7 @@ const styles = {
     marginBottom: "20px",
   },
 };
-const FormDiscipline = () => {
+const FormItem = () => {
   const hover = useRef(false);
   const dispatch = useDispatch();
   const { values, setValues } = useContext(ApplictationContext);
@@ -113,4 +113,4 @@ const FormDiscipline = () => {
     </Box>
   );
 };
-export default FormDiscipline;
+export default FormItem;

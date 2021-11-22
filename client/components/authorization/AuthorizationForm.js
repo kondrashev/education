@@ -118,13 +118,14 @@ const AuthorizationForm = () => {
         disableElevation
         style={styles.fields}
         onClick={authorization}
+        disabled={values.errorForm ? true : false}
       >
         Authorization
       </Button>
       {values.errorForm && (
         <Alert
           onClose={() => {
-            setValues({ ...values, errorForm: false });
+            setValues({ ...values, errorForm: false, errorMessage: "" });
           }}
         >
           {values.errorMessage}

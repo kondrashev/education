@@ -4,6 +4,8 @@ import MenuNavigation from "./MenuNavigation";
 import ListItems from "./ListItems";
 import Box from "@mui/material/Box";
 import { ApplictationContext } from "../../App";
+import FormItem from "./FormItem";
+import { useSpring, animated as a } from "react-spring";
 
 const styles = {
   container: {
@@ -17,11 +19,20 @@ const styles = {
 };
 const Teacher = () => {
   const { values, setValues } = useContext(ApplictationContext);
+  const animationFormDiscipline = useSpring({
+    marginLeft: values.showFormDiscipline ? -727 : -1127,
+    config: { duration: 1000 },
+  });
   return (
     <Box sx={styles.container}>
       <MainMenu />
       <MenuNavigation />
       <ListItems />
+      <Box sx={{ position: "fixed", top: "150px" }}>
+        <a.div style={animationFormDiscipline}>
+          <FormItem />
+        </a.div>
+      </Box>
     </Box>
   );
 };

@@ -10,8 +10,6 @@ import { loadDisciplinesFetchData } from "../../store/disciplines/action_get";
 import { loadGroupsFetchData } from "../../store/groups/action_get";
 import { deleteDisciplinesFetchData } from "../../store/disciplines/action_delete";
 import endpoints from "../constants/Endpoints";
-import FormDiscipline from "./FormDiscipline";
-import { useSpring, animated as a } from "react-spring";
 import Item from "./Item";
 
 const styles = {
@@ -73,10 +71,6 @@ const ListItems = () => {
     });
     suffixURL.current = disciplineId;
   };
-  const animationFormDiscipline = useSpring({
-    marginLeft: values.showFormDiscipline ? -727 : -1127,
-    config: { duration: 1000 },
-  });
   const listIdItems = useRef([]);
   const getListIdItems = (event) => {
     if (event.target.checked) {
@@ -128,11 +122,6 @@ const ListItems = () => {
           />
         ))}
       </List>
-      <Box sx={{ position: "fixed", top: "150px" }}>
-        <a.div style={animationFormDiscipline}>
-          <FormDiscipline />
-        </a.div>
-      </Box>
     </Box>
   );
 };
