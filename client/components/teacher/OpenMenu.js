@@ -19,8 +19,8 @@ export default function OpenMenu() {
       openMenu: !values.openMenu ? event.currentTarget : false,
     });
   };
-  const openFormDiscipline = () => {
-    setValues({ ...values, openMenu: false, showFormDiscipline: true });
+  const openFormItem = () => {
+    setValues({ ...values, openMenu: false, showFormItem: true });
   };
   return (
     <>
@@ -74,7 +74,7 @@ export default function OpenMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={openFormDiscipline}>
+        <MenuItem onClick={openFormItem}>
           <ListItemIcon>
             <AddBusinessIcon fontSize="small" />
           </ListItemIcon>

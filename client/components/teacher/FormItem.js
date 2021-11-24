@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -59,10 +59,10 @@ const FormItem = () => {
   };
   const onPressKey = (event) => {
     if (event.key === "Enter") {
-      addDiscipline();
+      addItem();
     }
   };
-  const addDiscipline = () => {
+  const addItem = () => {
     const data = {
       url: endpoints.addDiscipline,
       values,
@@ -78,6 +78,9 @@ const FormItem = () => {
           showNameGroup: false,
           showSurNameStudent: false,
           disabledDiscipline: false,
+          checkedRadioDiscipline: true,
+          checkedRadioGroup: false,
+          checkedRadioStudent: false,
         });
         break;
       case "Group":
@@ -85,6 +88,9 @@ const FormItem = () => {
           ...values,
           showNameGroup: true,
           showSurNameStudent: false,
+          checkedRadioDiscipline: false,
+          checkedRadioGroup: true,
+          checkedRadioStudent: false,
         });
         break;
       case "Student":
@@ -92,6 +98,9 @@ const FormItem = () => {
           ...values,
           showNameGroup: true,
           showSurNameStudent: true,
+          checkedRadioDiscipline: false,
+          checkedRadioGroup: false,
+          checkedRadioStudent: true,
         });
         break;
     }
@@ -132,14 +141,17 @@ const FormItem = () => {
         <button
           ref={hover}
           style={styles.buttonClose}
-          onClick={() =>
+          onClick={() => {
             setValues({
               ...values,
-              showFormDiscipline: false,
+              showFormItem: false,
               showNameGroup: false,
               showSurNameStudent: false,
-            })
-          }
+              checkedRadioDiscipline: false,
+              checkedRadioGroup: false,
+              checkedRadioStudent: false,
+            });
+          }}
           onMouseOver={hoverOn}
           onMouseOut={hoverOff}
         >
@@ -159,18 +171,21 @@ const FormItem = () => {
             control={<Radio />}
             label="Дисципліна"
             onChange={choseItem}
+            checked={values.checkedRadioDiscipline}
           />
           <FormControlLabel
             value="Group"
             control={<Radio />}
             label="Група"
             onChange={choseItem}
+            checked={values.checkedRadioGroup}
           />
           <FormControlLabel
             value="Student"
             control={<Radio />}
             label="Студент"
             onChange={choseItem}
+            checked={values.checkedRadioStudent}
           />
         </RadioGroup>
       </FormControl>
@@ -194,7 +209,7 @@ const FormItem = () => {
           variant="outlined"
           style={styles.fields}
           // onChange={changeNameGroup}
-          onKeyPress={onPressKey}
+          // onKeyPress={onPressKey}
         />
       )}
       {values.showSurNameStudent && <SelectPosition type="Group" />}
@@ -205,7 +220,7 @@ const FormItem = () => {
           variant="outlined"
           style={styles.fields}
           // onChange={changeSurNameStudent}
-          onKeyPress={onPressKey}
+          // onKeyPress={onPressKey}
         />
       )}
       <Button
@@ -214,7 +229,7 @@ const FormItem = () => {
         color="primary"
         disableElevation
         style={styles.fields}
-        onClick={addDiscipline}
+        onClick={addItem}
       >
         Додати
       </Button>

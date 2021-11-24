@@ -8,7 +8,7 @@ export const context = {
   shwoNavigationItemDiscipline: false,
   valueNavigationItemDiscipline: "",
   openMenu: false,
-  showFormDiscipline: false,
+  showFormItem: false,
   nameDiscipline: "",
   nameGroup: "",
   showIconDeleteItems: false,
@@ -16,4 +16,7 @@ export const context = {
   showNameGroup: false,
   showSurNameStudent: false,
   disabledDiscipline: true,
+  checkedRadioDiscipline: false,
+  checkedRadioGroup: false,
+  checkedRadioStudent: false,
 };

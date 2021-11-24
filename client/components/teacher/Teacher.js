@@ -20,7 +20,7 @@ const styles = {
 const Teacher = () => {
   const { values, setValues } = useContext(ApplictationContext);
   const animationFormDiscipline = useSpring({
-    marginLeft: values.showFormDiscipline ? -727 : -1127,
+    marginLeft: values.showFormItem ? -727 : -1127,
     config: { duration: 1000 },
   });
   return (
