@@ -3,15 +3,19 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { ApplictationContext } from "../../App";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import endpoints from "../constants/Endpoints";
 import { addDisciplineFetchData } from "../../store/disciplines/action_add";
+import { loadGroupsFetchData } from "../../store/groups/action_get";
 import Alert from "@mui/material/Alert";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 const styles = {
   container: {
@@ -92,13 +96,50 @@ const FormItem = () => {
         break;
     }
   };
+  const handleChangePosition = (event) => {
+    const data = {
+      url: `${endpoints.getGroups}?disciplineId=${event.target.value}`,
+      values,
+      setValues,
+    };
+    dispatch(loadGroupsFetchData(data));
+  };
+  const SelectPosition = ({ type }) => {
+    const itemsList = useSelector((state) =>
+      type === "Discipline" ? state.disciplineReducer : state.groupReducer
+    );
+    return (
+      <FormControl style={styles.fields}>
+        <InputLabel id="demo-simple-select-label">Поз.</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Age"
+          onChange={handleChangePosition}
+        >
+          {itemsList.map((item) => (
+            <MenuItem key={item.id} value={item.id}>
+              {item.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    );
+  };
   return (
     <Box mt={1} ml={1} sx={styles.container}>
       <Box mt={-3} ml={46}>
         <button
           ref={hover}
           style={styles.buttonClose}
-          onClick={() => setValues({ ...values, showFormDiscipline: false })}
+          onClick={() =>
+            setValues({
+              ...values,
+              showFormDiscipline: false,
+              showNameGroup: false,
+              showSurNameStudent: false,
+            })
+          }
           onMouseOver={hoverOn}
           onMouseOut={hoverOff}
         >
@@ -133,16 +174,20 @@ const FormItem = () => {
           />
         </RadioGroup>
       </FormControl>
-      <TextField
-        label="Дисципліна"
-        value={values.nameDiscipline}
-        variant="outlined"
-        style={styles.fields}
-        onChange={changeNameDiscipline}
-        onKeyPress={onPressKey}
-        disabled={values.disabledDiscipline}
-      />
-      {values.showNameGroup && (
+      {!values.showNameGroup ? (
+        <TextField
+          label="Дисципліна"
+          value={values.nameDiscipline}
+          variant="outlined"
+          style={styles.fields}
+          onChange={changeNameDiscipline}
+          onKeyPress={onPressKey}
+          disabled={values.disabledDiscipline}
+        />
+      ) : (
+        <SelectPosition type="Discipline" />
+      )}
+      {values.showNameGroup && !values.showSurNameStudent && (
         <TextField
           label="Група"
           // value={values.nameDiscipline}
@@ -152,6 +197,7 @@ const FormItem = () => {
           onKeyPress={onPressKey}
         />
       )}
+      {values.showSurNameStudent && <SelectPosition type="Group" />}
       {values.showSurNameStudent && (
         <TextField
           label="Студент"
