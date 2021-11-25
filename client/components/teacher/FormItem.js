@@ -63,12 +63,20 @@ const FormItem = () => {
     }
   };
   const addItem = () => {
+    const { current } = itemId;
     const data = {
-      url: endpoints.addDiscipline,
+      url: values.checkedRadioDiscipline
+        ? endpoints.addDiscipline
+        : values.checkedRadioGroup
+        ? endpoints.addGroup
+        : endpoints.addStudent,
       values,
       setValues,
+      id: current,
     };
-    dispatch(addDisciplineFetchData(data));
+    dispatch(
+      values.checkedRadioDiscipline ? addDisciplineFetchData(data) : null
+    );
   };
   const choseItem = (event) => {
     switch (event.target.value) {
@@ -105,7 +113,9 @@ const FormItem = () => {
         break;
     }
   };
+  const itemId = useRef(0);
   const handleChangePosition = (event) => {
+    itemId.current = event.target.value;
     const data = {
       url: `${endpoints.getGroups}?disciplineId=${event.target.value}`,
       values,
