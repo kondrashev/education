@@ -46,7 +46,11 @@ const ListItems = () => {
   const itemsList = useSelector((state) =>
     !values.getGroups ? state.disciplineReducer : state.groupReducer
   );
-  const updateItems = useSelector((state) => state.updateDisciplinesReducer);
+  const updateItems = useSelector((state) =>
+    !values.getGroups
+      ? state.updateDisciplinesReducer
+      : state.updateGroupsReducer
+  );
   const suffixURL = useRef("");
   useEffect(() => {
     const data = {

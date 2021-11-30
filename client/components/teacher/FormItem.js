@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -6,6 +6,7 @@ import { ApplictationContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import endpoints from "../constants/Endpoints";
 import { addDisciplineFetchData } from "../../store/disciplines/action_add";
+import { addGroupFetchData } from "../../store/groups/action_add";
 import { loadGroupsFetchData } from "../../store/groups/action_get";
 import Alert from "@mui/material/Alert";
 import Radio from "@mui/material/Radio";
@@ -54,8 +55,11 @@ const FormItem = () => {
     hover.current.style.borderRadius = "inherit";
     hover.current.style.backgroundColor = "inherit";
   };
-  const changeNameDiscipline = (event) => {
-    setValues({ ...values, nameDiscipline: event.target.value });
+  const changeNameItem = (event) => {
+    values.checkedRadioDiscipline &&
+      setValues({ ...values, nameDiscipline: event.target.value });
+    values.checkedRadioGroup &&
+      setValues({ ...values, nameGroup: event.target.value });
   };
   const onPressKey = (event) => {
     if (event.key === "Enter") {
@@ -75,7 +79,9 @@ const FormItem = () => {
       id: current,
     };
     dispatch(
-      values.checkedRadioDiscipline ? addDisciplineFetchData(data) : null
+      values.checkedRadioDiscipline
+        ? addDisciplineFetchData(data)
+        : addGroupFetchData(data)
     );
   };
   const choseItem = (event) => {
@@ -205,7 +211,7 @@ const FormItem = () => {
           value={values.nameDiscipline}
           variant="outlined"
           style={styles.fields}
-          onChange={changeNameDiscipline}
+          onChange={changeNameItem}
           onKeyPress={onPressKey}
           disabled={values.disabledDiscipline}
         />
@@ -215,21 +221,21 @@ const FormItem = () => {
       {values.showNameGroup && !values.showSurNameStudent && (
         <TextField
           label="Група"
-          // value={values.nameDiscipline}
+          value={values.nameGroup}
           variant="outlined"
           style={styles.fields}
-          // onChange={changeNameGroup}
-          // onKeyPress={onPressKey}
+          onChange={changeNameItem}
+          onKeyPress={onPressKey}
         />
       )}
       {values.showSurNameStudent && <SelectPosition type="Group" />}
       {values.showSurNameStudent && (
         <TextField
           label="Студент"
-          // value={values.nameDiscipline}
+          // value={values.nameStudent}
           variant="outlined"
           style={styles.fields}
-          // onChange={changeSurNameStudent}
+          // onChange={changeNameItem}
           // onKeyPress={onPressKey}
         />
       )}

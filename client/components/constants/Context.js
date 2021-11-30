@@ -11,6 +11,7 @@ export const context = {
   showFormItem: false,
   nameDiscipline: "",
   nameGroup: "",
+  nameStudent: "",
   showIconDeleteItems: false,
   getGroups: false,
   showNameGroup: false,
