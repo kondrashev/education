@@ -46,13 +46,7 @@ const ListItems = () => {
   const itemsList = useSelector((state) =>
     !values.getGroups ? state.disciplineReducer : state.groupReducer
   );
-  const updateItems = useSelector((state) =>
-    values.checkedRadioDiscipline
-      ? state.updateDisciplinesReducer
-      : values.checkedRadioGroup
-      ? state.updateGroupsReducer
-      : null
-  );
+  const updateItems = useSelector((state) => state.updateDisciplinesReducer);
   const suffixURL = useRef("");
   useEffect(() => {
     const data = {

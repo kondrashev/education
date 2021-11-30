@@ -6,7 +6,6 @@ import { ApplictationContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import endpoints from "../constants/Endpoints";
 import { addDisciplineFetchData } from "../../store/disciplines/action_add";
-import { addGroupFetchData } from "../../store/groups/action_add";
 import { loadGroupsFetchData } from "../../store/groups/action_get";
 import Alert from "@mui/material/Alert";
 import Radio from "@mui/material/Radio";
@@ -55,11 +54,8 @@ const FormItem = () => {
     hover.current.style.borderRadius = "inherit";
     hover.current.style.backgroundColor = "inherit";
   };
-  const changeNameItem = (event) => {
-    values.checkedRadioDiscipline &&
-      setValues({ ...values, nameDiscipline: event.target.value });
-    values.checkedRadioGroup &&
-      setValues({ ...values, nameGroup: event.target.value });
+  const changeNameDiscipline = (event) => {
+    setValues({ ...values, nameDiscipline: event.target.value });
   };
   const onPressKey = (event) => {
     if (event.key === "Enter") {
@@ -79,9 +75,7 @@ const FormItem = () => {
       id: current,
     };
     dispatch(
-      values.checkedRadioDiscipline
-        ? addDisciplineFetchData(data)
-        : addGroupFetchData(data)
+      values.checkedRadioDiscipline ? addDisciplineFetchData(data) : null
     );
   };
   const choseItem = (event) => {
@@ -211,7 +205,7 @@ const FormItem = () => {
           value={values.nameDiscipline}
           variant="outlined"
           style={styles.fields}
-          onChange={changeNameItem}
+          onChange={changeNameDiscipline}
           onKeyPress={onPressKey}
           disabled={values.disabledDiscipline}
         />
@@ -221,11 +215,11 @@ const FormItem = () => {
       {values.showNameGroup && !values.showSurNameStudent && (
         <TextField
           label="Група"
-          value={values.nameGroup}
+          // value={values.nameDiscipline}
           variant="outlined"
           style={styles.fields}
-          onChange={changeNameItem}
-          onKeyPress={onPressKey}
+          // onChange={changeNameGroup}
+          // onKeyPress={onPressKey}
         />
       )}
       {values.showSurNameStudent && <SelectPosition type="Group" />}
