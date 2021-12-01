@@ -30,7 +30,7 @@ class StudentController {
   }
   deleteStudents(req, res) {
     const { listId } = req.body;
-    JSON.parse(listId).forEach(async (id) => {
+    listId.forEach(async (id) => {
       await Student.destroy({ where: { id } });
       return res.json(listId);
     });

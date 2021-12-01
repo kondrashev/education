@@ -6,5 +6,6 @@ export default {
   updateDiscipline: "/discipline/update",
   getGroups: "/group/get",
   addGroup: "/group/add",
+  deleteGroups: "/group/delete",
   addStudent: "/student/add",
 };

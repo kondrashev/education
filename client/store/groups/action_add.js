@@ -1,6 +1,6 @@
 export const UPDATE_GROUPS_DATA_SUCCESS = "UPDATE_GROUPS_DATA_SUCCESS";
 
-const addGroupFetchDataSuccess = (payload) => {
+export const updateGroupFetchDataSuccess = (payload) => {
   return {
     type: UPDATE_GROUPS_DATA_SUCCESS,
     payload,
@@ -20,7 +20,7 @@ export const addGroupFetchData = (data) => async (dispatch) => {
   });
   if (response.status === 200) {
     response = await response.json();
-    dispatch(addGroupFetchDataSuccess(response));
+    dispatch(updateGroupFetchDataSuccess(response));
     if (response.name) {
       setValues({
         ...values,

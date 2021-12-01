@@ -1,4 +1,5 @@
 import { UPDATE_DISCIPLINES_DATA_SUCCESS } from "./action_add";
+import { updateGroupFetchDataSuccess } from "../groups/action_add";
 
 const deleteDisciplinesFetchDataSuccess = (payload) => {
   return {
@@ -23,7 +24,11 @@ export const deleteDisciplinesFetchData = (data) => async (dispatch) => {
       ...values,
       showIconDeleteItems: false,
     });
-    dispatch(deleteDisciplinesFetchDataSuccess(response));
+    dispatch(
+      !values.getGroups
+        ? deleteDisciplinesFetchDataSuccess(response)
+        : updateGroupFetchDataSuccess(response)
+    );
   } else {
     setValues({
       ...values,

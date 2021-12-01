@@ -96,7 +96,9 @@ const ListItems = () => {
     const { current } = listIdItems;
     listIdItems.current = [];
     const data = {
-      url: endpoints.deleteDisciplines,
+      url: !values.getGroups
+        ? endpoints.deleteDisciplines
+        : endpoints.deleteGroups,
       values,
       setValues,
       listId: current,

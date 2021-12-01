@@ -1,6 +1,5 @@
 const { Group } = require("../models/models");
 const ApiError = require("../error/ApiError");
-var csv = require("csvtojson");
 
 class GroupController {
   async addGroup(req, res, next) {
@@ -33,7 +32,7 @@ class GroupController {
   }
   deleteGroups(req, res) {
     const { listId } = req.body;
-    JSON.parse(listId).forEach(async (id) => {
+    listId.forEach(async (id) => {
       await Group.destroy({ where: { id } });
       return res.json(listId);
     });

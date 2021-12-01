@@ -1,7 +1,7 @@
 export const UPDATE_DISCIPLINES_DATA_SUCCESS =
   "UPDATE_DISCIPLINES_DATA_SUCCESS";
 
-const addDisciplineFetchDataSuccess = (payload) => {
+const updateDisciplineFetchDataSuccess = (payload) => {
   return {
     type: UPDATE_DISCIPLINES_DATA_SUCCESS,
     payload,
@@ -21,7 +21,7 @@ export const addDisciplineFetchData = (data) => async (dispatch) => {
   });
   if (response.status === 200) {
     response = await response.json();
-    dispatch(addDisciplineFetchDataSuccess(response));
+    dispatch(updateDisciplineFetchDataSuccess(response));
     if (response.name) {
       setValues({
         ...values,
