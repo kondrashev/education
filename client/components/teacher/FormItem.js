@@ -6,7 +6,6 @@ import { ApplictationContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import endpoints from "../constants/Endpoints";
 import { addDisciplineFetchData } from "../../store/disciplines/action_add";
-import { addGroupFetchData } from "../../store/groups/action_add";
 import { loadGroupsFetchData } from "../../store/groups/action_get";
 import Alert from "@mui/material/Alert";
 import Radio from "@mui/material/Radio";
@@ -78,11 +77,6 @@ const FormItem = () => {
       setValues,
       id: current,
     };
-    // dispatch(
-    //   values.checkedRadioDiscipline
-    //     ? addDisciplineFetchData(data)
-    //     : addGroupFetchData(data)
-    // );
     dispatch(addDisciplineFetchData(data));
   };
   const choseItem = (event) => {

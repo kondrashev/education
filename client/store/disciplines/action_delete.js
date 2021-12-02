@@ -1,5 +1,7 @@
-import { updateDisciplineFetchDataSuccess } from "./action_add";
-import { updateGroupFetchDataSuccess } from "../groups/action_add";
+import {
+  updateDisciplineFetchDataSuccess,
+  updateGroupFetchDataSuccess,
+} from "./action_add";
 
 export const deleteDisciplinesFetchData = (data) => async (dispatch) => {
   const { url, values, setValues, listId } = data;

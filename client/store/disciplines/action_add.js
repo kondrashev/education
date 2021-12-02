@@ -1,10 +1,17 @@
 export const UPDATE_DISCIPLINES_DATA_SUCCESS =
   "UPDATE_DISCIPLINES_DATA_SUCCESS";
-import { updateGroupFetchDataSuccess } from "../groups/action_add";
+export const UPDATE_GROUPS_DATA_SUCCESS = "UPDATE_GROUPS_DATA_SUCCESS";
 
 export const updateDisciplineFetchDataSuccess = (payload) => {
   return {
     type: UPDATE_DISCIPLINES_DATA_SUCCESS,
+    payload,
+  };
+};
+
+export const updateGroupFetchDataSuccess = (payload) => {
+  return {
+    type: UPDATE_GROUPS_DATA_SUCCESS,
     payload,
   };
 };
