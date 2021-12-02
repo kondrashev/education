@@ -1,7 +1,8 @@
 export const UPDATE_DISCIPLINES_DATA_SUCCESS =
   "UPDATE_DISCIPLINES_DATA_SUCCESS";
+import { updateGroupFetchDataSuccess } from "../groups/action_add";
 
-const updateDisciplineFetchDataSuccess = (payload) => {
+export const updateDisciplineFetchDataSuccess = (payload) => {
   return {
     type: UPDATE_DISCIPLINES_DATA_SUCCESS,
     payload,
@@ -9,29 +10,39 @@ const updateDisciplineFetchDataSuccess = (payload) => {
 };
 
 export const addDisciplineFetchData = (data) => async (dispatch) => {
-  const { url, values, setValues } = data;
-  const { nameDiscipline } = values;
+  const { url, values, setValues, id } = data;
+  const { nameDiscipline, nameGroup } = values;
   let response = await fetch(url, {
     method: "POST",
     headers: {
       Authorization: localStorage.token,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name: nameDiscipline }),
+    body: !values.getGroups
+      ? JSON.stringify({ name: nameDiscipline })
+      : JSON.stringify({ name: nameGroup, disciplineId: id }),
   });
   if (response.status === 200) {
     response = await response.json();
-    dispatch(updateDisciplineFetchDataSuccess(response));
+    dispatch(
+      !values.getGroups
+        ? updateDisciplineFetchDataSuccess(response)
+        : updateGroupFetchDataSuccess(response)
+    );
     if (response.name) {
       setValues({
         ...values,
         nameDiscipline: "",
+        nameGroup: "",
+        nameStudent: "",
       });
     } else {
       setValues({
         ...values,
         errorForm: true,
-        errorMessage: "This discipline has already created!!!",
+        errorMessage: `This ${
+          !values.getGroups ? "discipline" : "group"
+        } has already created!!!`,
       });
     }
   } else {

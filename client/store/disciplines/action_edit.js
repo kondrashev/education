@@ -1,11 +1,4 @@
-import { UPDATE_DISCIPLINES_DATA_SUCCESS } from "./action_add";
-
-const updateDisciplineFetchDataSuccess = (payload) => {
-  return {
-    type: UPDATE_DISCIPLINES_DATA_SUCCESS,
-    payload,
-  };
-};
+import { updateDisciplineFetchDataSuccess } from "./action_add";
 
 export const updateDisciplineFetchData = (data) => async (dispatch) => {
   const { url, id, setShowInputEditItem, values, setValues } = data;

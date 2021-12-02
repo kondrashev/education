@@ -78,11 +78,12 @@ const FormItem = () => {
       setValues,
       id: current,
     };
-    dispatch(
-      values.checkedRadioDiscipline
-        ? addDisciplineFetchData(data)
-        : addGroupFetchData(data)
-    );
+    // dispatch(
+    //   values.checkedRadioDiscipline
+    //     ? addDisciplineFetchData(data)
+    //     : addGroupFetchData(data)
+    // );
+    dispatch(addDisciplineFetchData(data));
   };
   const choseItem = (event) => {
     switch (event.target.value) {

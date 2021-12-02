@@ -1,12 +1,5 @@
-import { UPDATE_DISCIPLINES_DATA_SUCCESS } from "./action_add";
+import { updateDisciplineFetchDataSuccess } from "./action_add";
 import { updateGroupFetchDataSuccess } from "../groups/action_add";
-
-const deleteDisciplinesFetchDataSuccess = (payload) => {
-  return {
-    type: UPDATE_DISCIPLINES_DATA_SUCCESS,
-    payload,
-  };
-};
 
 export const deleteDisciplinesFetchData = (data) => async (dispatch) => {
   const { url, values, setValues, listId } = data;
@@ -26,7 +19,7 @@ export const deleteDisciplinesFetchData = (data) => async (dispatch) => {
     });
     dispatch(
       !values.getGroups
-        ? deleteDisciplinesFetchDataSuccess(response)
+        ? updateDisciplineFetchDataSuccess(response)
         : updateGroupFetchDataSuccess(response)
     );
   } else {
