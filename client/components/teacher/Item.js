@@ -35,7 +35,15 @@ const Item = (props) => {
   const { values, setValues } = useContext(ApplictationContext);
   const { item, showNavigation, getListIdItems } = props;
   const editNameItem = (event) => {
-    setValues({ ...values, nameDiscipline: event.target.value });
+    !values.getGroups
+      ? setValues({
+          ...values,
+          nameDiscipline: event.target.value,
+        })
+      : setValues({
+          ...values,
+          nameGroup: event.target.value,
+        });
   };
   const editItem = () => {
     setShowInputEditItem(!showInputEditItem);
@@ -43,7 +51,9 @@ const Item = (props) => {
   const nameEditItem = (id, event) => {
     if (event.key === "Enter") {
       const data = {
-        url: endpoints.updateDiscipline,
+        url: !values.getGroups
+          ? endpoints.updateDiscipline
+          : endpoints.updateGroup,
         values,
         setValues,
         id,
@@ -76,7 +86,7 @@ const Item = (props) => {
         {showInputEditItem && (
           <input
             ref={refInput}
-            value={values.nameDiscipline}
+            value={!values.getGroups ? values.nameDiscipline : values.nameGroup}
             onChange={editNameItem}
             onKeyPress={(event) => nameEditItem(item.id, event)}
           />
