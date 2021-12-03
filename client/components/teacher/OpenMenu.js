@@ -78,19 +78,7 @@ export default function OpenMenu() {
           <ListItemIcon>
             <AddBusinessIcon fontSize="small" />
           </ListItemIcon>
-          Додати дисципліну
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <AddBoxIcon fontSize="small" />
-          </ListItemIcon>
-          Додати групу
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Додати студента
+          Додати позицію
         </MenuItem>
         <MenuItem>
           <ListItemIcon>

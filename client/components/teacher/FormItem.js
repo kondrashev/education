@@ -236,7 +236,7 @@ const FormItem = () => {
       )}
       <Button
         variant="contained"
-        disabled={values.nameDiscipline ? false : true}
+        disabled={values.nameDiscipline || values.nameGroup ? false : true}
         color="primary"
         disableElevation
         style={styles.fields}
