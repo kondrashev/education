@@ -8,7 +8,7 @@ import { ApplictationContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { loadDisciplinesFetchData } from "../../store/disciplines/action_get";
 import { loadGroupsFetchData } from "../../store/groups/action_get";
-import { deleteDisciplinesFetchData } from "../../store/disciplines/action_delete";
+import { deleteItemsFetchData } from "../../store/disciplines/action_delete";
 import endpoints from "../constants/Endpoints";
 import Item from "./Item";
 
@@ -103,7 +103,7 @@ const ListItems = () => {
       setValues,
       listId: current,
     };
-    dispatch(deleteDisciplinesFetchData(data));
+    dispatch(deleteItemsFetchData(data));
   };
   return (
     <Box mt={2} sx={styles.container}>

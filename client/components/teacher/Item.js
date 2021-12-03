@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import { ApplictationContext } from "../../App";
 import endpoints from "../constants/Endpoints";
 import { useDispatch } from "react-redux";
-import { updateDisciplineFetchData } from "../../store/disciplines/action_edit";
+import { updateItemFetchData } from "../../store/disciplines/action_edit";
 
 const styles = {
   listItem: {
@@ -59,7 +59,7 @@ const Item = (props) => {
         id,
         setShowInputEditItem,
       };
-      dispatch(updateDisciplineFetchData(data));
+      dispatch(updateItemFetchData(data));
     }
   };
   useEffect(() => {

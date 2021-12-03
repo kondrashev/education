@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import { ApplictationContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import endpoints from "../constants/Endpoints";
-import { addDisciplineFetchData } from "../../store/disciplines/action_add";
+import { addItemFetchData } from "../../store/disciplines/action_add";
 import { loadGroupsFetchData } from "../../store/groups/action_get";
 import Alert from "@mui/material/Alert";
 import Radio from "@mui/material/Radio";
@@ -77,7 +77,7 @@ const FormItem = () => {
       setValues,
       id: current,
     };
-    dispatch(addDisciplineFetchData(data));
+    dispatch(addItemFetchData(data));
   };
   const choseItem = (event) => {
     switch (event.target.value) {

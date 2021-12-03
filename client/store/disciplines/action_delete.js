@@ -3,7 +3,7 @@ import {
   updateGroupFetchDataSuccess,
 } from "./action_add";
 
-export const deleteDisciplinesFetchData = (data) => async (dispatch) => {
+export const deleteItemsFetchData = (data) => async (dispatch) => {
   const { url, values, setValues, listId } = data;
   let response = await fetch(url, {
     method: "POST",

@@ -3,7 +3,7 @@ import {
   updateGroupFetchDataSuccess,
 } from "./action_add";
 
-export const updateDisciplineFetchData = (data) => async (dispatch) => {
+export const updateItemFetchData = (data) => async (dispatch) => {
   const { url, id, setShowInputEditItem, values, setValues } = data;
   const { nameDiscipline, nameGroup } = values;
   let response = await fetch(url, {
