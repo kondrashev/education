@@ -25,16 +25,20 @@ export const addItemFetchData = (data) => async (dispatch) => {
       Authorization: localStorage.token,
       "Content-Type": "application/json",
     },
-    body: !values.getGroups
+    body: values.checkedRadioDiscipline
       ? JSON.stringify({ name: nameDiscipline })
-      : JSON.stringify({ name: nameGroup, disciplineId: id }),
+      : values.checkedRadioGroup
+      ? JSON.stringify({ name: nameGroup, disciplineId: id })
+      : null,
   });
   if (response.status === 200) {
     response = await response.json();
     dispatch(
-      !values.getGroups
+      values.checkedRadioDiscipline
         ? updateDisciplineFetchDataSuccess(response)
-        : updateGroupFetchDataSuccess(response)
+        : values.checkedRadioGroup
+        ? updateGroupFetchDataSuccess(response)
+        : null
     );
     if (response.name) {
       setValues({
@@ -48,7 +52,11 @@ export const addItemFetchData = (data) => async (dispatch) => {
         ...values,
         errorForm: true,
         errorMessage: `This ${
-          !values.getGroups ? "discipline" : "group"
+          values.checkedRadioDiscipline
+            ? "discipline"
+            : values.checkedRadioGroup
+            ? "group"
+            : "student"
         } has already created!!!`,
       });
     }

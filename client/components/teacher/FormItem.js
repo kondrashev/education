@@ -16,6 +16,7 @@ import FormLabel from "@mui/material/FormLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import SelectPosition from "./SelectPosition";
 
 const styles = {
   container: {
@@ -59,6 +60,8 @@ const FormItem = () => {
       setValues({ ...values, nameDiscipline: event.target.value });
     values.checkedRadioGroup &&
       setValues({ ...values, nameGroup: event.target.value });
+    values.checkedRadioStudent &&
+      setValues({ ...values, nameStudent: event.target.value });
   };
   const onPressKey = (event) => {
     if (event.key === "Enter") {
@@ -123,28 +126,6 @@ const FormItem = () => {
       setValues,
     };
     dispatch(loadGroupsFetchData(data));
-  };
-  const SelectPosition = ({ type }) => {
-    const itemsList = useSelector((state) =>
-      type === "Discipline" ? state.disciplineReducer : state.groupReducer
-    );
-    return (
-      <FormControl style={styles.fields}>
-        <InputLabel id="demo-simple-select-label">Поз.</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Age"
-          onChange={handleChangePosition}
-        >
-          {itemsList.map((item) => (
-            <MenuItem key={item.id} value={item.id}>
-              {item.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    );
   };
   return (
     <Box mt={1} ml={1} sx={styles.container}>
@@ -211,7 +192,11 @@ const FormItem = () => {
           disabled={values.disabledDiscipline}
         />
       ) : (
-        <SelectPosition type="Discipline" />
+        <SelectPosition
+          type="Discipline"
+          styles={styles}
+          handleChangePosition={handleChangePosition}
+        />
       )}
       {values.showNameGroup && !values.showSurNameStudent && (
         <TextField
@@ -223,20 +208,30 @@ const FormItem = () => {
           onKeyPress={onPressKey}
         />
       )}
-      {values.showSurNameStudent && <SelectPosition type="Group" />}
+      {values.showSurNameStudent && (
+        <SelectPosition
+          type="Group"
+          styles={styles}
+          handleChangePosition={handleChangePosition}
+        />
+      )}
       {values.showSurNameStudent && (
         <TextField
           label="Студент"
-          // value={values.nameStudent}
+          value={values.nameStudent}
           variant="outlined"
           style={styles.fields}
-          // onChange={changeNameItem}
-          // onKeyPress={onPressKey}
+          onChange={changeNameItem}
+          onKeyPress={onPressKey}
         />
       )}
       <Button
         variant="contained"
-        disabled={values.nameDiscipline || values.nameGroup ? false : true}
+        disabled={
+          values.nameDiscipline || values.nameGroup || values.nameStudent
+            ? false
+            : true
+        }
         color="primary"
         disableElevation
         style={styles.fields}
