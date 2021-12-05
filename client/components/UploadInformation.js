@@ -15,6 +15,9 @@ export default function UploadInformation() {
     try {
       const response = await fetch("/discipline/reload", {
         method: "POST",
+        headers: {
+          Authorization: localStorage.token,
+        },
         body: formData,
       });
       const result = await response.json();

@@ -5,11 +5,13 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import IconButton from "@mui/material/IconButton";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import Logout from "@mui/icons-material/Logout";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 import { ApplictationContext } from "../../App";
+import { styled } from "@mui/material/styles";
+const Input = styled("input")({
+  display: "none",
+});
 
 export default function OpenMenu() {
   const { values, setValues } = useContext(ApplictationContext);
