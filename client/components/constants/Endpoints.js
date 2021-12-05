@@ -4,6 +4,7 @@ export default {
   addDiscipline: "/discipline/add",
   deleteDisciplines: "/discipline/delete",
   updateDiscipline: "/discipline/update",
+  uploadCSV: "/discipline/upload",
   getGroups: "/group/get",
   addGroup: "/group/add",
   updateGroup: "/group/update",

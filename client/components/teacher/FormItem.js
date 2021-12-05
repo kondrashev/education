@@ -79,6 +79,12 @@ const FormItem = () => {
     };
     dispatch(addItemFetchData(data));
   };
+  const uploadFile = (event) => {
+    const formData = new FormData();
+    formData.append("discipline", "ТКМ");
+    formData.append("group", "ІМЗ-12ПМ");
+    formData.append("csvFile", event.target.files[0]);
+  };
   const choseItem = (event) => {
     switch (event.target.value) {
       case "Discipline":
@@ -239,7 +245,7 @@ const FormItem = () => {
         color="primary"
         disableElevation
         style={styles.fields}
-        onClick={addItem}
+        onClick={values.upLoadFileButton ? addItem : uploadFile}
       >
         {values.showRadioButtons ? "Додати" : "Завантажити файл"}
       </Button>
