@@ -21,4 +21,5 @@ export const context = {
   checkedRadioGroup: false,
   checkedRadioStudent: false,
   showRadioButtons: true,
+  upLoadFileButton: true,
 };

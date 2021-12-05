@@ -114,15 +114,17 @@ const FormItem = () => {
         break;
     }
   };
-  const itemId = useRef(0);
+  let itemId = useRef([]);
   const handleChangePosition = (event) => {
-    itemId.current = event.target.value;
+    let { current } = itemId;
+    current.push(event.target.value);
     const data = {
       url: `${endpoints.getGroups}?disciplineId=${event.target.value}`,
       values,
       setValues,
     };
     dispatch(loadGroupsFetchData(data));
+    current.length === 2 && setValues({ ...values, upLoadFileButton: false });
   };
   return (
     <Box mt={1} ml={1} sx={styles.container}>
@@ -139,6 +141,7 @@ const FormItem = () => {
               checkedRadioDiscipline: false,
               checkedRadioGroup: false,
               checkedRadioStudent: false,
+              upLoadFileButton: true,
             });
           }}
           onMouseOver={hoverOn}
@@ -226,15 +229,12 @@ const FormItem = () => {
       )}
       <Button
         variant="contained"
-        // disabled={
-        //   values.nameDiscipline || values.nameGroup || values.nameStudent
-        //     ? false
-        //     : true
-        // }
         disabled={
           values.nameDiscipline || values.nameGroup || values.nameStudent
             ? false
-            : true
+            : values.upLoadFileButton
+            ? true
+            : false
         }
         color="primary"
         disableElevation
