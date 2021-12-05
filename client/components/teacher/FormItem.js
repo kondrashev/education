@@ -14,6 +14,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import SelectPosition from "./SelectPosition";
+import ButtonFormItem from "./ButtonFormItem";
 
 const styles = {
   container: {
@@ -233,22 +234,13 @@ const FormItem = () => {
           onKeyPress={onPressKey}
         />
       )}
-      <Button
-        variant="contained"
-        disabled={
-          values.nameDiscipline || values.nameGroup || values.nameStudent
-            ? false
-            : values.upLoadFileButton
-            ? true
-            : false
-        }
-        color="primary"
-        disableElevation
-        style={styles.fields}
-        onClick={values.upLoadFileButton ? addItem : uploadFile}
-      >
-        {values.showRadioButtons ? "Додати" : "Завантажити файл"}
-      </Button>
+      <ButtonFormItem
+        values={values}
+        setValues={setValues}
+        styles={styles}
+        addItem={addItem}
+        uploadFile={uploadFile}
+      />
       {values.errorForm && (
         <Alert
           onClose={() => {
