@@ -20,4 +20,5 @@ export const context = {
   checkedRadioDiscipline: false,
   checkedRadioGroup: false,
   checkedRadioStudent: false,
+  showRadioButtons: true,
 };

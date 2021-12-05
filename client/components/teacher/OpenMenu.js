@@ -8,10 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import Logout from "@mui/icons-material/Logout";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import { ApplictationContext } from "../../App";
-import { styled } from "@mui/material/styles";
-const Input = styled("input")({
-  display: "none",
-});
 
 export default function OpenMenu() {
   const { values, setValues } = useContext(ApplictationContext);
@@ -21,8 +17,22 @@ export default function OpenMenu() {
       openMenu: !values.openMenu ? event.currentTarget : false,
     });
   };
-  const openFormItem = () => {
-    setValues({ ...values, openMenu: false, showFormItem: true });
+  const openFormItem = (type) => {
+    type === "add"
+      ? setValues({
+          ...values,
+          openMenu: false,
+          showFormItem: true,
+          showRadioButtons: true,
+        })
+      : setValues({
+          ...values,
+          openMenu: false,
+          showFormItem: true,
+          showRadioButtons: false,
+          showNameGroup: true,
+          showSurNameStudent: true,
+        });
   };
   return (
     <>
@@ -76,13 +86,13 @@ export default function OpenMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={openFormItem}>
+        <MenuItem onClick={() => openFormItem("add")}>
           <ListItemIcon>
             <AddBusinessIcon fontSize="small" />
           </ListItemIcon>
           Додати позицію
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={() => openFormItem("upload")}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

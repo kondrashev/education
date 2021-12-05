@@ -152,32 +152,34 @@ const FormItem = () => {
           </svg>
         </button>
       </Box>
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Додати</FormLabel>
-        <RadioGroup row aria-label="Додати" name="row-radio-buttons-group">
-          <FormControlLabel
-            value="Discipline"
-            control={<Radio />}
-            label="Дисципліна"
-            onChange={choseItem}
-            checked={values.checkedRadioDiscipline}
-          />
-          <FormControlLabel
-            value="Group"
-            control={<Radio />}
-            label="Група"
-            onChange={choseItem}
-            checked={values.checkedRadioGroup}
-          />
-          <FormControlLabel
-            value="Student"
-            control={<Radio />}
-            label="Студент"
-            onChange={choseItem}
-            checked={values.checkedRadioStudent}
-          />
-        </RadioGroup>
-      </FormControl>
+      {values.showRadioButtons && (
+        <FormControl component="fieldset">
+          <FormLabel component="legend">Додати</FormLabel>
+          <RadioGroup row aria-label="Додати" name="row-radio-buttons-group">
+            <FormControlLabel
+              value="Discipline"
+              control={<Radio />}
+              label="Дисципліна"
+              onChange={choseItem}
+              checked={values.checkedRadioDiscipline}
+            />
+            <FormControlLabel
+              value="Group"
+              control={<Radio />}
+              label="Група"
+              onChange={choseItem}
+              checked={values.checkedRadioGroup}
+            />
+            <FormControlLabel
+              value="Student"
+              control={<Radio />}
+              label="Студент"
+              onChange={choseItem}
+              checked={values.checkedRadioStudent}
+            />
+          </RadioGroup>
+        </FormControl>
+      )}
       {!values.showNameGroup ? (
         <TextField
           label="Дисципліна"
@@ -212,7 +214,7 @@ const FormItem = () => {
           handleChangePosition={handleChangePosition}
         />
       )}
-      {values.showSurNameStudent && (
+      {values.showSurNameStudent && values.showRadioButtons && (
         <TextField
           label="Студент"
           value={values.nameStudent}
@@ -224,6 +226,11 @@ const FormItem = () => {
       )}
       <Button
         variant="contained"
+        // disabled={
+        //   values.nameDiscipline || values.nameGroup || values.nameStudent
+        //     ? false
+        //     : true
+        // }
         disabled={
           values.nameDiscipline || values.nameGroup || values.nameStudent
             ? false
@@ -234,7 +241,7 @@ const FormItem = () => {
         style={styles.fields}
         onClick={addItem}
       >
-        Додати
+        {values.showRadioButtons ? "Додати" : "Завантажити файл"}
       </Button>
       {values.errorForm && (
         <Alert
