@@ -1,7 +1,6 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import { ApplictationContext } from "../../App";
 import { useDispatch } from "react-redux";
 import endpoints from "../constants/Endpoints";
@@ -80,11 +79,18 @@ const FormItem = () => {
     };
     dispatch(addItemFetchData(data));
   };
+  const itemId = useRef([]);
+  const formData = useRef({});
   const uploadFile = (event) => {
-    const formData = new FormData();
-    formData.append("discipline", "ТКМ");
-    formData.append("group", "ІМЗ-12ПМ");
-    formData.append("csvFile", event.target.files[0]);
+    formData.current = {
+      disciplineId: itemId.current[0],
+      groupId: itemId.current[1],
+      csvFile: event.target.files[0],
+    };
+    setValues({ ...values, upLoadInformationButton: false });
+  };
+  const uploadInformation = () => {
+    console.log(formData.current);
   };
   const choseItem = (event) => {
     switch (event.target.value) {
@@ -121,16 +127,19 @@ const FormItem = () => {
         break;
     }
   };
-  let itemId = useRef([]);
-  const handleChangePosition = (event) => {
-    let { current } = itemId;
-    current.push(event.target.value);
-    const data = {
-      url: `${endpoints.getGroups}?disciplineId=${event.target.value}`,
-      values,
-      setValues,
-    };
-    dispatch(loadGroupsFetchData(data));
+  const handleChangePosition = (event, type) => {
+    const { current } = itemId;
+    type === "Discipline"
+      ? (current[0] = event.target.value)
+      : (current[1] = event.target.value);
+    if (type === "Discipline") {
+      const data = {
+        url: `${endpoints.getGroups}?disciplineId=${event.target.value}`,
+        values,
+        setValues,
+      };
+      dispatch(loadGroupsFetchData(data));
+    }
     current.length === 2 && setValues({ ...values, upLoadFileButton: false });
   };
   return (
@@ -149,6 +158,7 @@ const FormItem = () => {
               checkedRadioGroup: false,
               checkedRadioStudent: false,
               upLoadFileButton: true,
+              upLoadInformationButton: true,
             });
           }}
           onMouseOver={hoverOn}
@@ -240,6 +250,7 @@ const FormItem = () => {
         styles={styles}
         addItem={addItem}
         uploadFile={uploadFile}
+        uploadInformation={uploadInformation}
       />
       {values.errorForm && (
         <Alert

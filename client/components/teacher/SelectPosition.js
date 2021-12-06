@@ -16,7 +16,7 @@ const SelectPosition = ({ type, styles, handleChangePosition }) => {
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         label="Age"
-        onChange={handleChangePosition}
+        onChange={(event) => handleChangePosition(event, type)}
       >
         {itemsList.map((item) => (
           <MenuItem key={item.id} value={item.id}>
