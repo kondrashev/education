@@ -7,7 +7,7 @@ const Input = styled("input")({
 });
 
 const ButtonFormItem = (props) => {
-  const { values, styles, addItem, uploadFile, uploadInformation } = props;
+  const { values, styles, addItem, uploadFile } = props;
   if (values.showRadioButtons) {
     return (
       <Button
@@ -27,34 +27,23 @@ const ButtonFormItem = (props) => {
     );
   } else {
     return (
-      <>
-        <label htmlFor="contained-button-file">
-          <Input
-            accept="csv/*"
-            id="contained-button-file"
-            multiple
-            type="file"
-            onChange={uploadFile}
-          />
-          <Button
-            variant="contained"
-            component="span"
-            style={styles.fields}
-            disabled={values.upLoadFileButton}
-          >
-            Завантажити файл
-          </Button>
-        </label>
+      <label htmlFor="contained-button-file">
+        <Input
+          accept="csv/*"
+          id="contained-button-file"
+          multiple
+          type="file"
+          onChange={uploadFile}
+        />
         <Button
           variant="contained"
           component="span"
           style={styles.fields}
-          disabled={values.upLoadInformationButton}
-          onClick={uploadInformation}
+          disabled={values.upLoadFileButton}
         >
-          Завантажити інформацію
+          Завантажити файл
         </Button>
-      </>
+      </label>
     );
   }
 };

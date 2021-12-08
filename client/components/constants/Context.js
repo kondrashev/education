@@ -22,5 +22,5 @@ export const context = {
   checkedRadioStudent: false,
   showRadioButtons: true,
   upLoadFileButton: true,
-  upLoadInformationButton: true,
+  // upLoadInformationButton: true,
 };

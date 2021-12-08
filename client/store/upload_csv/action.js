@@ -8,18 +8,17 @@ const uploadFileFetchDataSuccess = (payload) => {
 };
 
 export const uploadFileFetchData = (data) => async (dispatch) => {
-  const { url, formData, values, setValues } = data;
+  const url = data.get("url");
   try {
-    const response = await fetch(url, {
+    let response = await fetch(url, {
       method: "POST",
       headers: {
         Authorization: localStorage.token,
       },
-      body: formData,
+      body: data,
     });
-    const result = await response.json();
+    response = await response.json();
     dispatch(uploadFileFetchDataSuccess(response));
-    console.log("Success:", JSON.stringify(result));
   } catch (error) {
     console.error("Error:", error);
   }

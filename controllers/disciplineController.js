@@ -46,16 +46,21 @@ class DisciplineController {
   async uploadInformation(req, res, next) {
     try {
       const { csvFile } = req.files;
-      const { discipline, group } = req.body;
+      const { disciplineId, groupId } = req.body;
+      const getDiscipline = await Discipline.findOne({
+        where: {
+          id: disciplineId,
+        },
+      });
+      const getGroup = await Group.findOne({
+        where: {
+          id: groupId,
+        },
+      });
       const fileName = "data.csv";
       csvFile.mv(path.resolve(__dirname, "..", "static/csv", fileName));
       let data = await csv().fromFile("static/csv/data.csv");
-      data = informationUpload(data, discipline, group);
-      const getGroup = await Group.findOne({
-        where: {
-          name: group,
-        },
-      });
+      data = informationUpload(data, getDiscipline.name, getGroup.name);
       data.forEach(async (item) => {
         const student = await Student.findOne({
           where: {
@@ -65,7 +70,7 @@ class DisciplineController {
         if (!student) {
           await Student.create({
             surName: item.surName,
-            groupId: getGroup.id,
+            groupId,
             options: JSON.stringify(item.options),
             teacher: 0,
             exercise: 0,

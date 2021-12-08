@@ -13,7 +13,7 @@ export default function UploadInformation() {
     formData.append("group", "ІМЗ-12ПМ");
     formData.append("csvFile", event.target.files[0]);
     try {
-      const response = await fetch("/discipline/reload", {
+      const response = await fetch("/discipline/upload", {
         method: "POST",
         headers: {
           Authorization: localStorage.token,

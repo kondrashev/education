@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { ApplictationContext } from "../../App";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import endpoints from "../constants/Endpoints";
 import { addItemFetchData } from "../../store/disciplines/action_add";
 import { loadGroupsFetchData } from "../../store/groups/action_get";
+import { uploadFileFetchData } from "../../store/upload_csv/action";
 import Alert from "@mui/material/Alert";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -80,18 +81,16 @@ const FormItem = () => {
     dispatch(addItemFetchData(data));
   };
   const itemId = useRef([]);
-  const formData = useRef({});
   const uploadFile = (event) => {
-    formData.current = {
-      disciplineId: itemId.current[0],
-      groupId: itemId.current[1],
-      csvFile: event.target.files[0],
-    };
-    setValues({ ...values, upLoadInformationButton: false });
+    const data = new FormData();
+    data.append("url", endpoints.uploadCSV);
+    data.append("disciplineId", itemId.current[0]);
+    data.append("groupId", itemId.current[1]);
+    data.append("csvFile", event.target.files[0]);
+    event.target.value = "";
+    dispatch(uploadFileFetchData(data));
   };
-  const uploadInformation = () => {
-    console.log(formData.current);
-  };
+  // console.log(useSelector((state) => state.uploadFileReducer));
   const choseItem = (event) => {
     switch (event.target.value) {
       case "Discipline":
@@ -158,7 +157,6 @@ const FormItem = () => {
               checkedRadioGroup: false,
               checkedRadioStudent: false,
               upLoadFileButton: true,
-              upLoadInformationButton: true,
             });
           }}
           onMouseOver={hoverOn}
@@ -250,7 +248,7 @@ const FormItem = () => {
         styles={styles}
         addItem={addItem}
         uploadFile={uploadFile}
-        uploadInformation={uploadInformation}
+        // uploadInformation={uploadInformation}
       />
       {values.errorForm && (
         <Alert
