@@ -70,6 +70,7 @@ const ListItems = () => {
           valueNavigationItemDiscipline: name,
           showListItems: true,
           getGroups: true,
+          showListStudents: false,
         })
       : setValues({
           ...values,
@@ -78,6 +79,7 @@ const ListItems = () => {
           valueNavigationItemGroup: name,
           showListItems: false,
           getGroups: false,
+          showListStudents: true,
         });
     suffixURL.current = disciplineId;
   };

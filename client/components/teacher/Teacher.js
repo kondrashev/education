@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import MainMenu from "./MainMenu";
 import MenuNavigation from "./MenuNavigation";
 import ListItems from "./ListItems";
+import ListStudents from "./ListStudents";
 import Box from "@mui/material/Box";
 import { ApplictationContext } from "../../App";
 import FormItem from "./FormItem";
@@ -18,7 +19,7 @@ const styles = {
   },
 };
 const Teacher = () => {
-  const { values, setValues } = useContext(ApplictationContext);
+  const { values } = useContext(ApplictationContext);
   const animationFormDiscipline = useSpring({
     marginLeft: values.showFormItem ? -727 : -1127,
     config: { duration: 1000 },
@@ -28,6 +29,7 @@ const Teacher = () => {
       <MainMenu />
       <MenuNavigation />
       {values.showListItems && <ListItems />}
+      {values.showListStudents && <ListStudents />}
       <Box sx={{ position: "fixed", top: "150px" }}>
         <a.div style={animationFormDiscipline}>
           <FormItem />

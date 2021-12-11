@@ -55,6 +55,7 @@ export default function MenuNavigation() {
               shwoNavigationItemGroup: false,
               showListItems: true,
               getGroups: false,
+              showListStudents: false,
             });
           }}
         />
@@ -63,7 +64,12 @@ export default function MenuNavigation() {
             label={values.valueNavigationItemDiscipline}
             style={styles.styledBreadcrumbItem}
             onClick={() => {
-              setValues({ ...values, showListItems: true, getGroups: true });
+              setValues({
+                ...values,
+                showListItems: true,
+                getGroups: true,
+                showListStudents: false,
+              });
             }}
           />
         )}
