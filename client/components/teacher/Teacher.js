@@ -27,7 +27,7 @@ const Teacher = () => {
     <Box sx={styles.container}>
       <MainMenu />
       <MenuNavigation />
-      <ListItems />
+      {values.showListItems && <ListItems />}
       <Box sx={{ position: "fixed", top: "150px" }}>
         <a.div style={animationFormDiscipline}>
           <FormItem />

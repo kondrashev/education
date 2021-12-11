@@ -52,6 +52,8 @@ export default function MenuNavigation() {
             setValues({
               ...values,
               shwoNavigationItemDiscipline: false,
+              shwoNavigationItemGroup: false,
+              showListItems: true,
               getGroups: false,
             });
           }}
@@ -60,9 +62,18 @@ export default function MenuNavigation() {
           <StyledBreadcrumb
             label={values.valueNavigationItemDiscipline}
             style={styles.styledBreadcrumbItem}
+            onClick={() => {
+              setValues({ ...values, showListItems: true, getGroups: true });
+            }}
           />
         )}
-        {/* <StyledBreadcrumb label="МЛ-61" /> */}
+        {values.shwoNavigationItemGroup && (
+          <StyledBreadcrumb
+            label={values.valueNavigationItemGroup}
+            style={styles.styledBreadcrumbItem}
+            // onClick={() => {}}
+          />
+        )}
         {/* <StyledBreadcrumb label="Іванов" /> */}
       </Breadcrumbs>
     </Box>

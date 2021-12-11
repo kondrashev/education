@@ -62,13 +62,23 @@ const ListItems = () => {
         : loadGroupsFetchData(data)
     );
   }, [updateItems, values.getGroups]);
-  const showNavigation = (name, disciplineId) => {
-    setValues({
-      ...values,
-      shwoNavigationItemDiscipline: true,
-      valueNavigationItemDiscipline: name,
-      getGroups: true,
-    });
+  const showNavigation = (name, disciplineId, idDiscipline) => {
+    !idDiscipline
+      ? setValues({
+          ...values,
+          shwoNavigationItemDiscipline: true,
+          valueNavigationItemDiscipline: name,
+          showListItems: true,
+          getGroups: true,
+        })
+      : setValues({
+          ...values,
+          shwoNavigationItemDiscipline: true,
+          shwoNavigationItemGroup: true,
+          valueNavigationItemGroup: name,
+          showListItems: false,
+          getGroups: false,
+        });
     suffixURL.current = disciplineId;
   };
   const listIdItems = useRef([]);
@@ -118,7 +128,9 @@ const ListItems = () => {
         {itemsList.map((item) => (
           <Item
             item={item}
-            showNavigation={() => showNavigation(item.name, item.id)}
+            showNavigation={() =>
+              showNavigation(item.name, item.id, item.disciplineId)
+            }
             getListIdItems={getListIdItems}
             key={item.id}
           />

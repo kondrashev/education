@@ -7,6 +7,8 @@ export const context = {
   typeUser: false,
   shwoNavigationItemDiscipline: false,
   valueNavigationItemDiscipline: "",
+  shwoNavigationItemGroup: false,
+  valueNavigationItemGroup: "",
   openMenu: false,
   showFormItem: false,
   nameDiscipline: "",
@@ -22,5 +24,5 @@ export const context = {
   checkedRadioStudent: false,
   showRadioButtons: true,
   upLoadFileButton: true,
-  // upLoadInformationButton: true,
+  showListItems: true,
 };
