@@ -22,6 +22,38 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 
+const headCells = [
+  {
+    id: "name",
+    numeric: false,
+    disablePadding: true,
+    label: "Dessert (100g serving)",
+  },
+  {
+    id: "calories",
+    numeric: true,
+    disablePadding: false,
+    label: "Calories",
+  },
+  {
+    id: "fat",
+    numeric: true,
+    disablePadding: false,
+    label: "Fat (g)",
+  },
+  {
+    id: "carbs",
+    numeric: true,
+    disablePadding: false,
+    label: "Carbs (g)",
+  },
+  {
+    id: "protein",
+    numeric: true,
+    disablePadding: false,
+    label: "Protein (g)",
+  },
+];
 function createData(name, calories, fat, carbs, protein) {
   return {
     name,
@@ -71,38 +103,6 @@ function stableSort(array, comparator) {
   });
   return stabilizedThis.map((el) => el[0]);
 }
-const headCells = [
-  {
-    id: "name",
-    numeric: false,
-    disablePadding: true,
-    label: "Dessert (100g serving)",
-  },
-  {
-    id: "calories",
-    numeric: true,
-    disablePadding: false,
-    label: "Calories",
-  },
-  {
-    id: "fat",
-    numeric: true,
-    disablePadding: false,
-    label: "Fat (g)",
-  },
-  {
-    id: "carbs",
-    numeric: true,
-    disablePadding: false,
-    label: "Carbs (g)",
-  },
-  {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "Protein (g)",
-  },
-];
 function EnhancedTableHead(props) {
   const {
     onSelectAllClick,
@@ -310,18 +310,24 @@ const ListStudents = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      {headCells.map((item, index) => {
+                        if (index === 0) {
+                          return (
+                            <TableCell
+                              component="th"
+                              id={labelId}
+                              scope="row"
+                              padding="none"
+                            >
+                              {row[item.id]}
+                            </TableCell>
+                          );
+                        } else {
+                          return (
+                            <TableCell align="right">{row[item.id]}</TableCell>
+                          );
+                        }
+                      })}
                     </TableRow>
                   );
                 })}
