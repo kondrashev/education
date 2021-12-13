@@ -25,7 +25,8 @@ class StudentController {
     }
   }
   async getStudents(req, res) {
-    const students = await Student.findAll();
+    const { groupId } = req.query;
+    const students = await Student.findAll({ where: { groupId } });
     return res.json(students);
   }
   deleteStudents(req, res) {

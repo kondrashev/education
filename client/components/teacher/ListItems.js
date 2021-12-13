@@ -62,8 +62,8 @@ const ListItems = () => {
         : loadGroupsFetchData(data)
     );
   }, [updateItems, values.getGroups]);
-  const showNavigation = (name, disciplineId, idDiscipline) => {
-    !idDiscipline
+  const showNavigation = (name, itemId, disciplineId) => {
+    !disciplineId
       ? setValues({
           ...values,
           shwoNavigationItemDiscipline: true,
@@ -81,7 +81,7 @@ const ListItems = () => {
           getGroups: false,
           showListStudents: true,
         });
-    suffixURL.current = disciplineId;
+    suffixURL.current = itemId;
   };
   const listIdItems = useRef([]);
   const getListIdItems = (event) => {
