@@ -40,19 +40,19 @@ const styles = {
     marginLeft: "50px",
   },
 };
-const ListItems = () => {
+const ListItems = (props) => {
   const dispatch = useDispatch();
+  const { suffixDisciplineURL, suffixGroupURL } = props;
   const { values, setValues } = useContext(ApplictationContext);
   const itemsList = useSelector((state) =>
     !values.getGroups ? state.disciplineReducer : state.groupReducer
   );
   const updateItems = useSelector((state) => state.updateItemsReducer);
-  const suffixURL = useRef("");
   useEffect(() => {
     const data = {
       url: !values.getGroups
         ? endpoints.getDisciplines
-        : `${endpoints.getGroups}?disciplineId=${suffixURL.current}`,
+        : `${endpoints.getGroups}?disciplineId=${suffixDisciplineURL.current}`,
       values,
       setValues,
     };
@@ -63,25 +63,28 @@ const ListItems = () => {
     );
   }, [updateItems, values.getGroups]);
   const showNavigation = (name, itemId, disciplineId) => {
-    !disciplineId
-      ? setValues({
-          ...values,
-          shwoNavigationItemDiscipline: true,
-          valueNavigationItemDiscipline: name,
-          showListItems: true,
-          getGroups: true,
-          showListStudents: false,
-        })
-      : setValues({
-          ...values,
-          shwoNavigationItemDiscipline: true,
-          shwoNavigationItemGroup: true,
-          valueNavigationItemGroup: name,
-          showListItems: false,
-          getGroups: false,
-          showListStudents: true,
-        });
-    suffixURL.current = itemId;
+    if (!disciplineId) {
+      setValues({
+        ...values,
+        shwoNavigationItemDiscipline: true,
+        valueNavigationItemDiscipline: name,
+        showListItems: true,
+        getGroups: true,
+        showListStudents: false,
+      });
+      suffixDisciplineURL.current = itemId;
+    } else {
+      setValues({
+        ...values,
+        shwoNavigationItemDiscipline: true,
+        shwoNavigationItemGroup: true,
+        valueNavigationItemGroup: name,
+        showListItems: false,
+        getGroups: false,
+        showListStudents: true,
+      });
+      suffixGroupURL.current = itemId;
+    }
   };
   const listIdItems = useRef([]);
   const getListIdItems = (event) => {

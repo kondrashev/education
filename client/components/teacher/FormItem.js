@@ -90,7 +90,6 @@ const FormItem = () => {
     event.target.value = "";
     dispatch(uploadFileFetchData(data));
   };
-  // console.log(useSelector((state) => state.uploadFileReducer));
   const choseItem = (event) => {
     switch (event.target.value) {
       case "Discipline":

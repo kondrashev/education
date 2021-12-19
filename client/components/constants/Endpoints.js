@@ -9,5 +9,6 @@ export default {
   addGroup: "/group/add",
   updateGroup: "/group/update",
   deleteGroups: "/group/delete",
+  getStudents: "/student/get",
   addStudent: "/student/add",
 };

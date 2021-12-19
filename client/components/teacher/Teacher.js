@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import MainMenu from "./MainMenu";
 import MenuNavigation from "./MenuNavigation";
 import ListItems from "./ListItems";
@@ -20,6 +20,8 @@ const styles = {
 };
 const Teacher = () => {
   const { values } = useContext(ApplictationContext);
+  const suffixDisciplineURL = useRef("");
+  const suffixGroupURL = useRef("");
   const animationFormDiscipline = useSpring({
     marginLeft: values.showFormItem ? -727 : -1127,
     config: { duration: 1000 },
@@ -28,8 +30,15 @@ const Teacher = () => {
     <Box sx={styles.container}>
       <MainMenu />
       <MenuNavigation />
-      {values.showListItems && <ListItems />}
-      {values.showListStudents && <ListStudents />}
+      {values.showListItems && (
+        <ListItems
+          suffixDisciplineURL={suffixDisciplineURL}
+          suffixGroupURL={suffixGroupURL}
+        />
+      )}
+      {values.showListStudents && (
+        <ListStudents suffixGroupURL={suffixGroupURL} />
+      )}
       <Box sx={{ position: "fixed", top: "150px" }}>
         <a.div style={animationFormDiscipline}>
           <FormItem />
