@@ -77,6 +77,7 @@ const informationUpload = (data, discipline, group) => {
       a17 = "",
       a18 = "",
       a19 = "",
+      a20 = "",
       ...item
     ]) => {
       return [
@@ -99,6 +100,7 @@ const informationUpload = (data, discipline, group) => {
         a17,
         a18,
         a19,
+        a20,
       ];
     }
   );
@@ -115,6 +117,7 @@ const informationUpload = (data, discipline, group) => {
       group: item[1],
       options: toChoose(item),
       teacher: "",
+      conspectus: "",
       exercise: "",
       rating: "",
       report: "",

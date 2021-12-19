@@ -23,6 +23,7 @@ const Student = sequelize.define("student", {
   surName: { type: DataTypes.STRING, unique: true, allowNull: false },
   options: { type: DataTypes.STRING, allowNull: false },
   teacher: { type: DataTypes.INTEGER },
+  conspectus: { type: DataTypes.INTEGER },
   exercise: { type: DataTypes.INTEGER },
   rating: { type: DataTypes.INTEGER },
   report: { type: DataTypes.STRING },

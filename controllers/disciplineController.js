@@ -73,9 +73,10 @@ class DisciplineController {
             groupId,
             options: JSON.stringify(item.options),
             teacher: 0,
+            conspectus: 0,
             exercise: 0,
             rating: getRating(item, 0, 0),
-            report: "",
+            report: "-",
             exam: getExam(getRating(item, 0, 0)),
           });
         } else {
@@ -84,6 +85,7 @@ class DisciplineController {
               surName: item.surName,
               options: JSON.stringify(item.options),
               teacher: student.teacher,
+              conspectus: 0,
               exercise: student.exercise,
               rating: getRating(item, student.teacher, student.exercise),
               report: student.report,
