@@ -25,6 +25,7 @@ import endpoints from "../constants/Endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { loadStudentsFetchData } from "../../store/students/action_get";
 import { ApplictationContext } from "../../App";
+import { headCells, createData } from "./MapperStudents";
 
 const ListStudents = (props) => {
   const { suffixGroupURL } = props;
@@ -39,48 +40,7 @@ const ListStudents = (props) => {
     dispatch(loadStudentsFetchData(data));
   }, []);
   const listStudents = useSelector((state) => state.studentReducer);
-  // console.log(listStudents);
-  const headCells = [
-    {
-      id: "name",
-      numeric: false,
-      disablePadding: true,
-      label: "Dessert (100g serving)",
-    },
-    {
-      id: "calories",
-      numeric: true,
-      disablePadding: false,
-      label: "Calories",
-    },
-    {
-      id: "fat",
-      numeric: true,
-      disablePadding: false,
-      label: "Fat (g)",
-    },
-    {
-      id: "carbs",
-      numeric: true,
-      disablePadding: false,
-      label: "Carbs (g)",
-    },
-    {
-      id: "protein",
-      numeric: true,
-      disablePadding: false,
-      label: "Protein (g)",
-    },
-  ];
-  function createData(name, calories, fat, carbs, protein) {
-    return {
-      name,
-      calories,
-      fat,
-      carbs,
-      protein,
-    };
-  }
+  console.log(listStudents);
   const rows = [
     createData("Cupcake", 305, 3.7, 67, 4.3),
     createData("Donut", 452, 25.0, 51, 4.9),
