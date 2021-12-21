@@ -39,8 +39,9 @@ const ListStudents = (props) => {
     };
     dispatch(loadStudentsFetchData(data));
   }, []);
+  // @ts-ignore
   const listStudents = useSelector((state) => state.studentReducer);
-  console.log(listStudents); //////////////////////
+  // console.log(listStudents);
   const rows = listStudents.map((item) => {
     return createData(item);
   });
@@ -95,7 +96,7 @@ const ListStudents = (props) => {
               }}
             />
           </TableCell>
-          {headCells.map((headCell) => (
+          {headCells().map((headCell) => (
             <TableCell
               key={headCell.id}
               align={headCell.numeric ? "right" : "left"}
@@ -186,7 +187,7 @@ const ListStudents = (props) => {
     numSelected: PropTypes.number.isRequired,
   };
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("id");
+  const [orderBy, setOrderBy] = React.useState("surName");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -205,6 +206,7 @@ const ListStudents = (props) => {
     setSelected([]);
   };
   const handleClick = (event, name) => {
+    // @ts-ignore
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
     if (selectedIndex === -1) {
@@ -219,6 +221,7 @@ const ListStudents = (props) => {
         selected.slice(selectedIndex + 1)
       );
     }
+    // @ts-ignore
     setSelected(newSelected);
   };
   const handleChangePage = (event, newPage) => {
@@ -231,6 +234,7 @@ const ListStudents = (props) => {
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
   };
+  // @ts-ignore
   const isSelected = (name) => selected.indexOf(name) !== -1;
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -277,7 +281,8 @@ const ListStudents = (props) => {
                           }}
                         />
                       </TableCell>
-                      {headCells.map((item, index) => {
+                      {headCells().map((item, index) => {
+                        const { id } = item;
                         if (index === 0) {
                           return (
                             <TableCell
@@ -286,13 +291,11 @@ const ListStudents = (props) => {
                               scope="row"
                               padding="none"
                             >
-                              {row[item.id]}
+                              {row[id]}
                             </TableCell>
                           );
                         } else {
-                          return (
-                            <TableCell align="right">{row[item.id]}</TableCell>
-                          );
+                          return <TableCell align="right">{row[id]}</TableCell>;
                         }
                       })}
                     </TableRow>

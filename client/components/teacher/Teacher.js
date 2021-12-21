@@ -27,6 +27,7 @@ const Teacher = () => {
     config: { duration: 1000 },
   });
   return (
+    // @ts-ignore
     <Box sx={styles.container}>
       <MainMenu />
       <MenuNavigation />
