@@ -133,18 +133,18 @@ const FormItem = () => {
   };
   const handleChangePosition = (event, type) => {
     const { current } = itemId;
-    type === "Discipline"
-      ? // @ts-ignore
-        (current[0] = event.target.value)
-      : // @ts-ignore
-        (current[1] = event.target.value);
     if (type === "Discipline") {
+      // @ts-ignore
+      current[0] = event.target.value;
       const data = {
         url: `${endpoints.getGroups}?disciplineId=${event.target.value}`,
         values,
         setValues,
       };
       dispatch(loadGroupsFetchData(data));
+    } else {
+      // @ts-ignore
+      current[1] = event.target.value;
     }
     current.length === 2 && setValues({ ...values, upLoadFileButton: false });
   };
@@ -171,6 +171,7 @@ const FormItem = () => {
               checkedRadioStudent: false,
               upLoadFileButton: true,
             });
+            itemId.current = [];
           }}
           onMouseOver={hoverOn}
           onMouseOut={hoverOff}

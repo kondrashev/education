@@ -18,14 +18,17 @@ export default function OpenMenu() {
     });
   };
   const openFormItem = (type) => {
-    type === "add"
-      ? setValues({
+    switch (type) {
+      case "add":
+        setValues({
           ...values,
           openMenu: false,
           showFormItem: true,
           showRadioButtons: true,
-        })
-      : setValues({
+        });
+        break;
+      case "upload":
+        setValues({
           ...values,
           openMenu: false,
           showFormItem: true,
@@ -33,6 +36,8 @@ export default function OpenMenu() {
           showNameGroup: true,
           showSurNameStudent: true,
         });
+        break;
+    }
   };
   return (
     <>
