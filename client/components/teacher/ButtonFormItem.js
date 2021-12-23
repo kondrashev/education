@@ -41,7 +41,7 @@ const ButtonFormItem = (props) => {
           style={styles.fields}
           disabled={values.upLoadFileButton}
         >
-          Завантажити файл
+          {!values.getListDates ? "Завантажити файл" : "Зформувати дати"}
         </Button>
       </label>
     );

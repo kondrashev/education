@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Logout from "@mui/icons-material/Logout";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import { ApplictationContext } from "../../App";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
 export default function OpenMenu() {
   const { values, setValues } = useContext(ApplictationContext);
@@ -35,6 +36,17 @@ export default function OpenMenu() {
           showRadioButtons: false,
           showNameGroup: true,
           showSurNameStudent: true,
+        });
+        break;
+      case "date":
+        setValues({
+          ...values,
+          openMenu: false,
+          showFormItem: true,
+          showRadioButtons: false,
+          showNameGroup: true,
+          showSurNameStudent: true,
+          getListDates: true,
         });
         break;
     }
@@ -102,6 +114,12 @@ export default function OpenMenu() {
             <Logout fontSize="small" />
           </ListItemIcon>
           Завантажити інформацію
+        </MenuItem>
+        <MenuItem onClick={() => openFormItem("date")}>
+          <ListItemIcon>
+            <CalendarTodayIcon fontSize="small" />
+          </ListItemIcon>
+          Зформувати дати
         </MenuItem>
       </Menu>
     </>

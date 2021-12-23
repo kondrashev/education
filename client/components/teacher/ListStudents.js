@@ -41,7 +41,6 @@ const ListStudents = (props) => {
   }, []);
   // @ts-ignore
   const listStudents = useSelector((state) => state.studentReducer);
-  // console.log(listStudents);
   const rows = listStudents.map((item) => {
     return createData(item);
   });

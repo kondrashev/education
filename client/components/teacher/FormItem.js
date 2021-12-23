@@ -1,10 +1,10 @@
 // @ts-ignore
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { ApplictationContext } from "../../App";
 // @ts-ignore
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import endpoints from "../constants/Endpoints";
 import { addItemFetchData } from "../../store/disciplines/action_add";
 import { loadGroupsFetchData } from "../../store/groups/action_get";
@@ -17,36 +17,37 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import SelectPosition from "./SelectPosition";
 import ButtonFormItem from "./ButtonFormItem";
+import ListDates from "./ListDates";
 
-const styles = {
-  container: {
-    width: "400px",
-    height: "auto",
-    background: "#F1F3F4",
-    borderRadius: "10px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  buttonClose: {
-    width: "30px",
-    height: "30px",
-    alignSelf: "flex-end",
-    border: "none",
-    backgroundColor: "initial",
-    cursor: "pointer",
-  },
-  fields: {
-    width: "360px",
-    height: "50px",
-    marginBottom: "20px",
-  },
-};
 const FormItem = () => {
   const hover = useRef(false);
   const dispatch = useDispatch();
   const { values, setValues } = useContext(ApplictationContext);
+  const styles = {
+    container: {
+      width: "400px",
+      height: values.getListDates ? "500px" : "auto",
+      background: "#F1F3F4",
+      borderRadius: "10px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-around",
+      alignItems: "center",
+    },
+    buttonClose: {
+      width: "30px",
+      height: "30px",
+      alignSelf: "flex-end",
+      border: "none",
+      backgroundColor: "initial",
+      cursor: "pointer",
+    },
+    fields: {
+      width: "360px",
+      height: "50px",
+      marginBottom: "20px",
+    },
+  };
   const hoverOn = () => {
     // @ts-ignore
     hover.current.style.borderRadius = "50%";
@@ -170,6 +171,7 @@ const FormItem = () => {
               checkedRadioGroup: false,
               checkedRadioStudent: false,
               upLoadFileButton: true,
+              getListDates: false,
             });
             itemId.current = [];
           }}
@@ -254,6 +256,12 @@ const FormItem = () => {
           style={styles.fields}
           onChange={changeNameItem}
           onKeyPress={onPressKey}
+        />
+      )}
+      {values.getListDates && (
+        <ListDates
+          // @ts-ignore
+          itemId={itemId}
         />
       )}
       <ButtonFormItem

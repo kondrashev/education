@@ -45,8 +45,10 @@ const ListItems = (props) => {
   const { suffixDisciplineURL, suffixGroupURL } = props;
   const { values, setValues } = useContext(ApplictationContext);
   const itemsList = useSelector((state) =>
+    // @ts-ignore
     !values.getGroups ? state.disciplineReducer : state.groupReducer
   );
+  // @ts-ignore
   const updateItems = useSelector((state) => state.updateItemsReducer);
   useEffect(() => {
     const data = {
@@ -90,7 +92,9 @@ const ListItems = (props) => {
   const getListIdItems = (event) => {
     if (event.target.checked) {
       listIdItems.current = [
+        // @ts-ignore
         ...listIdItems.current,
+        // @ts-ignore
         parseInt(event.target.value),
       ];
     } else {
@@ -117,7 +121,11 @@ const ListItems = (props) => {
     dispatch(deleteItemsFetchData(data));
   };
   return (
-    <Box mt={2} sx={styles.container}>
+    <Box
+      mt={2}
+      // @ts-ignore
+      sx={styles.container}
+    >
       <Typography style={styles.title}>
         {!values.getGroups ? "Дисципліни" : "Групи"}
       </Typography>
