@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, createContext } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { ApplictationContext } from "../../App";
@@ -18,6 +18,7 @@ import SelectPosition from "./SelectPosition";
 import ButtonFormItem from "./ButtonFormItem";
 import ListDates from "./ListDates";
 
+export const DateContext = createContext();
 const FormItem = () => {
   const hover = useRef(false);
   const dispatch = useDispatch();
@@ -250,11 +251,14 @@ const FormItem = () => {
         />
       )}
       {values.getListDates && (
-        <ListDates
-          // @ts-ignore
-          itemId={itemId}
-          datesList={datesList}
-        />
+        <DateContext.Provider
+          value={{
+            itemId,
+            datesList,
+          }}
+        >
+          <ListDates />
+        </DateContext.Provider>
       )}
       <ButtonFormItem
         values={values}

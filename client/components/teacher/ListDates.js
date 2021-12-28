@@ -10,13 +10,14 @@ import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import endpoints from "../constants/Endpoints";
 import { ApplictationContext } from "../../App";
+import { DateContext } from "../teacher/FormItem";
 import { loadStudentsFetchData } from "../../store/students/action_get";
 import PickerDate from "./PickerDate";
 
 export default function ListDates(props) {
   const dispatch = useDispatch();
   const { values, setValues } = useContext(ApplictationContext);
-  const { itemId, datesList } = props;
+  const { itemId, datesList } = useContext(DateContext);
   useEffect(() => {
     if (values.getListDates) {
       const data = {
@@ -38,7 +39,7 @@ export default function ListDates(props) {
     return { test, date };
   }
   const rows = listTests.map((item) =>
-    createData(item, <PickerDate item={item} datesList={datesList} />)
+    createData(item, <PickerDate item={item} />)
   );
   return (
     <TableContainer
