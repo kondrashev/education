@@ -145,7 +145,10 @@ const FormItem = () => {
   };
   const datesList = useRef(new Map());
   const getListDates = () => {
-    console.log(datesList.current);
+    const sortDate = [...datesList.current].sort((a, b) =>
+      a[1] > b[1] ? 1 : -1
+    );
+    console.log(sortDate);
   };
   return (
     <Box mt={1} ml={1} sx={styles.container}>
