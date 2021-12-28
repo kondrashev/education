@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
@@ -7,7 +8,7 @@ const Input = styled("input")({
 });
 
 const ButtonFormItem = (props) => {
-  const { values, styles, addItem, uploadFile } = props;
+  const { values, styles, addItem, uploadFile, getListDates } = props;
   if (values.showRadioButtons) {
     return (
       <Button
@@ -26,7 +27,7 @@ const ButtonFormItem = (props) => {
       </Button>
     );
   } else {
-    return (
+    return !values.getListDates ? (
       <label htmlFor="contained-button-file">
         <Input
           accept="csv/*"
@@ -41,9 +42,19 @@ const ButtonFormItem = (props) => {
           style={styles.fields}
           disabled={values.upLoadFileButton}
         >
-          {!values.getListDates ? "Завантажити файл" : "Зформувати дати"}
+          Завантажити файл
         </Button>
       </label>
+    ) : (
+      <Button
+        variant="contained"
+        component="span"
+        style={styles.fields}
+        disabled={values.upLoadFileButton}
+        onClick={values.getListDates && getListDates}
+      >
+        Зформувати дати
+      </Button>
     );
   }
 };

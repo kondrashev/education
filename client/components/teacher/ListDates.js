@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useContext } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,10 +14,9 @@ import { loadStudentsFetchData } from "../../store/students/action_get";
 import PickerDate from "./PickerDate";
 
 export default function ListDates(props) {
-  // @ts-ignore
   const dispatch = useDispatch();
   const { values, setValues } = useContext(ApplictationContext);
-  const { itemId } = props;
+  const { itemId, datesList } = props;
   useEffect(() => {
     if (values.getListDates) {
       const data = {
@@ -27,15 +27,19 @@ export default function ListDates(props) {
       dispatch(loadStudentsFetchData(data));
     }
   }, [itemId.current[1]]);
-  // @ts-ignore
   const [item] = useSelector((state) => state.studentReducer);
-  const listTests = Object.keys(JSON.parse(item?.options || "[]")).map((item) =>
-    item.slice(-2)
+  const listTests = Object.keys(JSON.parse(item?.options || "[]")).map(
+    (item) => {
+      datesList.current.set(item.slice(-2), "");
+      return item.slice(-2);
+    }
   );
   function createData(test, date) {
     return { test, date };
   }
-  const rows = listTests.map((item) => createData(item, <PickerDate />));
+  const rows = listTests.map((item) =>
+    createData(item, <PickerDate item={item} datesList={datesList} />)
+  );
   return (
     <TableContainer
       component={Paper}

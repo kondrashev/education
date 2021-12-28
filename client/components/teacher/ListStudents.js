@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
@@ -39,7 +40,6 @@ const ListStudents = (props) => {
     };
     dispatch(loadStudentsFetchData(data));
   }, []);
-  // @ts-ignore
   const listStudents = useSelector((state) => state.studentReducer);
   const rows = listStudents.map((item) => {
     return createData(item);
@@ -205,7 +205,6 @@ const ListStudents = (props) => {
     setSelected([]);
   };
   const handleClick = (event, name) => {
-    // @ts-ignore
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
     if (selectedIndex === -1) {
@@ -220,7 +219,6 @@ const ListStudents = (props) => {
         selected.slice(selectedIndex + 1)
       );
     }
-    // @ts-ignore
     setSelected(newSelected);
   };
   const handleChangePage = (event, newPage) => {
@@ -233,7 +231,6 @@ const ListStudents = (props) => {
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
   };
-  // @ts-ignore
   const isSelected = (name) => selected.indexOf(name) !== -1;
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useContext, useRef } from "react";
 import MainMenu from "./MainMenu";
 import MenuNavigation from "./MenuNavigation";
@@ -27,7 +28,6 @@ const Teacher = () => {
     config: { duration: 1000 },
   });
   return (
-    // @ts-ignore
     <Box sx={styles.container}>
       <MainMenu />
       <MenuNavigation />

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, createContext } from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";

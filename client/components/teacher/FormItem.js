@@ -1,9 +1,8 @@
-// @ts-ignore
+// @ts-nocheck
 import React, { useContext, useRef } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { ApplictationContext } from "../../App";
-// @ts-ignore
 import { useDispatch } from "react-redux";
 import endpoints from "../constants/Endpoints";
 import { addItemFetchData } from "../../store/disciplines/action_add";
@@ -49,15 +48,11 @@ const FormItem = () => {
     },
   };
   const hoverOn = () => {
-    // @ts-ignore
     hover.current.style.borderRadius = "50%";
-    // @ts-ignore
     hover.current.style.backgroundColor = "grey";
   };
   const hoverOff = () => {
-    // @ts-ignore
     hover.current.style.borderRadius = "inherit";
-    // @ts-ignore
     hover.current.style.backgroundColor = "inherit";
   };
   const changeNameItem = (event) => {
@@ -135,7 +130,6 @@ const FormItem = () => {
   const handleChangePosition = (event, type) => {
     const { current } = itemId;
     if (type === "Discipline") {
-      // @ts-ignore
       current[0] = event.target.value;
       const data = {
         url: `${endpoints.getGroups}?disciplineId=${event.target.value}`,
@@ -144,21 +138,18 @@ const FormItem = () => {
       };
       dispatch(loadGroupsFetchData(data));
     } else {
-      // @ts-ignore
       current[1] = event.target.value;
     }
     current.length === 2 && setValues({ ...values, upLoadFileButton: false });
   };
+  const datesList = useRef(new Map());
+  const getListDates = () => {
+    console.log(datesList.current);
+  };
   return (
-    <Box
-      mt={1}
-      ml={1}
-      // @ts-ignore
-      sx={styles.container}
-    >
+    <Box mt={1} ml={1} sx={styles.container}>
       <Box mt={-3} ml={46}>
         <button
-          // @ts-ignore
           ref={hover}
           style={styles.buttonClose}
           onClick={() => {
@@ -262,6 +253,7 @@ const FormItem = () => {
         <ListDates
           // @ts-ignore
           itemId={itemId}
+          datesList={datesList}
         />
       )}
       <ButtonFormItem
@@ -270,6 +262,7 @@ const FormItem = () => {
         styles={styles}
         addItem={addItem}
         uploadFile={uploadFile}
+        getListDates={getListDates}
       />
       {values.errorForm && (
         <Alert
