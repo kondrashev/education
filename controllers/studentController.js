@@ -56,5 +56,10 @@ class StudentController {
       next(ApiError.badRequest(e.message));
     }
   }
+  async getListDates(req, res) {
+    const { groupId } = req.query;
+    const listDates = await Dates.findOne({ where: { groupId } });
+    return res.json(listDates);
+  }
 }
 module.exports = new StudentController();

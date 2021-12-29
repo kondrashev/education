@@ -29,3 +29,18 @@ export const addDatesFetchData = (data) => async (dispatch) => {
     });
   }
 };
+
+export const loadListDatesFetchData = (data) => async (dispatch) => {
+  const { url, values, setValues } = data;
+  let response = await fetch(url, {
+    headers: {
+      Authorization: localStorage.token,
+    },
+  });
+  if (response.status === 200) {
+    response = await response.json();
+    dispatch(updateDatesFetchDataSuccess(response));
+  } else {
+    console.log({ message: "Error!!!" });
+  }
+};

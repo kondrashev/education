@@ -12,4 +12,5 @@ export default {
   getStudents: "/student/get",
   addStudent: "/student/add",
   addListDates: "/student/add/dates",
+  getListDates: "/student/get/dates",
 };

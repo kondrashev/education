@@ -12,6 +12,7 @@ import endpoints from "../constants/Endpoints";
 import { ApplictationContext } from "../../App";
 import { DateContext } from "../teacher/FormItem";
 import { loadStudentsFetchData } from "../../store/students/action_get";
+import { loadListDatesFetchData } from "../../store/students/action_dates";
 import PickerDate from "./PickerDate";
 
 export default function ListDates(props) {
@@ -20,18 +21,23 @@ export default function ListDates(props) {
   const { itemId, datesList } = useContext(DateContext);
   useEffect(() => {
     if (values.getListDates) {
-      const data = {
+      let data = {
         url: `${endpoints.getStudents}?groupId=${itemId.current[1]}`,
         values,
         setValues,
       };
       dispatch(loadStudentsFetchData(data));
+      data = {
+        url: `${endpoints.getListDates}?groupId=${itemId.current[1]}`,
+        values,
+        setValues,
+      };
+      dispatch(loadListDatesFetchData(data));
     }
   }, [itemId.current[1]]);
-  useEffect(() => {}, []);
   const [item] = useSelector((state) => state.studentReducer.students);
-  const { dates } = useSelector((state) => state.studentReducer);
-  console.log(dates);
+  const { listDates } = useSelector((state) => state.studentReducer.dates);
+  console.log(listDates);
   const listTests = Object.keys(JSON.parse(item?.options || "[]")).map(
     (item) => {
       datesList.current.set(item.slice(-2), "");

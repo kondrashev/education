@@ -7,4 +7,5 @@ router.get("/get", studentController.getStudents);
 router.post("/delete", studentController.deleteStudents);
 router.post("/update", studentController.updateStudent);
 router.post("/add/dates", studentController.addListDates);
+router.get("/get/dates", studentController.getListDates);
 module.exports = router;

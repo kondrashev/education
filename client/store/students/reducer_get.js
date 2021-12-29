@@ -1,7 +1,7 @@
 import { LOAD_STUDENTS_DATA_SUCCESS } from "./action_get";
 import { UPDATE_DATES_DATA_SUCCESS } from "./action_dates";
 
-const initialState = { students: [], dates: [] };
+const initialState = { students: [], dates: {} };
 
 export const studentReducer = (state = initialState, action) => {
   switch (action.type) {
