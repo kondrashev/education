@@ -8,6 +8,7 @@ import endpoints from "../constants/Endpoints";
 import { addItemFetchData } from "../../store/disciplines/action_add";
 import { loadGroupsFetchData } from "../../store/groups/action_get";
 import { uploadFileFetchData } from "../../store/upload_csv/action";
+import { addDatesFetchData } from "../../store/students/action_dates";
 import Alert from "@mui/material/Alert";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -148,7 +149,14 @@ const FormItem = () => {
     const sortDate = [...datesList.current].sort((a, b) =>
       a[1] > b[1] ? 1 : -1
     );
-    console.log(sortDate);
+    const data = {
+      url: endpoints.addListDates,
+      values,
+      setValues,
+      id: itemId.current[1],
+      sortDate,
+    };
+    dispatch(addDatesFetchData(data));
   };
   return (
     <Box mt={1} ml={1} sx={styles.container}>

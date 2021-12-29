@@ -28,7 +28,10 @@ export default function ListDates(props) {
       dispatch(loadStudentsFetchData(data));
     }
   }, [itemId.current[1]]);
-  const [item] = useSelector((state) => state.studentReducer);
+  useEffect(() => {}, []);
+  const [item] = useSelector((state) => state.studentReducer.students);
+  const { dates } = useSelector((state) => state.studentReducer);
+  console.log(dates);
   const listTests = Object.keys(JSON.parse(item?.options || "[]")).map(
     (item) => {
       datesList.current.set(item.slice(-2), "");

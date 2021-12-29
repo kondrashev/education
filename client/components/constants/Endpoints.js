@@ -11,4 +11,5 @@ export default {
   deleteGroups: "/group/delete",
   getStudents: "/student/get",
   addStudent: "/student/add",
+  addListDates: "/student/add/dates",
 };

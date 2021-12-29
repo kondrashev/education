@@ -40,7 +40,7 @@ const ListStudents = (props) => {
     };
     dispatch(loadStudentsFetchData(data));
   }, []);
-  const listStudents = useSelector((state) => state.studentReducer);
+  const listStudents = useSelector((state) => state.studentReducer.students);
   const rows = listStudents.map((item) => {
     return createData(item);
   });

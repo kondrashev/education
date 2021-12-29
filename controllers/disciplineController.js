@@ -1,3 +1,4 @@
+// @ts-nocheck
 const { Discipline, Group, Student } = require("../models/models");
 const ApiError = require("../error/ApiError");
 const csv = require("csvtojson");

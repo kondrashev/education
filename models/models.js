@@ -30,14 +30,21 @@ const Student = sequelize.define("student", {
   exam: { type: DataTypes.STRING },
 });
 
+const Dates = sequelize.define("dates", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  listDates: { type: DataTypes.STRING },
+});
+
 Discipline.hasMany(Group, { onDelete: "cascade" });
 Group.belongsTo(Discipline);
 Group.hasMany(Student, { onDelete: "cascade" });
 Student.belongsTo(Group);
+Group.hasOne(Dates, { onDelete: "cascade" });
 
 module.exports = {
   User,
   Discipline,
   Group,
   Student,
+  Dates,
 };

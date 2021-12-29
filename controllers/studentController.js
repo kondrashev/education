@@ -1,4 +1,4 @@
-const { Student } = require("../models/models");
+const { Student, Dates } = require("../models/models");
 const ApiError = require("../error/ApiError");
 class StudentController {
   async addStudent(req, res, next) {
@@ -35,6 +35,26 @@ class StudentController {
       await Student.destroy({ where: { id } });
       return res.json(listId);
     });
+  }
+  async addListDates(req, res, next) {
+    try {
+      const { listDates, groupId } = req.body;
+      const getDates = await Dates.findOne({
+        where: {
+          groupId,
+        },
+      });
+      const sortDates = JSON.stringify(listDates);
+      const datesList = !getDates
+        ? await Dates.create({ listDates: sortDates, groupId })
+        : await Dates.update(
+            { listDates: sortDates, groupId },
+            { where: { groupId } }
+          );
+      return res.json(datesList);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
   }
 }
 module.exports = new StudentController();
