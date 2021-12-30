@@ -36,20 +36,23 @@ export default function ListDates(props) {
     }
   }, [itemId.current[1]]);
   const [item] = useSelector((state) => state.studentReducer.students);
-  const { listDates } = useSelector((state) => state.studentReducer.dates);
-  console.log(listDates);
   const listTests = Object.keys(JSON.parse(item?.options || "[]")).map(
     (item) => {
       datesList.current.set(item.slice(-2), "");
       return item.slice(-2);
     }
   );
+  const { listDates } = useSelector((state) => state.studentReducer.dates);
+  let listSortDates = JSON.parse(listDates || "[]").sort((a, b) =>
+    a[0] > b[0] ? 1 : -1
+  );
   function createData(test, date) {
     return { test, date };
   }
-  const rows = listTests.map((item) =>
-    createData(item, <PickerDate item={item} />)
-  );
+  const rows = listTests.map((item, index) => {
+    const [_, date] = listSortDates[index] || [["", ""]];
+    return createData(item, <PickerDate item={item} dateNew={date} />);
+  });
   return (
     <TableContainer
       component={Paper}

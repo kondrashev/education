@@ -8,7 +8,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { DateContext } from "../teacher/FormItem";
 
 export default function PickerDate(props) {
-  const { item } = props;
+  const { item, dateNew = "" } = props;
   const { datesList } = useContext(DateContext);
   const [date, setDate] = useState("");
   const changeDate = (newDate) => {
@@ -20,7 +20,7 @@ export default function PickerDate(props) {
       <div>
         <DatePicker
           mask="__.__.____"
-          value={date}
+          value={date ? date : dateNew.split(".").reverse().join(".")}
           onChange={(newDate) => changeDate(newDate)}
           renderInput={(params) => <TextField {...params} />}
         />
