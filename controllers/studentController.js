@@ -1,3 +1,4 @@
+// @ts-nocheck
 const { Student, Dates } = require("../models/models");
 const ApiError = require("../error/ApiError");
 class StudentController {
@@ -44,14 +45,22 @@ class StudentController {
           groupId,
         },
       });
-      const sortDates = JSON.stringify(listDates);
-      const datesList = !getDates
+      let datesList = JSON.parse(getDates?.get("listDates"));
+      datesList = datesList.sort((a, b) => (a[0] > b[0] ? 1 : -1));
+      datesList.forEach((item, index) => {
+        const [_, newDate] = listDates[index];
+        if (newDate) item[1] = newDate;
+      });
+      const sortDates = JSON.stringify(
+        datesList.sort((a, b) => (a[1] > b[1] ? 1 : -1))
+      );
+      const newListDates = !getDates
         ? await Dates.create({ listDates: sortDates, groupId })
         : await Dates.update(
             { listDates: sortDates, groupId },
             { where: { groupId } }
           );
-      return res.json(datesList);
+      return res.json(newListDates);
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }

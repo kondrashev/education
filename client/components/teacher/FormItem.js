@@ -146,15 +146,13 @@ const FormItem = () => {
   };
   const datesList = useRef(new Map());
   const getListDates = () => {
-    const sortDate = [...datesList.current].sort((a, b) =>
-      a[1] > b[1] ? 1 : -1
-    );
+    const { current } = datesList;
     const data = {
       url: endpoints.addListDates,
       values,
       setValues,
       id: itemId.current[1],
-      sortDate,
+      sortDate: current,
     };
     dispatch(addDatesFetchData(data));
   };

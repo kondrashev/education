@@ -43,12 +43,12 @@ export default function ListDates(props) {
     }
   );
   const { listDates } = useSelector((state) => state.studentReducer.dates);
-  let listSortDates = JSON.parse(listDates || "[]").sort((a, b) =>
-    a[0] > b[0] ? 1 : -1
-  );
   function createData(test, date) {
     return { test, date };
   }
+  const listSortDates = JSON.parse(listDates || "[]").sort((a, b) =>
+    a[0] > b[0] ? 1 : -1
+  );
   const rows = listTests.map((item, index) => {
     const [_, date] = listSortDates[index] || [["", ""]];
     return createData(item, <PickerDate item={item} dateNew={date} />);
