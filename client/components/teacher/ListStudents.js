@@ -25,6 +25,7 @@ import { visuallyHidden } from "@mui/utils";
 import endpoints from "../constants/Endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { loadStudentsFetchData } from "../../store/students/action_get";
+import { loadListDatesFetchData } from "../../store/students/action_dates";
 import { ApplictationContext } from "../../App";
 import { headCells, createData } from "./MapperStudents";
 
@@ -34,12 +35,15 @@ const ListStudents = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     const data = {
-      url: `${endpoints.getStudents}?groupId=${suffixGroupURL.current}`,
+      url: `${endpoints.getListDates}?groupId=${suffixGroupURL.current}`,
       values,
       setValues,
     };
+    dispatch(loadListDatesFetchData(data));
+    data.url = `${endpoints.getStudents}?groupId=${suffixGroupURL.current}`;
     dispatch(loadStudentsFetchData(data));
   }, []);
+  const listDates = useSelector((state) => state.studentReducer.dates);
   const listStudents = useSelector((state) => state.studentReducer.students);
   const rows = listStudents.map((item) => {
     return createData(item);
@@ -95,7 +99,7 @@ const ListStudents = (props) => {
               }}
             />
           </TableCell>
-          {headCells().map((headCell) => (
+          {headCells(listDates).map((headCell) => (
             <TableCell
               key={headCell.id}
               align={headCell.numeric ? "right" : "left"}
@@ -277,7 +281,7 @@ const ListStudents = (props) => {
                           }}
                         />
                       </TableCell>
-                      {headCells().map((item, index) => {
+                      {headCells(listDates).map((item, index) => {
                         const { id } = item;
                         if (index === 0) {
                           return (

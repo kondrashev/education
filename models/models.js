@@ -32,7 +32,7 @@ const Student = sequelize.define("student", {
 
 const Dates = sequelize.define("dates", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  listDates: { type: DataTypes.STRING },
+  listDates: { type: DataTypes.TEXT },
 });
 
 Discipline.hasMany(Group, { onDelete: "cascade" });

@@ -27,11 +27,7 @@ export default function ListDates(props) {
         setValues,
       };
       dispatch(loadStudentsFetchData(data));
-      data = {
-        url: `${endpoints.getListDates}?groupId=${itemId.current[1]}`,
-        values,
-        setValues,
-      };
+      data.url = `${endpoints.getListDates}?groupId=${itemId.current[1]}`;
       dispatch(loadListDatesFetchData(data));
     }
   }, [itemId.current[1]]);
@@ -42,13 +38,12 @@ export default function ListDates(props) {
       return item.slice(-2);
     }
   );
-  const { listDates } = useSelector((state) => state.studentReducer.dates);
+  const { listDates } =
+    useSelector((state) => state.studentReducer.dates) || "[]";
   function createData(test, date) {
     return { test, date };
   }
-  const listSortDates = JSON.parse(listDates || "[]").sort((a, b) =>
-    a[0] > b[0] ? 1 : -1
-  );
+  const listSortDates = JSON.parse(listDates || "[]");
   const rows = listTests.map((item, index) => {
     const [_, date] = listSortDates[index] || [["", ""]];
     return createData(item, <PickerDate item={item} dateNew={date} />);
