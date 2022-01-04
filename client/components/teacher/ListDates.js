@@ -21,13 +21,21 @@ export default function ListDates(props) {
   const { itemId, datesList } = useContext(DateContext);
   useEffect(() => {
     if (values.getListDates) {
-      let data = {
+      const data = {
         url: `${endpoints.getStudents}?groupId=${itemId.current[1]}`,
         values,
         setValues,
       };
       dispatch(loadStudentsFetchData(data));
-      data.url = `${endpoints.getListDates}?groupId=${itemId.current[1]}`;
+    }
+  }, [itemId.current[1]]);
+  useEffect(() => {
+    if (values.getListDates) {
+      const data = {
+        url: `${endpoints.getListDates}?groupId=${itemId.current[1]}`,
+        values,
+        setValues,
+      };
       dispatch(loadListDatesFetchData(data));
     }
   }, [itemId.current[1]]);

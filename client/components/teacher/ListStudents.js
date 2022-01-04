@@ -40,7 +40,13 @@ const ListStudents = (props) => {
       setValues,
     };
     dispatch(loadListDatesFetchData(data));
-    data.url = `${endpoints.getStudents}?groupId=${suffixGroupURL.current}`;
+  }, []);
+  useEffect(() => {
+    const data = {
+      url: `${endpoints.getStudents}?groupId=${suffixGroupURL.current}`,
+      values,
+      setValues,
+    };
     dispatch(loadStudentsFetchData(data));
   }, []);
   const listDates = useSelector((state) => state.studentReducer.dates);
@@ -169,7 +175,6 @@ const ListStudents = (props) => {
             Студенти
           </Typography>
         )}
-
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton>
