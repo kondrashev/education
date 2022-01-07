@@ -1,18 +1,13 @@
 // @ts-nocheck
 export const headCells = (dates) => {
   const listDates = JSON.parse(dates?.listDates || "[]");
-  const tests = listDates.map((item) => {
-    const [test, date] = item;
+  const tests = listDates.map(([test, date]) => {
     return {
       id: `test_${test}`,
       numeric: true,
       disablePadding: false,
-      label: `${test}_${new Date(
-        date.split(".").reverse().join(".")
-      ).toLocaleDateString("uk-UK")}`,
-      date: new Date(date.split(".").reverse().join(".")).toLocaleDateString(
-        "uk-UK"
-      ),
+      label: `${test}_${date}`,
+      date: new Date(date.split(".").reverse().join(".")).getTime(),
     };
   });
   return [
@@ -22,7 +17,7 @@ export const headCells = (dates) => {
       disablePadding: false,
       label: "Прізвище",
     },
-    ...tests.sort((a, b) => (a[1] > b[1] ? 1 : -1)),
+    ...tests.sort((a, b) => (a.date > b.date ? 1 : -1)),
     {
       id: "report",
       numeric: true,
