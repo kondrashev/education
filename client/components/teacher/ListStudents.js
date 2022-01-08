@@ -28,13 +28,8 @@ import { loadStudentsFetchData } from "../../store/students/action_get";
 import { loadListDatesFetchData } from "../../store/students/action_dates";
 import { ApplictationContext } from "../../App";
 import { headCells, createData } from "./MapperStudents";
+import EditItemInput from "./EditItemInput";
 
-const styles = {
-  cellInput: {
-    width: "25px",
-    cursor: "pointer",
-  },
-};
 const ListStudents = (props) => {
   const { suffixGroupURL } = props;
   const { values, setValues } = useContext(ApplictationContext);
@@ -307,21 +302,7 @@ const ListStudents = (props) => {
                             </TableCell>
                           );
                         } else {
-                          return (
-                            <TableCell align="right">
-                              {id === "report" ||
-                              id === "teacher" ||
-                              id === "conspectus" ||
-                              id === "exercise" ? (
-                                <input
-                                  style={styles.cellInput}
-                                  value={row[id]}
-                                />
-                              ) : (
-                                row[id]
-                              )}
-                            </TableCell>
-                          );
+                          return <EditItemInput row={row} id={id} />;
                         }
                       })}
                     </TableRow>

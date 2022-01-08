@@ -57,6 +57,7 @@ export const headCells = (dates) => {
   ];
 };
 export function createData({
+  id,
   surName,
   report,
   teacher,
@@ -85,6 +86,7 @@ export function createData({
     test_73,
   } = JSON.parse(options);
   return {
+    id,
     surName,
     test_31,
     test_32,

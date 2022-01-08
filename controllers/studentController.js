@@ -18,8 +18,11 @@ class StudentController {
   }
   async updateStudent(req, res, next) {
     try {
-      const { id, surName } = req.body;
-      const student = await Student.update({ surName }, { where: { id } });
+      const { id, item, valueItem } = req.body;
+      const student = await Student.update(
+        { [item]: valueItem },
+        { where: { id } }
+      );
       return res.json(student);
     } catch (e) {
       next(ApiError.badRequest(e.message));

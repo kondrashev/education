@@ -77,7 +77,7 @@ class DisciplineController {
             conspectus: 0,
             exercise: 0,
             rating: getRating(item, 0, 0, 0),
-            report: "-",
+            report: 0,
             exam: getExam(getRating(item, 0, 0, 0)),
           });
         } else {
