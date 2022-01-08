@@ -18,13 +18,14 @@ const tkm = (item) => {
     test_73: item[17],
   };
 };
-const getRating = (item, teacher, exercise) => {
+const getRating = (item, teacher, exercise, conspectus) => {
   return (
     Object.values(item.options)
-      .filter((element) => element !== "-")
+      .filter((element) => element !== "н")
       .reduce((sum, element) => sum + parseInt(element), 0) +
     teacher +
-    exercise
+    exercise +
+    conspectus
   );
 };
 const getExam = (rating) => {
@@ -54,53 +55,48 @@ const informationUpload = (data, discipline, group) => {
   newData = data.map(
     ([
       ,
-      a1,
+      surName,
       ,
       ,
-      a2,
+      groupName,
       ,
       ,
-      a3 = "",
-      a4 = "",
-      a5 = "",
-      a6 = "",
-      a7 = "",
-      a8 = "",
-      a9 = "",
-      a10 = "",
-      a11 = "",
-      a12 = "",
-      a13 = "",
-      a14 = "",
-      a15 = "",
-      a16 = "",
-      a17 = "",
-      a18 = "",
-      a19 = "",
-      a20 = "",
-      ...item
+      test_31 = "",
+      test_32 = "",
+      test_33 = "",
+      test_34 = "",
+      test_41 = "",
+      test_43 = "",
+      test_51 = "",
+      test_53 = "",
+      test_56 = "",
+      test_57 = "",
+      test_65 = "",
+      test_66 = "",
+      test_67 = "",
+      test_68 = "",
+      test_72 = "",
+      test_73 = "",
     ]) => {
       return [
-        a1,
-        a2,
-        a3,
-        a4,
-        a5,
-        a6,
-        a7,
-        a8,
-        a9,
-        a10,
-        a11,
-        a12,
-        a13,
-        a14,
-        a15,
-        a16,
-        a17,
-        a18,
-        a19,
-        a20,
+        surName,
+        groupName,
+        test_31 === "-" ? "н" : test_31,
+        test_32 === "-" ? "н" : test_32,
+        test_33 === "-" ? "н" : test_33,
+        test_34 === "-" ? "н" : test_34,
+        test_41 === "-" ? "н" : test_41,
+        test_43 === "-" ? "н" : test_43,
+        test_51 === "-" ? "н" : test_51,
+        test_53 === "-" ? "н" : test_53,
+        test_56 === "-" ? "н" : test_56,
+        test_57 === "-" ? "н" : test_57,
+        test_65 === "-" ? "н" : test_65,
+        test_66 === "-" ? "н" : test_66,
+        test_67 === "-" ? "н" : test_67,
+        test_68 === "-" ? "н" : test_68,
+        test_72 === "-" ? "н" : test_72,
+        test_73 === "-" ? "н" : test_73,
       ];
     }
   );

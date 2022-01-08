@@ -76,9 +76,9 @@ class DisciplineController {
             teacher: 0,
             conspectus: 0,
             exercise: 0,
-            rating: getRating(item, 0, 0),
+            rating: getRating(item, 0, 0, 0),
             report: "-",
-            exam: getExam(getRating(item, 0, 0)),
+            exam: getExam(getRating(item, 0, 0, 0)),
           });
         } else {
           await Student.update(
@@ -88,9 +88,21 @@ class DisciplineController {
               teacher: student.teacher,
               conspectus: 0,
               exercise: student.exercise,
-              rating: getRating(item, student.teacher, student.exercise),
+              rating: getRating(
+                item,
+                student.teacher,
+                student.exercise,
+                student.conspectus
+              ),
               report: student.report,
-              exam: getExam(getRating(item, student.teacher, student.exercise)),
+              exam: getExam(
+                getRating(
+                  item,
+                  student.teacher,
+                  student.exercise,
+                  student.conspectus
+                )
+              ),
             },
             { where: { id: student.id } }
           );

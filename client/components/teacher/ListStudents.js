@@ -29,6 +29,12 @@ import { loadListDatesFetchData } from "../../store/students/action_dates";
 import { ApplictationContext } from "../../App";
 import { headCells, createData } from "./MapperStudents";
 
+const styles = {
+  cellInput: {
+    width: "25px",
+    cursor: "pointer",
+  },
+};
 const ListStudents = (props) => {
   const { suffixGroupURL } = props;
   const { values, setValues } = useContext(ApplictationContext);
@@ -270,14 +276,16 @@ const ListStudents = (props) => {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.surName)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.surName}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
+                      <TableCell
+                        padding="checkbox"
+                        onClick={(event) => handleClick(event, row.surName)}
+                      >
                         <Checkbox
                           color="primary"
                           checked={isItemSelected}
@@ -286,8 +294,7 @@ const ListStudents = (props) => {
                           }}
                         />
                       </TableCell>
-                      {headCells(listDates).map((item, index) => {
-                        const { id } = item;
+                      {headCells(listDates).map(({ id }, index) => {
                         if (index === 0) {
                           return (
                             <TableCell
@@ -300,7 +307,21 @@ const ListStudents = (props) => {
                             </TableCell>
                           );
                         } else {
-                          return <TableCell align="right">{row[id]}</TableCell>;
+                          return (
+                            <TableCell align="right">
+                              {id === "report" ||
+                              id === "teacher" ||
+                              id === "conspectus" ||
+                              id === "exercise" ? (
+                                <input
+                                  style={styles.cellInput}
+                                  value={row[id]}
+                                />
+                              ) : (
+                                row[id]
+                              )}
+                            </TableCell>
+                          );
                         }
                       })}
                     </TableRow>

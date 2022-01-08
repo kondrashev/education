@@ -21,7 +21,7 @@ const Group = sequelize.define("group", {
 const Student = sequelize.define("student", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   surName: { type: DataTypes.STRING, unique: true, allowNull: false },
-  options: { type: DataTypes.STRING, allowNull: false },
+  options: { type: DataTypes.TEXT, allowNull: false },
   teacher: { type: DataTypes.INTEGER },
   conspectus: { type: DataTypes.INTEGER },
   exercise: { type: DataTypes.INTEGER },
