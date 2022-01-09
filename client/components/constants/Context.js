@@ -27,4 +27,5 @@ export const context = {
   showListItems: true,
   showListStudents: false,
   getListDates: false,
+  updateStudent: {},
 };

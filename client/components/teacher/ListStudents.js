@@ -49,7 +49,7 @@ const ListStudents = (props) => {
       setValues,
     };
     dispatch(loadStudentsFetchData(data));
-  }, []);
+  }, [values.updateStudent]);
   const listDates = useSelector((state) => state.studentReducer.dates);
   const listStudents = useSelector((state) => state.studentReducer.students);
   const rows = listStudents.map((item) => {
