@@ -1,6 +1,7 @@
 // @ts-nocheck
 const { Student, Dates } = require("../models/models");
 const ApiError = require("../error/ApiError");
+const { getRating, getExam } = require("../controllers/someFunctions");
 class StudentController {
   async addStudent(req, res, next) {
     try {
@@ -19,9 +20,21 @@ class StudentController {
   async updateStudent(req, res, next) {
     try {
       const { studentId, item, valueItem } = req.body;
-      const getStudent = await Student.findOne({ where: { id: studentId } });
       let upadateStudent = await Student.update(
         { [item]: valueItem },
+        { where: { id: studentId } }
+      );
+      const getStudent = await Student.findOne({ where: { id: studentId } });
+      const tests = JSON.parse(getStudent?.options || "[]");
+      const newRating = getRating(
+        tests,
+        getStudent?.teacher,
+        getStudent?.conspectus,
+        getStudent?.exercise
+      );
+      const newExam = getExam(newRating, getStudent?.report);
+      upadateStudent = await Student.update(
+        { rating: newRating, exam: newExam },
         { where: { id: studentId } }
       );
       return res.json(upadateStudent);

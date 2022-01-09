@@ -20,26 +20,30 @@ const tkm = (item) => {
 };
 const getRating = (item, teacher, exercise, conspectus) => {
   return (
-    Object.values(item.options)
+    Object.values(item.options ? item.options : item)
       .filter((element) => element !== "н")
       .reduce((sum, element) => sum + parseInt(element), 0) +
-    teacher +
-    exercise +
-    conspectus
+    parseInt(teacher) +
+    parseInt(exercise) +
+    parseInt(conspectus)
   );
 };
-const getExam = (rating) => {
-  if (rating > 94) {
-    return "Відмінно";
-  } else if (rating < 95 && rating > 84) {
-    return "Дуже добре";
-  } else if (rating < 85 && rating > 74) {
-    return "Добре";
-  } else if (rating < 75 && rating > 64) {
-    return "Задовільно";
-  } else if (rating < 65 && rating > 59) {
-    return "Достатньо";
-  } else if (rating < 60) {
+const getExam = (rating, report) => {
+  if (report === "+") {
+    if (rating > 94) {
+      return "Відмінно";
+    } else if (rating < 95 && rating > 84) {
+      return "Дуже добре";
+    } else if (rating < 85 && rating > 74) {
+      return "Добре";
+    } else if (rating < 75 && rating > 64) {
+      return "Задовільно";
+    } else if (rating < 65 && rating > 59) {
+      return "Достатньо";
+    } else if (rating < 60) {
+      return "Fx";
+    }
+  } else {
     return "Fx";
   }
 };

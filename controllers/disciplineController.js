@@ -78,7 +78,7 @@ class DisciplineController {
             exercise: 0,
             rating: getRating(item, 0, 0, 0),
             report: 0,
-            exam: getExam(getRating(item, 0, 0, 0)),
+            exam: getExam(getRating(item, 0, 0, 0), report),
           });
         } else {
           await Student.update(
@@ -101,7 +101,8 @@ class DisciplineController {
                   student.teacher,
                   student.exercise,
                   student.conspectus
-                )
+                ),
+                report
               ),
             },
             { where: { id: student.id } }
