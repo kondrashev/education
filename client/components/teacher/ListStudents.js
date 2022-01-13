@@ -26,6 +26,7 @@ import endpoints from "../constants/Endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { loadStudentsFetchData } from "../../store/students/action_get";
 import { loadListDatesFetchData } from "../../store/students/action_dates";
+import { updateStudentFetchData } from "../../store/students/action_edit";
 import { ApplictationContext } from "../../App";
 import { headCells, createData } from "./MapperStudents";
 import EditItemInput from "./EditItemInput";
@@ -34,6 +35,11 @@ const ListStudents = (props) => {
   const { suffixGroupURL } = props;
   const { values, setValues } = useContext(ApplictationContext);
   const dispatch = useDispatch();
+  const listDates = useSelector((state) => state.studentReducer.dates);
+  const listStudents = useSelector((state) => state.studentReducer.students);
+  const updateStudent = useSelector(
+    (state) => state.studentReducer.updateStudent
+  );
   useEffect(() => {
     const data = {
       url: `${endpoints.getListDates}?groupId=${suffixGroupURL.current}`,
@@ -49,9 +55,7 @@ const ListStudents = (props) => {
       setValues,
     };
     dispatch(loadStudentsFetchData(data));
-  }, [values.updateStudent]);
-  const listDates = useSelector((state) => state.studentReducer.dates);
-  const listStudents = useSelector((state) => state.studentReducer.students);
+  }, [updateStudent]);
   const rows = listStudents.map((item) => {
     return createData(item);
   });
@@ -244,6 +248,20 @@ const ListStudents = (props) => {
   const isSelected = (name) => selected.indexOf(name) !== -1;
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const editItem = (event, studentId, id, item) => {
+    if (event.key === "Enter") {
+      const data = {
+        url: endpoints.updateStudent,
+        studentId,
+        item: id,
+        valueItem: item,
+        values,
+        setValues,
+      };
+      event.target.blur();
+      dispatch(updateStudentFetchData(data));
+    }
+  };
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -302,7 +320,13 @@ const ListStudents = (props) => {
                             </TableCell>
                           );
                         } else {
-                          return <EditItemInput row={row} id={id} />;
+                          return (
+                            <EditItemInput
+                              row={row}
+                              id={id}
+                              editItem={editItem}
+                            />
+                          );
                         }
                       })}
                     </TableRow>

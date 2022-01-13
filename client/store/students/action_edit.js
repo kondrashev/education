@@ -12,7 +12,6 @@ export const updateStudentFetchData = (data) => async (dispatch) => {
   });
   if (response.status === 200) {
     response = await response.json();
-    setValues({ ...values, updateStudent: response });
     dispatch(updateStudentFetchDataSuccess(response));
   } else {
     setValues({

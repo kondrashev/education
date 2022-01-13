@@ -41,10 +41,10 @@ const getExam = (rating, report) => {
     } else if (rating < 65 && rating > 59) {
       return "Достатньо";
     } else if (rating < 60) {
-      return "Fx";
+      return "Н/З";
     }
   } else {
-    return "Fx";
+    return "Н/З";
   }
 };
 const informationUpload = (data, discipline, group) => {

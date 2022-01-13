@@ -1,10 +1,6 @@
 // @ts-nocheck
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import TableCell from "@mui/material/TableCell";
-import endpoints from "../constants/Endpoints";
-import { useDispatch } from "react-redux";
-import { ApplictationContext } from "../../App";
-import { updateStudentFetchData } from "../../store/students/action_edit";
 
 const styles = {
   cellInput: {
@@ -12,28 +8,13 @@ const styles = {
     cursor: "pointer",
   },
 };
-const EditItemInput = ({ row, id }) => {
-  const { values, setValues } = useContext(ApplictationContext);
-  const dispatch = useDispatch();
+const EditItemInput = ({ row, id, editItem }) => {
   const [item, setItem] = useState("");
   const changeItem = (event) => {
     setItem(event.target.value);
   };
   const clearInput = (event) => {
     event.target.value = "";
-  };
-  const onPressKey = (event) => {
-    if (event.key === "Enter") {
-      const data = {
-        url: endpoints.updateStudent,
-        studentId: row.id,
-        item: id,
-        valueItem: item,
-        values,
-        setValues,
-      };
-      dispatch(updateStudentFetchData(data));
-    }
   };
   return (
     <TableCell align="right">
@@ -45,7 +26,7 @@ const EditItemInput = ({ row, id }) => {
           style={styles.cellInput}
           value={item ? item : row[id]}
           onChange={changeItem}
-          onKeyPress={onPressKey}
+          onKeyPress={(event) => editItem(event, row.id, id, item)}
           onClick={clearInput}
         />
       ) : (

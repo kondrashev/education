@@ -20,10 +20,7 @@ class StudentController {
   async updateStudent(req, res, next) {
     try {
       const { studentId, item, valueItem } = req.body;
-      let upadateStudent = await Student.update(
-        { [item]: valueItem },
-        { where: { id: studentId } }
-      );
+      await Student.update({ [item]: valueItem }, { where: { id: studentId } });
       const getStudent = await Student.findOne({ where: { id: studentId } });
       const tests = JSON.parse(getStudent?.options || "[]");
       const newRating = getRating(
@@ -33,11 +30,11 @@ class StudentController {
         getStudent?.exercise
       );
       const newExam = getExam(newRating, getStudent?.report);
-      upadateStudent = await Student.update(
+      await Student.update(
         { rating: newRating, exam: newExam },
         { where: { id: studentId } }
       );
-      return res.json(upadateStudent);
+      return res.json(getStudent);
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }
