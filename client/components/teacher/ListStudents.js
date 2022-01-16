@@ -36,6 +36,7 @@ const ListStudents = (props) => {
   const { values, setValues } = useContext(ApplictationContext);
   const dispatch = useDispatch();
   const listDates = useSelector((state) => state.studentReducer.dates);
+  const updateDates = useSelector((state) => state.studentReducer.updateDate);
   console.log(listDates);
   const listStudents = useSelector((state) => state.studentReducer.students);
   const updateStudent = useSelector(
@@ -48,7 +49,7 @@ const ListStudents = (props) => {
       setValues,
     };
     dispatch(loadListDatesFetchData(data));
-  }, []);
+  }, [updateDates]);
   useEffect(() => {
     const data = {
       url: `${endpoints.getStudents}?groupId=${suffixGroupURL.current}`,

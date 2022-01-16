@@ -1,5 +1,13 @@
 // @ts-nocheck
+export const LOAD_DATES_DATA_SUCCESS = "LOAD_DATES_DATA_SUCCESS";
 export const UPDATE_DATES_DATA_SUCCESS = "UPDATE_DATES_DATA_SUCCESS";
+
+const loadDatesFetchDataSuccess = (dates) => {
+  return {
+    type: LOAD_DATES_DATA_SUCCESS,
+    dates,
+  };
+};
 
 const updateDatesFetchDataSuccess = (dates) => {
   return {
@@ -39,7 +47,8 @@ export const loadListDatesFetchData = (data) => async (dispatch) => {
   });
   if (response.status === 200) {
     response = await response.json();
-    dispatch(updateDatesFetchDataSuccess(response));
+    // dispatch(updateDatesFetchDataSuccess(response));
+    dispatch(loadDatesFetchDataSuccess(response));
   } else {
     console.log({ message: "Error!!!" });
   }
