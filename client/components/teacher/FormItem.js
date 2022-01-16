@@ -1,9 +1,9 @@
 // @ts-nocheck
-import React, { useContext, useRef, createContext } from "react";
+import React, { useContext, useRef, createContext, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { ApplictationContext } from "../../App";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import endpoints from "../constants/Endpoints";
 import { addItemFetchData } from "../../store/disciplines/action_add";
 import { loadGroupsFetchData } from "../../store/groups/action_get";
@@ -24,6 +24,24 @@ const FormItem = () => {
   const hover = useRef(false);
   const dispatch = useDispatch();
   const { values, setValues } = useContext(ApplictationContext);
+  const loadInformation = useSelector((state) => state.uploadFileReducer);
+  useEffect(() => {
+    closeFormItem();
+  }, [loadInformation]);
+  const closeFormItem = () => {
+    setValues({
+      ...values,
+      showFormItem: false,
+      showNameGroup: false,
+      showSurNameStudent: false,
+      checkedRadioDiscipline: false,
+      checkedRadioGroup: false,
+      checkedRadioStudent: false,
+      upLoadFileButton: true,
+      getListDates: false,
+    });
+    itemId.current = [];
+  };
   const styles = {
     container: {
       width: "400px",
@@ -162,20 +180,7 @@ const FormItem = () => {
         <button
           ref={hover}
           style={styles.buttonClose}
-          onClick={() => {
-            setValues({
-              ...values,
-              showFormItem: false,
-              showNameGroup: false,
-              showSurNameStudent: false,
-              checkedRadioDiscipline: false,
-              checkedRadioGroup: false,
-              checkedRadioStudent: false,
-              upLoadFileButton: true,
-              getListDates: false,
-            });
-            itemId.current = [];
-          }}
+          onClick={closeFormItem}
           onMouseOver={hoverOn}
           onMouseOut={hoverOff}
         >

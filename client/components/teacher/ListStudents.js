@@ -37,7 +37,6 @@ const ListStudents = (props) => {
   const dispatch = useDispatch();
   const listDates = useSelector((state) => state.studentReducer.dates);
   const updateDates = useSelector((state) => state.studentReducer.updateDate);
-  console.log(listDates);
   const listStudents = useSelector((state) => state.studentReducer.students);
   const updateStudent = useSelector(
     (state) => state.studentReducer.updateStudent
