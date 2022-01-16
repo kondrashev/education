@@ -1,6 +1,8 @@
 // @ts-nocheck
 export const headCells = (dates) => {
-  const listDates = JSON.parse(dates?.listDates || "[]");
+  const listDates = JSON.parse(dates?.listDates || "[]").filter(
+    (item) => item !== null
+  );
   const tests = listDates.map(([test, date]) => {
     return {
       id: `test_${test}`,
