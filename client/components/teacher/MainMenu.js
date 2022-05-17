@@ -161,7 +161,7 @@ export default function MainMenu() {
       nameStudent: event.target.value,
     });
   };
-  const studentSearch = (event) => {
+  const itemSearch = (event) => {
     if (event.key === "Enter" && event.target.value) {
       if (values.typeUser === "ADMIN") {
         setValues({
@@ -218,7 +218,7 @@ export default function MainMenu() {
               inputProps={{ "aria-label": "search" }}
               value={values.nameStudent}
               onChange={changeNameStudent}
-              onKeyPress={studentSearch}
+              onKeyPress={itemSearch}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

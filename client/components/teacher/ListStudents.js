@@ -81,8 +81,14 @@ const ListStudents = (props) => {
       dispatch(loadStudentsFetchData(data));
     }
   }, [values.isActiveSearchStudent]);
+  const listOptionsSearchStudent = useSelector(
+    (state) => state.studentReducer.search
+  );
   const rows = listStudents.map((item) => {
-    return createData(item);
+    return createData(
+      item,
+      values.valueNavigationItemDiscipline || listOptionsSearchStudent[1]
+    );
   });
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {

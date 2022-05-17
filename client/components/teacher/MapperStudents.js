@@ -50,61 +50,76 @@ export const headCells = (dates) => {
     },
   ];
 };
-export function createData({
-  id,
-  surName,
-  report,
-  teacher,
-  conspectus,
-  exercise,
-  rating,
-  exam,
-  options,
-}) {
-  const {
-    test_31,
-    test_32,
-    test_33,
-    test_34,
-    test_41,
-    test_43,
-    test_51,
-    test_53,
-    test_56,
-    test_57,
-    test_65,
-    test_66,
-    test_67,
-    test_68,
-    test_72,
-    test_73,
-  } = JSON.parse(options || "{}");
-  return {
-    id,
-    surName,
-    test_31,
-    test_32,
-    test_33,
-    test_34,
-    test_41,
-    test_43,
-    test_51,
-    test_53,
-    test_56,
-    test_57,
-    test_65,
-    test_66,
-    test_67,
-    test_68,
-    test_72,
-    test_73,
-    report,
-    teacher,
-    conspectus,
-    exercise,
-    rating,
-    exam,
-  };
+export function createData(
+  { id, surName, report, teacher, conspectus, exercise, rating, exam, options },
+  discipline
+) {
+  if (discipline === "ТКМ") {
+    const {
+      test_31,
+      test_32,
+      test_33,
+      test_34,
+      test_41,
+      test_43,
+      test_51,
+      test_53,
+      test_56,
+      test_57,
+      test_65,
+      test_66,
+      test_67,
+      test_68,
+      test_72,
+      test_73,
+    } = JSON.parse(options || "{}");
+    return {
+      id,
+      surName,
+      test_31,
+      test_32,
+      test_33,
+      test_34,
+      test_41,
+      test_43,
+      test_51,
+      test_53,
+      test_56,
+      test_57,
+      test_65,
+      test_66,
+      test_67,
+      test_68,
+      test_72,
+      test_73,
+      report,
+      teacher,
+      conspectus,
+      exercise,
+      rating,
+      exam,
+    };
+  } else if (discipline === "Матеріалознавство") {
+    const { test_2, test_3, test_4, test_5, test_10, test_12, test_15 } =
+      JSON.parse(options || "{}");
+    return {
+      id,
+      surName,
+      test_2,
+      test_3,
+      test_4,
+      test_5,
+      test_10,
+      test_12,
+      test_15,
+      report,
+      teacher,
+      conspectus,
+      exercise,
+      rating,
+      exam,
+    };
+  }
 }
 export const showNavigation = (...args) => {
   const [

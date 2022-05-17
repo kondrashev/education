@@ -42,8 +42,9 @@ export default function ListDates(props) {
   const [item] = useSelector((state) => state.studentReducer.students);
   const listTests = Object.keys(JSON.parse(item?.options || "[]")).map(
     (item) => {
-      datesList.current.set(item.slice(-2), "");
-      return item.slice(-2);
+      const box = item.split("_");
+      datesList.current.set(box[1], "");
+      return box[1];
     }
   );
   const { listDates } =
