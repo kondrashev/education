@@ -50,11 +50,19 @@ export const headCells = (dates) => {
     },
   ];
 };
-export function createData(
-  { id, surName, report, teacher, conspectus, exercise, rating, exam, options },
-  discipline
-) {
-  if (discipline === "ТКМ") {
+export function createData({
+  id,
+  surName,
+  nameDiscipline,
+  report,
+  teacher,
+  conspectus,
+  exercise,
+  rating,
+  exam,
+  options,
+}) {
+  if (nameDiscipline === "ТКМ") {
     const {
       test_31,
       test_32,
@@ -99,7 +107,7 @@ export function createData(
       rating,
       exam,
     };
-  } else if (discipline === "Матеріалознавство") {
+  } else if (nameDiscipline === "Матеріалознавство") {
     const { test_2, test_3, test_4, test_5, test_10, test_12, test_15 } =
       JSON.parse(options || "{}");
     return {

@@ -72,6 +72,7 @@ class DisciplineController {
           await Student.create({
             surName: item.surName,
             groupId,
+            nameDiscipline: getDiscipline.name,
             options: JSON.stringify(item.options),
             teacher: 0,
             conspectus: 0,

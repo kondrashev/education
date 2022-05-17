@@ -6,11 +6,17 @@ class StudentController {
   async addStudent(req, res, next) {
     try {
       const { surName, groupId } = req.body;
+      const getDiscipline = await Discipline.findOne({
+        where: {
+          groupId,
+        },
+      });
       const getStudent = await Student.findOne({ where: { surName } });
       if (!getStudent) {
         const student = await Student.create({
           surName,
           groupId,
+          nameDiscipline: getDiscipline.name,
           options: "",
           teacher: 0,
           conspectus: 0,
