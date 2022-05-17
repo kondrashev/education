@@ -119,6 +119,8 @@ export function createData(
       rating,
       exam,
     };
+  } else {
+    return "{}";
   }
 }
 export const showNavigation = (...args) => {
