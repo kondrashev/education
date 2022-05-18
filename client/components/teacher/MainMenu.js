@@ -166,6 +166,7 @@ export default function MainMenu() {
       if (values.typeUser === "ADMIN") {
         setValues({
           ...values,
+          errorForm: false,
           showListStudents: true,
           showListItems: false,
           isActiveSearchStudent: !values.isActiveSearchStudent,
@@ -178,6 +179,7 @@ export default function MainMenu() {
       } else if (values.typeUser === "USER") {
         setValues({
           ...values,
+          errorForm: false,
           isShowSearchStudent: true,
           showListStudents: true,
           showListItems: false,

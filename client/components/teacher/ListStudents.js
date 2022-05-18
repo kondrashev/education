@@ -212,7 +212,9 @@ const ListStudents = (props) => {
             id="tableTitle"
             component="div"
           >
-            {values.typeUser === "USER" ? values.titleNameGroup : "Студенти"}
+            {values.typeUser === "USER" && !values.errorForm
+              ? values.titleNameGroup
+              : "Студенти"}
           </Typography>
         )}
         {numSelected > 0 && values.typeUser === "ADMIN" ? (
@@ -296,89 +298,91 @@ const ListStudents = (props) => {
     }
   };
   return (
-    <Box sx={{ width: "100%", zIndex: !values.showFormItem && 1000 }}>
-      <Paper
-        sx={{ width: "100%", mt: values.typeUser === "USER" ? 6 : 0, mb: 2 }}
-      >
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      key={row.surName}
-                      selected={isItemSelected}
-                    >
-                      <TableCell
-                        padding="checkbox"
-                        onClick={(event) => handleClick(event, row.id)}
+    !values.errorForm && (
+      <Box sx={{ width: "100%", zIndex: !values.showFormItem && 1000 }}>
+        <Paper
+          sx={{ width: "100%", mt: values.typeUser === "USER" ? 6 : 0, mb: 2 }}
+        >
+          <EnhancedTableToolbar numSelected={selected.length} />
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={rows.length}
+              />
+              <TableBody>
+                {stableSort(rows, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row.id);
+                    const labelId = `enhanced-table-checkbox-${index}`;
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        key={row.surName}
+                        selected={isItemSelected}
                       >
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                          disabled={
-                            listStudents[0]?.options ||
-                            values.typeUser === "USER"
-                              ? true
-                              : false
-                          }
-                        />
-                      </TableCell>
-                      {headCells(listDates).map(({ id }) => {
-                        return (
-                          <EditItemInput
-                            key={id}
-                            row={row}
-                            id={id}
-                            editItem={editItem}
-                            surName={listStudents[0]?.options}
+                        <TableCell
+                          padding="checkbox"
+                          onClick={(event) => handleClick(event, row.id)}
+                        >
+                          <Checkbox
+                            color="primary"
+                            checked={isItemSelected}
+                            inputProps={{
+                              "aria-labelledby": labelId,
+                            }}
+                            disabled={
+                              listStudents[0]?.options ||
+                              values.typeUser === "USER"
+                                ? true
+                                : false
+                            }
                           />
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+                        </TableCell>
+                        {headCells(listDates).map(({ id }) => {
+                          return (
+                            <EditItemInput
+                              key={id}
+                              row={row}
+                              id={id}
+                              editItem={editItem}
+                              surName={listStudents[0]?.options}
+                            />
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+        <FormControlLabel
+          control={<Switch checked={dense} onChange={handleChangeDense} />}
+          label="Dense padding"
         />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
-    </Box>
+      </Box>
+    )
   );
 };
 export default ListStudents;
