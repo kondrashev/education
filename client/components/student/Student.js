@@ -24,7 +24,7 @@ const Student = () => {
   return (
     <Box sx={styles.container}>
       <MainMenu />
-      {values.showListStudents && (
+      {values.showListStudents && !values.errorForm && (
         <ListStudents
           suffixDisciplineURL={suffixDisciplineURL}
           suffixGroupURL={suffixGroupURL}

@@ -41,7 +41,7 @@ const Teacher = () => {
           suffixGroupURL={suffixGroupURL}
         />
       )}
-      {values.showListStudents && (
+      {values.showListStudents && !values.errorForm && (
         <ListStudents
           suffixDisciplineURL={suffixDisciplineURL}
           suffixGroupURL={suffixGroupURL}
