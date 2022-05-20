@@ -68,20 +68,7 @@ class DisciplineController {
             surName: item.surName,
           },
         });
-        if (!student) {
-          await Student.create({
-            surName: item.surName,
-            groupId,
-            nameDiscipline: getDiscipline.name,
-            options: JSON.stringify(item.options),
-            teacher: 0,
-            conspectus: 0,
-            exercise: 0,
-            rating: getRating(item, 0, 0, 0),
-            report: "-",
-            exam: getExam(getRating(item, 0, 0, 0), "-"),
-          });
-        } else if (student && getGroup.name !== item.groupName) {
+        if (!student || (student && getGroup.name !== item.groupName)) {
           await Student.create({
             surName: item.surName,
             groupId,
