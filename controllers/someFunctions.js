@@ -1,34 +1,4 @@
-const tkm = (item) => {
-  return {
-    test_31: item[2],
-    test_32: item[3],
-    test_33: item[4],
-    test_34: item[5],
-    test_41: item[6],
-    test_43: item[7],
-    test_51: item[8],
-    test_53: item[9],
-    test_56: item[10],
-    test_57: item[11],
-    test_65: item[12],
-    test_66: item[13],
-    test_67: item[14],
-    test_68: item[15],
-    test_72: item[16],
-    test_73: item[17],
-  };
-};
-const materials = (item) => {
-  return {
-    test_2: item[2],
-    test_3: item[3],
-    test_4: item[4],
-    test_5: item[5],
-    test_10: item[6],
-    test_12: item[7],
-    test_15: item[8],
-  };
-};
+// @ts-nocheck
 const getRating = (item, teacher, exercise, conspectus) => {
   return (
     Object.values(item.options ? item.options : item)
@@ -59,17 +29,17 @@ const getExam = (rating, report) => {
   }
 };
 const informationUpload = (data, discipline, group) => {
-  let newData = data.map((item) => {
-    return Object.values(item);
+  //Getting all keys and values
+  let keys = data.map((item) => {
+    return Object.keys(item)[0].split(";");
   });
-  data = newData;
-  newData = data.map((item) => {
-    return item[0].split(";");
+  let values = data.map((item) => {
+    return Object.values(item)[0].split(";");
   });
-  data = newData;
-  newData =
+  //Getting the necessary keys and values
+  let newKeys =
     discipline === "ТКМ"
-      ? data.map(
+      ? keys.map(
           ([
             ,
             surName,
@@ -78,47 +48,53 @@ const informationUpload = (data, discipline, group) => {
             groupName,
             ,
             ,
-            test_31 = "",
-            test_32 = "",
-            test_33 = "",
-            test_34 = "",
-            test_41 = "",
-            test_43 = "",
-            test_51 = "",
-            test_53 = "",
-            test_56 = "",
-            test_57 = "",
-            test_65 = "",
-            test_66 = "",
-            test_67 = "",
-            test_68 = "",
-            test_72 = "",
-            test_73 = "",
+            k1,
+            k2,
+            k3,
+            k4,
+            k5,
+            k6,
+            k7,
+            k8,
+            k9,
+            k10,
+            k11,
+            k12,
+            k13,
+            k14,
+            k15,
+            k16,
           ]) => {
             return [
               surName,
               groupName,
-              test_31 === "-" ? "н" : test_31,
-              test_32 === "-" ? "н" : test_32,
-              test_33 === "-" ? "н" : test_33,
-              test_34 === "-" ? "н" : test_34,
-              test_41 === "-" ? "н" : test_41,
-              test_43 === "-" ? "н" : test_43,
-              test_51 === "-" ? "н" : test_51,
-              test_53 === "-" ? "н" : test_53,
-              test_56 === "-" ? "н" : test_56,
-              test_57 === "-" ? "н" : test_57,
-              test_65 === "-" ? "н" : test_65,
-              test_66 === "-" ? "н" : test_66,
-              test_67 === "-" ? "н" : test_67,
-              test_68 === "-" ? "н" : test_68,
-              test_72 === "-" ? "н" : test_72,
-              test_73 === "-" ? "н" : test_73,
+              k1,
+              k2,
+              k3,
+              k4,
+              k5,
+              k6,
+              k7,
+              k8,
+              k9,
+              k10,
+              k11,
+              k12,
+              k13,
+              k14,
+              k15,
+              k16,
             ];
           }
         )
       : discipline === "Матеріалознавство"
-      ? data.map(
+      ? keys.map(([, surName, , , groupName, , k1, k2, k3, k4, k5, k6, k7]) => {
+          return [surName, groupName, k1, k2, k3, k4, k5, k6, k7];
+        })
+      : [];
+  let newValues =
+    discipline === "ТКМ"
+      ? values.map(
           ([
             ,
             surName,
@@ -126,42 +102,87 @@ const informationUpload = (data, discipline, group) => {
             ,
             groupName,
             ,
-            test_2 = "",
-            test_3 = "",
-            test_4 = "",
-            test_5 = "",
-            test_10 = "",
-            test_12 = "",
-            test_15 = "",
+            ,
+            v1,
+            v2,
+            v3,
+            v4,
+            v5,
+            v6,
+            v7,
+            v8,
+            v9,
+            v10,
+            v11,
+            v12,
+            v13,
+            v14,
+            v15,
+            v16,
           ]) => {
             return [
               surName,
               groupName,
-              test_2 === "-" ? "н" : test_2,
-              test_3 === "-" ? "н" : test_3,
-              test_4 === "-" ? "н" : test_4,
-              test_5 === "-" ? "н" : test_5,
-              test_10 === "-" ? "н" : test_10,
-              test_12 === "-" ? "н" : test_12,
-              test_15 === "-" ? "н" : test_15,
+              v1,
+              v2,
+              v3,
+              v4,
+              v5,
+              v6,
+              v7,
+              v8,
+              v9,
+              v10,
+              v11,
+              v12,
+              v13,
+              v14,
+              v15,
+              v16,
             ];
           }
         )
+      : discipline === "Матеріалознавство"
+      ? values.map(
+          ([, surName, , , groupName, , v1, v2, v3, v4, v5, v6, v7]) => {
+            return [surName, groupName, v1, v2, v3, v4, v5, v6, v7];
+          }
+        )
       : [];
-  data = newData;
-  const toChoose = (item) => {
-    switch (discipline) {
-      case "ТКМ":
-        return tkm(item);
-      case "Матеріалознавство":
-        return materials(item);
-    }
+  //Keys and values are without surName and groupName
+  keys = newKeys.map(([, , ...item]) => item);
+  values = newValues.map(([, , ...item]) => item);
+  //Forming numbers of tests
+  const numberTests = keys[0].map((item) => {
+    let box = item.split("_");
+    box = box[1].split(" ");
+    return `test_${box[0]}`;
+  });
+  //Forming the list of tests
+  const listTests = values.map((item) => {
+    return item.map((item, index) => {
+      return {
+        [numberTests[index]]: item === "-" ? "н" : item,
+      };
+    });
+  });
+  //Forming the final objects
+  values = newValues.map(([surName, groupName]) => [surName, groupName]);
+  const uniteObjects = (item) => {
+    let box = {};
+    item.forEach((item) => {
+      box = { ...box, ...item };
+    });
+    return box;
   };
-  newData = data.map((item = []) => {
+  newValues = values.map((item, index) => {
+    return [...item, uniteObjects(listTests[index])];
+  });
+  values = newValues.map((item = []) => {
     return {
       surName: item[0],
       group: item[1],
-      options: toChoose(item),
+      options: item[2],
       teacher: "",
       conspectus: "",
       exercise: "",
@@ -170,7 +191,7 @@ const informationUpload = (data, discipline, group) => {
       exam: "Н/З",
     };
   });
-  return newData.filter((item) => item.group === group);
+  return values.filter((item) => item.group === group);
 };
 module.exports = {
   getRating,
