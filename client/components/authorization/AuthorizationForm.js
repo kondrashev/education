@@ -115,7 +115,7 @@ const AuthorizationForm = () => {
           label="Password"
         />
       </FormControl>
-      <Button
+      {/* <Button
         variant="contained"
         color="primary"
         disableElevation
@@ -124,7 +124,7 @@ const AuthorizationForm = () => {
         disabled={values.errorForm ? true : false}
       >
         Authorization
-      </Button>
+      </Button> */}
       {values.errorForm && (
         <Alert
           onClose={() => {
