@@ -66,9 +66,10 @@ class DisciplineController {
         const student = await Student.findOne({
           where: {
             surName: item.surName,
+            groupId: getGroup.id,
           },
         });
-        if (!student || (student && getGroup.name !== item.groupName)) {
+        if (!student) {
           await Student.create({
             surName: item.surName,
             groupId,
@@ -87,7 +88,7 @@ class DisciplineController {
               surName: item.surName,
               options: JSON.stringify(item.options),
               teacher: student.teacher,
-              conspectus: 0,
+              conspectus: student.conspectus,
               exercise: student.exercise,
               rating: getRating(
                 item,
