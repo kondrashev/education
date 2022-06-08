@@ -153,7 +153,7 @@ export const showNavigation = (...args) => {
         getGroups: true,
         showListStudents: false,
       });
-      suffixDisciplineURL.current = itemId;
+      if (values.showListItems) suffixDisciplineURL.current = itemId;
     } else if (disciplineId) {
       setValues({
         ...values,

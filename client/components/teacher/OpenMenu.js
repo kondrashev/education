@@ -38,6 +38,11 @@ export default function OpenMenu() {
           showRadioButtons: false,
           showNameGroup: true,
           showSurNameStudent: true,
+          showNavigationItemDiscipline: false,
+          showNavigationItemGroup: false,
+          showNavigationItemStudent: false,
+          showListItems: false,
+          showListStudents: false,
         });
         break;
       case "date":

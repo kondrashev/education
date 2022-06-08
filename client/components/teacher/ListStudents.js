@@ -51,13 +51,20 @@ const ListStudents = (props) => {
     const data = {
       url:
         values.typeUser === "ADMIN"
-          ? `${endpoints.getListDates}?groupId=${suffixGroupURL.current}`
+          ? `${endpoints.getListDates}?groupId=${
+              suffixGroupURL.current || listStudents[0]?.groupId
+            }`
           : `${endpoints.getListDatesSearch}?nameGroup=${values.nameStudent}`,
       values,
       setValues,
     };
     dispatch(loadListDatesFetchData(data));
-  }, [updateDates, values.nameStudent]);
+  }, [
+    updateDates,
+    values.nameStudent,
+    listStudents[0]?.groupId,
+    values.update,
+  ]);
   useEffect(() => {
     if (values.showListStudents && !values.isShowSearchStudent) {
       const data = {
@@ -67,7 +74,7 @@ const ListStudents = (props) => {
       };
       dispatch(loadStudentsFetchData(data));
     }
-  }, [updateStudent, values.isSwitchMenuNavigationItemGroup]);
+  }, [updateStudent, values.update, values.isSwitchMenuNavigationItemGroup]);
   useEffect(() => {
     if (values.isShowSearchStudent) {
       const data = {
@@ -80,7 +87,7 @@ const ListStudents = (props) => {
       };
       dispatch(loadStudentsFetchData(data));
     }
-  }, [values.isActiveSearchStudent]);
+  }, [values.isActiveSearchStudent, updateStudent, values.update]);
   const rows = listStudents.map((item) => {
     return createData(item);
   });

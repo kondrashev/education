@@ -79,6 +79,7 @@ export default function MenuNavigation(props) {
               showListStudents: false,
               isShowSearchStudent: false,
               showNavigationItemStudent: false,
+              nameStudent: "",
             });
           }}
         />
@@ -100,6 +101,7 @@ export default function MenuNavigation(props) {
                 showNavigationItemStudent: false,
                 isSwitchMenuNavigationItemGroup:
                   !values.isSwitchMenuNavigationItemGroup,
+                nameStudent: "",
               });
             }}
           />
@@ -120,6 +122,7 @@ export default function MenuNavigation(props) {
                 showNavigationItemStudent: false,
                 isSwitchMenuNavigationItemGroup:
                   !values.isSwitchMenuNavigationItemGroup,
+                nameStudent: "",
               });
             }}
           />

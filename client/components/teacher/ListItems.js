@@ -61,7 +61,7 @@ const ListItems = (props) => {
       url: !values.getGroups
         ? endpoints.getDisciplines
         : `${endpoints.getGroups}?disciplineId=${
-            suffixDisciplineURL.current || disciplineId || 1
+            suffixDisciplineURL.current || disciplineId
           }`,
       values,
       setValues,

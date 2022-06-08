@@ -35,4 +35,6 @@ export const context = {
   isSwitchMenuNavigationItemGroup: false,
   isActiveListItems: true,
   titleNameGroup: "",
+  update: false,
+  uploadFile: false,
 };

@@ -24,11 +24,21 @@ import Switch from "@mui/material/Switch";
 export const DateContext = createContext();
 const FormItem = () => {
   const hover = useRef(false);
+  const itemId = useRef([]);
   const dispatch = useDispatch();
   const { values, setValues } = useContext(ApplictationContext);
   const loadInformation = useSelector((state) => state.uploadFileReducer);
   useEffect(() => {
-    closeFormItem();
+    setValues({
+      ...values,
+      showNavigationItemDiscipline: false,
+      showListItems: true,
+    });
+  }, []);
+  useEffect(() => {
+    if (values.showFormItem) {
+      setValues({ ...values, uploadFile: true, upLoadFileButton: true });
+    }
   }, [loadInformation]);
   const closeFormItem = () => {
     setValues({
@@ -41,6 +51,8 @@ const FormItem = () => {
       checkedRadioStudent: false,
       upLoadFileButton: true,
       getListDates: false,
+      update: !values.update,
+      uploadFile: false,
     });
     itemId.current = [];
   };
@@ -100,7 +112,7 @@ const FormItem = () => {
         : endpoints.addStudent,
       values,
       setValues,
-      id: !values.checkedRadioStudent ? current : current[1],
+      id: !values.checkedRadioStudent ? current[0] : current[1],
       moodle: values.isActiveMoodle,
     };
     dispatch(
@@ -109,7 +121,6 @@ const FormItem = () => {
         : addStudentFetchData(data)
     );
   };
-  const itemId = useRef([]);
   const uploadFile = (event) => {
     const data = new FormData();
     data.append("url", endpoints.uploadCSV);

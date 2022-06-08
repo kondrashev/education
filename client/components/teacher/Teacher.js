@@ -60,7 +60,13 @@ const Teacher = () => {
       {values.errorForm && (
         <Alert
           onClose={() => {
-            setValues({ ...values, errorForm: false, errorMessage: "" });
+            setValues({
+              ...values,
+              errorForm: false,
+              errorMessage: "",
+              isShowSearchStudent: false,
+              showListStudents: false,
+            });
           }}
         >
           {values.errorMessage}
