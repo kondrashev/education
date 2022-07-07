@@ -1,7 +1,8 @@
 // @ts-nocheck
 import React, { useState, createContext } from "react";
 import ReactDOM from "react-dom";
-import { createStore, applyMiddleware } from "redux";
+import { legacy_createStore as createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
 import rootReducer from "./store/reducers";
 import thunk from "redux-thunk";
@@ -19,7 +20,10 @@ const useStyles = makeStyles({
     width: "100%",
   },
 });
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 export const ApplictationContext = createContext();
 
 const App = () => {

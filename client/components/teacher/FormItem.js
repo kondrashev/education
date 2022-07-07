@@ -29,13 +29,6 @@ const FormItem = () => {
   const { values, setValues } = useContext(ApplictationContext);
   const loadInformation = useSelector((state) => state.uploadFileReducer);
   useEffect(() => {
-    setValues({
-      ...values,
-      showNavigationItemDiscipline: false,
-      showListItems: true,
-    });
-  }, []);
-  useEffect(() => {
     if (values.showFormItem) {
       setValues({ ...values, uploadFile: true, upLoadFileButton: true });
     }

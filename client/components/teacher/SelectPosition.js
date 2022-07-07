@@ -26,7 +26,7 @@ const SelectPosition = ({ type, styles, handleChangePosition }) => {
         id="demo-simple-select"
         label="Age"
         onChange={(event) => handleChangePosition(event, type)}
-        disabled={!values.showNavigationItemDiscipline || values.uploadFile}
+        disabled={!values.showNavigationItemDiscipline}
       >
         {itemsList.map((item) => (
           <MenuItem key={item.id} value={item.id}>

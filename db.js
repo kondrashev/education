@@ -12,7 +12,7 @@ module.exports = new Sequelize(
   }
 );
 
-//heroku
+// heroku
 // module.exports = new Sequelize(process.env.DATABASE_URL, {
 //   dialect: "postgres",
 //   dialectOptions: {

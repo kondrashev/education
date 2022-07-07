@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import Alert from "@mui/material/Alert";
 import MainMenu from "./MainMenu";
 import MenuNavigation from "./MenuNavigation";
@@ -28,6 +28,13 @@ const Teacher = () => {
     marginLeft: values.showFormItem ? -727 : -1127,
     config: { duration: 1000 },
   });
+  useEffect(() => {
+    setValues({
+      ...values,
+      showNavigationItemDiscipline: false,
+      showListItems: true,
+    });
+  }, []);
   return (
     <Box sx={styles.container}>
       <MainMenu />
@@ -47,16 +54,18 @@ const Teacher = () => {
           suffixGroupURL={suffixGroupURL}
         />
       )}
-      <Box
-        sx={{
-          position: "fixed",
-          top: "150px",
-        }}
-      >
-        <a.div style={animationFormDiscipline}>
-          <FormItem />
-        </a.div>
-      </Box>
+      {values.showFormItem && (
+        <Box
+          sx={{
+            position: "fixed",
+            top: "150px",
+          }}
+        >
+          <a.div style={animationFormDiscipline}>
+            <FormItem />
+          </a.div>
+        </Box>
+      )}
       {values.errorForm && (
         <Alert
           onClose={() => {
